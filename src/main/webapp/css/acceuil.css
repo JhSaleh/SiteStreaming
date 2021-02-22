@@ -83,13 +83,8 @@ body{
 
 #nomPrenomUser{
     grid-area: nomPrenomUser;
-    background-color: dimgrey;
-    border-radius: 15px;
-    color: aliceblue;
     font-weight: bold;
     text-align: center;
-    width: 2cm;
-    line-height: 50px;
 }
 
 /*sections*/

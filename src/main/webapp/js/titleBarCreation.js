@@ -69,6 +69,7 @@ window.addEventListener("load", function (){
 
         var nomPrenomUserDiv = document.createElement('div');
         nomPrenomUserDiv.id = "nomPrenomUser";
+        nomPrenomUserDiv.className = "profilButtonLayout changeButtonProfilColor";
         nomPrenomUserDiv.textContent = userFirstName+" "+userLastName;
 
         var deconnectionDiv = document.createElement('div');

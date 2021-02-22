@@ -22,6 +22,7 @@
     <link rel="shortcut icon" href="#"> <!--favicon error-->
     <link rel="stylesheet" type="text/css" href="css/acceuil.css">
     <link rel="stylesheet" type="text/css" href="css/connexion.css">
+    <link rel="stylesheet" type="text/css" href="css/profil.css">
     <script src="js/client.js"></script>
     <script src="js/storeObject.js"></script>
     <script src="js/titleBarCreation.js"></script>

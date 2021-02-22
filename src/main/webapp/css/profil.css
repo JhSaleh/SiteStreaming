@@ -1,0 +1,15 @@
+.changeButtonProfilColor:hover{
+    cursor: pointer;
+    background-color: darkgrey;
+}
+
+.profilButtonLayout{
+    background-color: dimgrey;
+    border-radius: 30px;
+    border: 5px solid darkgrey;
+    color: aliceblue;
+
+    min-width: 1cm;
+    max-width: 5cm;
+    line-height: 50px;
+}
