@@ -27,6 +27,7 @@
     <script src="js/titleBarCreation.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/waitForHTMLElementToLoad.js"></script>
+    <script src="js/deconnexion.js"></script>
 
 
 
@@ -36,11 +37,10 @@
     <script>
         window.addEventListener("load", function (){
             const userConnecte = new Client(<%=S.c(infoClient[2])%>, <%=S.c(infoClient[3])%>, <%=S.c(infoClient[1])%>, <%=S.c(infoClient[0])%>, <%=S.c(infoClient[4])%>, <%=S.c(infoClient[5])%>, <%=S.c(infoClient[6])%>);
-            saveObject('client', userConnecte);
+            saveObject('client', userConnecte); //Important : Objet représentant la connection de l'utilisateur.
             <%System.out.println("Informations client sauvegardé.\nClient connecté.");
             signedInSent = false;
             %>
-            //ajouté système pour déconnecter
         }, false)
     </script>
     <%
@@ -51,18 +51,17 @@
     <script>
         window.addEventListener("load", function (){
             //Attente de la construction de la barre
-            waitForElement("connexion", createModal); //Va attendre la creation du bouton SignIn avant d'executé le script du modal
 
             //Construction de la barre de menu en js, car l'information de connexion est au niveau du client
             const client = getObject('client');
             if (client != undefined) { //Donc un utilisateur est connecté
                 var nomClient = client.nom;
                 var prenomClient = client.prenom;
-                var greetingsAcceuil = document.getElementById("nomPrenomUser"); //Récupération de l'objet div
+                waitForElement("LogOut", disconnect); //Met en place le binding d'événement avec le bouton deconnexion
                 logedIn(nomClient, prenomClient); //Construit la barre de navigation dans le cas où l'utilisateur est connecté
-
             } else {
-                logedOut();
+                waitForElement("connexion", createModal); //Va attendre la creation du bouton SignIn avant d'executé le script du modal
+                logedOut(); //Cas utilisateur non connecté
             }
         });
     </script>

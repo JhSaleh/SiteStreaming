@@ -1,6 +1,6 @@
 /**
  * @author: Jean-Hanna SALEH
- * Il s'agit d'un script qui construit la barre de navigation dépendant de la présence d'un utilisateur connecté ou pas
+ * Il s'agit d'un script qui construit dynamiquement la barre de navigation dépendant de la présence d'un utilisateur connecté ou pas
  */
 
 /* Ancien bloc
@@ -52,15 +52,6 @@ window.addEventListener("load", function (){
         mainDiv.appendChild(div);
 
     }
-    /*
-            <div id = "gridyHeaderBeforeSignIn">
-            <div id ="title"><a href="${pageContext.request.contextPath}/Acceuil">UsTube</a></div>
-            <div id="nomPrenomUser"></div> <!--A laisse vide, sinon null pointer exception-->
-            <div id="SignIn" class="buttonLayout changeButtonColor">Se connecter</div>
-            <a href="${pageContext.request.contextPath}/Acceuil/Inscription"><div id="SignUp" class="buttonLayout changeButtonColor">S'inscrire</div></a>
-        </div>
-
-    * */
 
     logedIn = function (userFirstName, userLastName){
         var mainDiv = document.getElementById("gridyHeader");
@@ -76,6 +67,15 @@ window.addEventListener("load", function (){
         linkTitleDiv.href = "Acceuil";
         linkTitleDiv.textContent = "UsTube";
 
+        var nomPrenomUserDiv = document.createElement('div');
+        nomPrenomUserDiv.id = "nomPrenomUser";
+        nomPrenomUserDiv.textContent = userFirstName+" "+userLastName;
+
+        var deconnectionDiv = document.createElement('div');
+        deconnectionDiv.id = "LogOut";
+        deconnectionDiv.className = "buttonLayout changeButtonColor";
+        deconnectionDiv.textContent = "Se déconnecter";
+
         //Assemblage
         //Titre
         var titleDiv = document.createElement('div');
@@ -88,6 +88,8 @@ window.addEventListener("load", function (){
 
         titleDiv.appendChild(linkTitleDiv);
         div.appendChild(titleDiv);
+        div.appendChild(nomPrenomUserDiv);
+        div.appendChild(deconnectionDiv);
         mainDiv.appendChild(div);
     }
 })

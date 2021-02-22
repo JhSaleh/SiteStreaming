@@ -24,7 +24,7 @@ window.addEventListener("load", function () {
             modal.style.display = "none";
         }
 
-        /*
+        /*Enlever car mène à des problèmes
         // Si l'utilisateur clique en dehors du modal, le modal se ferme
         window.onclick = function(event) {
             if (event.target == modal) {

@@ -46,7 +46,7 @@ body{
 
 #gridyHeaderAfterSignIn{
     display: grid;
-    grid-template-columns: 6fr 1fr 1fr 1fr;
+    grid-template-columns: 6fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas: "title nomPrenomUser LogOut"
                         "title . .";
@@ -78,10 +78,10 @@ body{
 
 #LogOut{
     grid-area: LogOut;
+    text-decoration: none;
 }
 
 #nomPrenomUser{
-    visibility: hidden; /*cache juste le bouton mais prend de la place*/
     grid-area: nomPrenomUser;
     background-color: dimgrey;
     border-radius: 15px;
