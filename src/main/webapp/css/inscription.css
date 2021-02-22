@@ -1,0 +1,145 @@
+/*1er greedy*/
+
+.gridyHeaderInscription{
+    display: grid;
+    grid-template-columns: 9fr 1fr 9fr;
+    grid-template-areas: "title inscriptionTitle .";
+    grid-row-gap: 50px;
+}
+
+#title{
+    text-align: left;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    grid-area: title;
+}
+
+#inscriptionTitle{
+    grid-area: inscriptionTitle;
+    font-size: 40px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+/*2eme gridy*/
+.gridyInscriptionForm{
+    background-color: darkslateblue;
+    border: mediumslateblue;
+    border-radius: 15px;
+    margin-top: 35px;
+
+    display: grid;
+    grid-template-columns: 1fr 4fr 4fr 1fr;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-areas:". . . ."
+                        ". nomL nom ."
+                        ". prenomL prenom ."
+                        ". civiliteL civilite ."
+                        ". dateNaissanceL dateNaissance ."
+                        ". mailL mail ."
+                        ". passwordL password ."
+                        ". confirm_passwordL confirm_password ."
+                        ". adresseFacturationL adresseFacturation ."
+                        ". . validateIns .";
+}
+
+
+.labelStyle{
+    background-color: darkslateblue;
+    border: 2px solid slateblue;
+
+    border-radius: 5px;
+    color: aliceblue;
+    height: 0.7cm;
+}
+
+
+/*Bouton de validation*/
+#validateInscription{
+    border: 2px solid slateblue;
+    border-radius: 15px;
+    background-color: darkslateblue;
+    color: aliceblue;
+    height: 1cm;
+    margin-bottom: 15px;
+    grid-area: validateIns;
+}
+
+
+/*Champs d'inscription*/
+#nom{
+    grid-area: nom;
+}
+
+#prenom{
+    grid-area: prenom;
+}
+
+#civilite{
+    grid-area: civilite;
+}
+
+#dateNaissance{
+    grid-area: dateNaissance;
+}
+
+#mail{
+    grid-area: mail;
+}
+
+#password{
+    grid-area: password;
+}
+
+#confirmPassword{
+    grid-area: confirm_password;
+}
+
+#adresseFacturation{
+    grid-area: adresseFacturation;
+}
+
+/*Label d'inscription*/
+
+#nomL{
+    grid-area: nomL;
+}
+
+#prenomL{
+    grid-area: prenomL;
+}
+
+#civiliteL{
+    grid-area: civiliteL;
+}
+
+#dateNaissanceL{
+    grid-area: dateNaissanceL;
+}
+
+#mailL{
+    grid-area: mailL;
+}
+
+#passwordL{
+    grid-area: passwordL;
+}
+
+#confirmPasswordL{
+    grid-area: confirm_passwordL;
+}
+
+#adresseFacturationL{
+    grid-area: adresseFacturationL;
+}
+
+/*3eme gridy*/
+.gridyBody{
+    display: grid;
+    grid-template-columns: 3fr 4fr 3fr;
+    grid-template-areas: ". inscription .";
+}
+
+#inscription{
+    grid-area: inscription;
+}

@@ -1,0 +1,112 @@
+.gridyModal{
+    display: grid;
+    grid-template-columns: 3fr 2fr 5fr 4fr 1fr;
+    grid-template-rows: 1fr 2fr;
+    grid-template-areas: ". . SignUpModal . close"
+                        ". formSignIn formSignIn . .";
+}
+
+#formSignIn{
+    grid-area: formSignIn;
+}
+
+.gridyFields{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "labelMail mailA"
+                        "labelPwd Pwd"
+                        ". validate";
+    grid-gap: 40px;
+}
+
+#mailAddressLabel{
+    grid-area: labelMail;
+}
+
+#mailPasswordLabel{
+    grid-area: labelPwd;
+}
+
+.labelStyle{
+    background-color: darkslateblue;
+    border: slateblue;
+    border-radius: 5px;
+    color: aliceblue;
+    height: 0.7cm;
+}
+
+#mailAddress{
+    grid-area: mailA;
+}
+
+#password{
+    grid-area: Pwd;
+}
+
+#SignUpModal{
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    grid-area: SignUpModal;
+}
+
+
+.modal{
+    background-color: rgba(0,0,0,0.5); /*fond sombre avec opacité*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    display: none; : /*par defaut n'est pas affiché*/
+    z-index: 2;
+}
+
+.modal-content{
+    background-color: slateblue;
+    margin: 15% auto; /*15% du haut de la page, centré*/
+    border-radius: 15px;
+
+    border: 5px solid mediumslateblue;
+    width: 50%;
+    top: 0%;
+    left: 25%;
+    position: absolute;
+    z-index: 2;
+
+}
+
+.modal-header{
+    font-size: 50px;
+    font-weight: bold;
+    z-index: 2;
+
+}
+
+/*Bouton fermture*/
+.close{
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 2;
+    grid-area: close;
+    text-align: center;
+}
+
+.close:hover,
+.close:focus{
+    color: black;
+    cursor: pointer;
+}
+
+#validate{
+    border: darkslateblue;
+    border-radius: 15px;
+    background-color: darkslateblue;
+    color: aliceblue;
+    grid-area: validate;
+    height: 1cm;
+    margin-bottom: 15px;
+}

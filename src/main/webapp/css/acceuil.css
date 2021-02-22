@@ -1,0 +1,382 @@
+/*Style basique du corps*/
+a {
+    text-decoration: none; /*désactive le surlignement du lien*/
+    color: inherit; /*récupère la couleur du body*/
+}
+
+html {
+    color: aliceblue; /*force le texte entier à avoir une certaine couleur*/
+    background-color: black;
+}
+
+body{
+    width: 70%;
+    margin: 0 auto; /*centre le corps*/
+    z-index: auto;
+}
+
+/*Header*/
+#gridyHeader{
+
+}
+
+#title{
+    text-align: left;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+.changeButtonColor:hover{
+    cursor: pointer;
+    background-color: slateblue; /*s'active quand le curseur passe dessus*/
+}
+
+
+#gridyHeaderBeforeSignIn{
+    display: grid;
+    grid-template-columns: 6fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "title SignIn SignUp"
+                        "title . .";
+    grid-column-gap: 15px;
+    z-index: auto;
+}
+
+#gridyHeaderAfterSignIn{
+    display: grid;
+    grid-template-columns: 6fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "title nomPrenomUser LogOut"
+                        "title . .";
+    grid-column-gap: 15px;
+    z-index: auto;
+}
+
+.buttonLayout{
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+
+    font-weight: bold;
+    border-radius: 70px;
+    border: 5px solid slateblue;
+    background-color: darkslateblue;
+    color: aliceblue;
+    width: 4cm;
+}
+
+#SignIn{
+    grid-area: SignIn;
+}
+
+#SignUp{
+    grid-area: SignUp;
+    text-decoration: none;
+}
+
+#LogOut{
+    grid-area: LogOut;
+}
+
+#nomPrenomUser{
+    visibility: hidden; /*cache juste le bouton mais prend de la place*/
+    grid-area: nomPrenomUser;
+    background-color: dimgrey;
+    border-radius: 15px;
+    color: aliceblue;
+    font-weight: bold;
+    text-align: center;
+    width: 2cm;
+    line-height: 50px;
+}
+
+/*sections*/
+.section{
+    border-radius: 5px;
+    background-color: dimgrey;
+    margin-bottom: 150px;
+    min-width: min-content;
+    z-index: auto;
+}
+
+/*Vidéos recommandées*/
+#gridyRecommendedVideos{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 30px;
+    grid-template-areas: "vidRec1 vidRec2 vidRec3 vidRec4 vidRec5"
+                         "titleRec1 titleRec2 titleRec3 titleRec4 titleRec5"
+                         "nbViewsRec1 nbViewsRec2 nbViewsRec3 nbViewsRec4 nbViewsRec5"
+                         "yearRec1 yearRec2 yearRec3 yearRec4 yearRec5";
+    z-index: auto;
+}
+
+#vidRec1{
+    grid-area: vidRec1;
+    background: yellow;
+}
+
+#vidRec2{
+    grid-area: vidRec2;
+    background: red;
+}
+
+#vidRec3{
+    grid-area: vidRec3;
+    background: green;
+}
+
+#vidRec4{
+    grid-area: vidRec4;
+    background: yellow;
+}
+
+#vidRec5{
+    grid-area: vidRec5;
+    background: black;
+}
+
+/*titre*/
+#titleRec1{
+    grid-area: titleRec1;
+    background: darkgreen;
+}
+
+#titleRec2{
+    grid-area: titleRec2;
+    background: darkblue;
+}
+
+#titleRec3{
+    grid-area: titleRec3;
+    background: darkorange;
+}
+
+#titleRec4{
+    grid-area: titleRec4;
+    background: fuchsia;
+}
+
+#titleRec5{
+    grid-area: titleRec5;
+    background: darkred;
+}
+
+/*nbVue*/
+#nbViewsRec1{
+    grid-area: nbViewsRec1;
+    background: darkred;
+}
+
+#nbViewsRec2{
+    grid-area: nbViewsRec2;
+    background: aqua;
+}
+
+#nbViewsRec3{
+    grid-area: nbViewsRec3;
+    background: fuchsia;
+}
+
+#nbViewsRec4{
+    grid-area: nbViewsRec4;
+    background: darkorange;
+}
+
+#nbViewsRec5{
+    grid-area: nbViewsRec5;
+    background: darkblue;
+}
+
+/*année de publication*/
+#yearRec1{
+    grid-area: yearRec1;
+    background: darkgreen;
+}
+
+#yearRec2{
+    grid-area: yearRec2;
+    background: aliceblue;
+}
+
+#yearRec3{
+    grid-area: yearRec3;
+    background: darkred;
+}
+
+#yearRec4{
+    grid-area: yearRec4;
+    background: aquamarine;
+}
+
+#yearRec5{
+    grid-area: yearRec5;
+    background: grey;
+}
+
+/*Vidéos populaires*/
+
+#gridyPopularVideos{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 30px;
+    grid-template-areas: "vidPop1 vidPop2 vidPop3 vidPop4 vidPop5"
+                        "titlePop1 titlePop2 titlePop3 titlePop4 titlePop5"
+                        "nbViewsPop1 nbViewsPop2 nbViewsPop3 nbViewsPop4 nbViewsPop5"
+                        "yearPop1 yearPop2 yearPop3 yearPop4 yearPop5"
+                        "playPop1 playPop2 playPop3 playPop4 playPop5";
+    z-index: auto;
+}
+
+#vidPop1{
+    grid-area: vidPop1;
+    background: aqua;
+}
+
+#vidPop2{
+    grid-area: vidPop2;
+    background: red;
+}
+
+#vidPop3{
+    grid-area: vidPop3;
+    background: green;
+}
+
+#vidPop4{
+    grid-area: vidPop4;
+    background: yellow;
+}
+
+#vidPop5{
+    grid-area: vidPop5;
+    background: black;
+}
+
+/*titre*/
+#titlePop1{
+    grid-area: titlePop1;
+    background: darkgreen;
+}
+
+#titlePop2{
+    grid-area: titlePop2;
+    background: darkblue;
+}
+
+#titlePop3{
+    grid-area: titlePop3;
+    background: darkorange;
+}
+
+#titlePop4{
+    grid-area: titlePop4;
+    background: fuchsia;
+}
+
+#titlePop5{
+    grid-area: titlePop5;
+    background: darkred;
+}
+
+/*nbVue*/
+#nbViewsPop1{
+    grid-area: nbViewsPop1;
+    background: darkred;
+}
+
+#nbViewsPop2{
+    grid-area: nbViewsPop2;
+    background: aqua;
+}
+
+#nbViewsPop3{
+    grid-area: nbViewsPop3;
+    background: fuchsia;
+}
+
+#nbViewsPop4{
+    grid-area: nbViewsPop4;
+    background: darkorange;
+}
+
+#nbViewsPop5{
+    grid-area: nbViewsPop5;
+    background: darkblue;
+}
+
+/*année de publication*/
+#yearPop1{
+    grid-area: yearPop1;
+    background: darkgreen;
+}
+
+#yearPop2{
+    grid-area: yearPop2;
+    background: aliceblue;
+}
+
+#yearPop3{
+    grid-area: yearPop3;
+    background: darkred;
+}
+
+#yearPop4{
+    grid-area: yearPop4;
+    background: aquamarine;
+}
+
+#yearPop5{
+    grid-area: yearPop5;
+    background: grey;
+}
+
+#playPop1{
+    grid-area: playPop1;
+    background: aqua;
+}
+
+#playPop2{
+    grid-area: playPop2;
+    background: aqua;
+}
+
+#playPop3{
+    grid-area: playPop3;
+    background: aqua;
+}
+
+#playPop4{
+    grid-area: playPop4;
+    background: aqua;
+}
+
+#playPop5{
+    grid-area: playPop5;
+    background: aqua;
+}
+
+
+/*Footer*/
+
+.footer{
+    border-radius: 30px;
+    padding: 10px;
+    left: 10vw; :/*décalahe gauche de 30% de la taille de l'écran*/
+    right: 5vw;
+
+    text-align: center;
+    line-height: 60px;
+    border: 5px solid mediumslateblue;
+    background: darkslateblue;
+    width: 80%;
+    height: 50px;
+    bottom: 0; /*bloque le footer vers le bas*/
+    position: fixed;
+    z-index: -1;
+}
+
