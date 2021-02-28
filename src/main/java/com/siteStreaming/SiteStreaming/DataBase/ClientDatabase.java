@@ -38,7 +38,7 @@ public class ClientDatabase {
     }
 
     /**
-     * A utilisé seulement si la table CompteClient est supprimée
+     * A utiliser seulement si la table CompteClient est supprimée
      */
     public void createClientTable(){
         try {
