@@ -72,6 +72,9 @@ window.addEventListener("load", function (){
         nomPrenomUserDiv.className = "profilButtonLayout changeButtonProfilColor";
         nomPrenomUserDiv.textContent = userFirstName+" "+userLastName;
 
+        var nomPrenomUserDivLink = document.createElement('a');
+        nomPrenomUserDivLink.href = "Acceuil/Profil";
+
         var deconnectionDiv = document.createElement('div');
         deconnectionDiv.id = "LogOut";
         deconnectionDiv.className = "buttonLayout changeButtonColor";
@@ -86,10 +89,10 @@ window.addEventListener("load", function (){
         linkTitleDiv.href = "Acceuil";
         linkTitleDiv.textContent = "UsTube";
 
-
+        nomPrenomUserDivLink.appendChild(nomPrenomUserDiv);
         titleDiv.appendChild(linkTitleDiv);
         div.appendChild(titleDiv);
-        div.appendChild(nomPrenomUserDiv);
+        div.appendChild(nomPrenomUserDivLink);
         div.appendChild(deconnectionDiv);
         mainDiv.appendChild(div);
     }

@@ -361,7 +361,7 @@ body{
 .footer{
     border-radius: 30px;
     padding: 10px;
-    left: 10vw; :/*décalahe gauche de 30% de la taille de l'écran*/
+    left: 10vw; :/*décalage gauche de 30% de la taille de l'écran*/
     right: 5vw;
 
     text-align: center;

@@ -9,7 +9,9 @@
     border: 5px solid darkgrey;
     color: aliceblue;
 
-    min-width: 1cm;
+    min-width: 3cm;
     max-width: 5cm;
     line-height: 50px;
+
+    text-decoration: none;
 }

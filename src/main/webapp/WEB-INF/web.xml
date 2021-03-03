@@ -25,4 +25,16 @@
         <servlet-name>Inscription</servlet-name>
         <url-pattern>/Acceuil/Inscription</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <display-name>Profil</display-name>
+        <servlet-name>Profil</servlet-name>
+        <servlet-class>com.siteStreaming.SiteStreaming.ProfilUser.Profil</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Profil</servlet-name>
+        <url-pattern>/Acceuil/Profil</url-pattern>
+    </servlet-mapping>
+
 </web-app>
