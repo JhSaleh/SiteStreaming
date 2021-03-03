@@ -80,8 +80,22 @@ window.addEventListener("load", function (){
         deconnectionDiv.className = "buttonLayout changeButtonColor";
         deconnectionDiv.textContent = "Se déconnecter";
 
+        //Bouton catalogue
+        var catalogueMainDiv = document.getElementById("catalogue");
+        var catalogueButtonDiv = document.createElement('div');
+        catalogueButtonDiv.textContent = "Parcourir le catalogue";
+        catalogueButtonDiv.className = "buttonLayout changeButtonColor";
+        catalogueButtonDiv.id = "buttonCatalogue";
+
+
+        var catalogueButtonDivLink = document.createElement('a');
+        catalogueButtonDivLink.href = "Acceuil/Catalogue";
+        catalogueButtonDivLink.id = "buttonCatalogueLink";
+
+
+
         //Assemblage
-        //Titre
+        //Titre-Barre de menu
         var titleDiv = document.createElement('div');
         titleDiv.id = "title";
 
@@ -95,5 +109,9 @@ window.addEventListener("load", function (){
         div.appendChild(nomPrenomUserDivLink);
         div.appendChild(deconnectionDiv);
         mainDiv.appendChild(div);
+
+        //Bouton catalogue principale
+        catalogueButtonDivLink.appendChild(catalogueButtonDiv);
+        catalogueMainDiv.appendChild(catalogueButtonDivLink);
     }
 })
