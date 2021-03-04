@@ -2,13 +2,19 @@
  * @author: Jean-Hanna SALEH
  */
 
+/**
+ * Mise en place d'un système de vérification des champs
+ */
 window.addEventListener("load", function (){
-    var sameMdp = false;
+    var blockedMdp = false; //Variable globale qui gère la validation/déblocage du bouton submit
+    var blockedMail = false;
+
     var buttonSumbitInscription = document.getElementById("validateInscription");
+    var cross = "✘";
+    var tick = "✔";
+
     inscriptionEventChecksMdp = function (){
         //les mdps
-        var cross = "✘";
-        var tick = "✔";
         var mdp = document.getElementById("password");
         var confirmMdp = document.getElementById("confirmPassword");
 
@@ -28,9 +34,12 @@ window.addEventListener("load", function (){
 
                     croix2.textContent = tick;
                     croix2.className = "goodCross";
-                    buttonSumbitInscription.disabled = false;
-                    buttonSumbitInscription.id = "validateInscription";
 
+                    if(!blockedMail){ //Empêche qu'un champs bloqué soit débloqué par un champ correcte
+                        buttonSumbitInscription.disabled = false;
+                        buttonSumbitInscription.id = "validateInscription";
+                    }
+                    blockedMdp = false;
                 } else {
                     croix1.textContent = cross;
                     croix1.className = "wrongCross";
@@ -40,12 +49,18 @@ window.addEventListener("load", function (){
 
                     buttonSumbitInscription.disabled = true;
                     buttonSumbitInscription.id = "validateInscriptionDisabled";
+
+                    blockedMdp = true;
                 }
             } else {
                 croix1.textContent = "";
                 croix2.textContent = "";
-                buttonSumbitInscription.disabled = false;
-                buttonSumbitInscription.id = "validateInscription";
+
+                if(!blockedMail){
+                    buttonSumbitInscription.disabled = false;
+                    buttonSumbitInscription.id = "validateInscription";
+                }
+                blockedMdp = false;
             }
         });
 
@@ -59,9 +74,12 @@ window.addEventListener("load", function (){
 
                     croix2.textContent = tick;
                     croix2.className = "goodCross";
-                    buttonSumbitInscription.disabled = false;
-                    buttonSumbitInscription.id = "validateInscription";
 
+                    if(!blockedMail){
+                        buttonSumbitInscription.disabled = false;
+                        buttonSumbitInscription.id = "validateInscription";
+                    }
+                    blockedMdp = false;
                 } else {
                     croix1.textContent = cross;
                     croix1.className = "wrongCross";
@@ -71,13 +89,59 @@ window.addEventListener("load", function (){
 
                     buttonSumbitInscription.disabled = true;
                     buttonSumbitInscription.id = "validateInscriptionDisabled";
+
+                    blockedMdp = true;
                 }
             } else {
                 croix1.textContent = "";
                 croix2.textContent = "";
-                buttonSumbitInscription.disabled = false;
-                buttonSumbitInscription.id = "validateInscription";
+                if(!blockedMail){
+                    buttonSumbitInscription.disabled = false;
+                    buttonSumbitInscription.id = "validateInscription";
+                }
+                blockedMdp = false;
             }
         });
+    }
+
+    validateEmailFormat = function(email){
+        var regExp = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/; //Expression régulière de format d'email
+        return regExp.test(email);
+    }
+
+    inscriptionEventChecksEmailFormat = function (){
+        var email = document.getElementById("mail");
+        var croix3 = document.getElementById('checkMail');
+
+        email.addEventListener('input', function (){
+            if(email.value.length > 0){
+                if(validateEmailFormat(email.value)){
+                    croix3.textContent = tick;
+                    croix3.className = "goodCross";
+
+                    if(!blockedMdp){
+                        buttonSumbitInscription.disabled = false;
+                        buttonSumbitInscription.id = "validateInscription";
+                    }
+                    blockedMail = false;
+                } else {
+                    croix3.textContent = cross;
+                    croix3.className = "wrongCross";
+
+                    buttonSumbitInscription.disabled = true;
+                    buttonSumbitInscription.id = "validateInscriptionDisabled";
+
+                    blockedMail = true;
+                }
+            } else {
+                croix3.textContent = "";
+
+                if(!blockedMdp){
+                    buttonSumbitInscription.disabled = false;
+                    buttonSumbitInscription.id = "validateInscription";
+                }
+                blockedMail = false;
+            }
+        })
     }
 })

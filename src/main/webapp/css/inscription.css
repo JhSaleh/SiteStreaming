@@ -37,7 +37,7 @@
                         ". prenomL prenom ."
                         ". civiliteL civilite ."
                         ". dateNaissanceL dateNaissance ."
-                        ". mailL mail ."
+                        ". mailL mail checkMail"
                         ". passwordL password checkMdp1"
                         ". confirm_passwordL confirm_password checkMdp2"
                         ". adresseFacturationL adresseFacturation ."
@@ -66,6 +66,7 @@
     grid-area: validateIns;
 }
 
+/*Bouton de validation après désactivation*/
 #validateInscriptionDisabled{
     border: 2px solid darkgrey;
     border-radius: 15px;
@@ -163,6 +164,10 @@
 
 #checkMdp2{
     grid-area: checkMdp2;
+}
+
+#checkMail{
+    grid-area: checkMail;
 }
 
 .wrongCross{

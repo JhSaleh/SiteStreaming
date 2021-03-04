@@ -19,8 +19,13 @@
 
     <script>
         window.addEventListener("load", function () {
+            //Vérification de la cohérence des mdps
             var listIdToWait = ["password", "confirmPassword", "checkMdp1", "checkMdp2"];
             waitForManyElements(listIdToWait, inscriptionEventChecksMdp); //Applique le binding aux champs de mdp
+
+            //Vérification du formatage de mail
+            var listIdToWait2 = ["mail", "checkMail"];
+            waitForManyElements(listIdToWait, inscriptionEventChecksEmailFormat); //Applique le binding aux champs de mdp
         })
     </script>
 </head>
@@ -56,6 +61,7 @@
 
                 <label id="mailL" for="mail">Adresse mail :</label>
                 <input id="mail" class="labelStyle" type="email" required name="mail">
+                <div id="checkMail"></div>
 
                 <label id="passwordL" for="password">Mot de passe :</label>
                 <input id="password" class="labelStyle" type="password" required name="password">
