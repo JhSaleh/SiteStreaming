@@ -66,6 +66,16 @@
     grid-area: validateIns;
 }
 
+#validateInscriptionDisabled{
+    border: 2px solid darkgrey;
+    border-radius: 15px;
+    background-color: dimgrey;
+    color: aliceblue;
+    height: 1cm;
+    margin-bottom: 15px;
+    grid-area: validateIns;
+}
+
 
 /*Champs d'inscription*/
 #nom{

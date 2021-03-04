@@ -3,9 +3,10 @@
  */
 
 window.addEventListener("load", function (){
+    var sameMdp = false;
+    var buttonSumbitInscription = document.getElementById("validateInscription");
     inscriptionEventChecksMdp = function (){
         //les mdps
-        var sameMdp = false;
         var cross = "✘";
         var tick = "✔";
         var mdp = document.getElementById("password");
@@ -27,16 +28,24 @@ window.addEventListener("load", function (){
 
                     croix2.textContent = tick;
                     croix2.className = "goodCross";
+                    buttonSumbitInscription.disabled = false;
+                    buttonSumbitInscription.id = "validateInscription";
+
                 } else {
                     croix1.textContent = cross;
                     croix1.className = "wrongCross";
 
                     croix2.textContent = cross;
                     croix2.className = "wrongCross";
+
+                    buttonSumbitInscription.disabled = true;
+                    buttonSumbitInscription.id = "validateInscriptionDisabled";
                 }
             } else {
                 croix1.textContent = "";
                 croix2.textContent = "";
+                buttonSumbitInscription.disabled = false;
+                buttonSumbitInscription.id = "validateInscription";
             }
         });
 
@@ -50,16 +59,25 @@ window.addEventListener("load", function (){
 
                     croix2.textContent = tick;
                     croix2.className = "goodCross";
+                    buttonSumbitInscription.disabled = false;
+                    buttonSumbitInscription.id = "validateInscription";
+
                 } else {
                     croix1.textContent = cross;
                     croix1.className = "wrongCross";
 
                     croix2.textContent = cross;
                     croix2.className = "wrongCross";
+
+                    buttonSumbitInscription.disabled = true;
+                    buttonSumbitInscription.id = "validateInscriptionDisabled";
                 }
             } else {
                 croix1.textContent = "";
                 croix2.textContent = "";
-            }        });
+                buttonSumbitInscription.disabled = false;
+                buttonSumbitInscription.id = "validateInscription";
+            }
+        });
     }
 })
