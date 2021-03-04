@@ -24,6 +24,46 @@ public class Musique extends ContenuSonore {
      */
     int duree;
 
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public String getInterprete() {
+        return interprete;
+    }
+
+    public void setInterprete(String interprete) {
+        this.interprete = interprete;
+    }
+
+    public String getAnneeCreation() {
+        return anneeCreation;
+    }
+
+    public void setAnneeCreation(String anneeCreation) {
+        this.anneeCreation = anneeCreation;
+    }
+
+    public com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical getGenreMusical() {
+        return genreMusical;
+    }
+
+    public void setGenreMusical(com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical genreMusical) {
+        this.genreMusical = genreMusical;
+    }
+
+    public int getDuree() {
+        return duree;
+    }
+
+    public void setDuree(int duree) {
+        this.duree = duree;
+    }
+
     /**
      * Constructeur d'une musique
      * @param contenu

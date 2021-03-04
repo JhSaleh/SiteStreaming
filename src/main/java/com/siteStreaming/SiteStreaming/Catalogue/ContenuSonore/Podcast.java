@@ -20,6 +20,39 @@ public class Podcast extends ContenuSonore {
      */
     com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie categorie;
 
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public int getDuree() {
+        return duree;
+    }
+
+    public void setDuree(int duree) {
+        this.duree = duree;
+    }
+
+    public String getAuteur() {
+        return auteur;
+    }
+
+    public void setAuteur(String auteur) {
+        this.auteur = auteur;
+    }
+
+    public com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie categorie) {
+        this.categorie = categorie;
+    }
+
     /**
      * Constructeur d'un podcast
      * @param contenu
