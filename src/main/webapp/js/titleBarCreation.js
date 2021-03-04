@@ -73,7 +73,7 @@ window.addEventListener("load", function (){
         nomPrenomUserDiv.textContent = userFirstName+" "+userLastName;
 
         var nomPrenomUserDivLink = document.createElement('a');
-        nomPrenomUserDivLink.href = "Acceuil/Profil";
+        nomPrenomUserDivLink.href = "Profil";
 
         var deconnectionDiv = document.createElement('div');
         deconnectionDiv.id = "LogOut";

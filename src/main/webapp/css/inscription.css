@@ -27,6 +27,7 @@
     border: mediumslateblue;
     border-radius: 15px;
     margin-top: 35px;
+    width: 12cm;
 
     display: grid;
     grid-template-columns: 1fr 4fr 4fr 1fr;
@@ -37,8 +38,8 @@
                         ". civiliteL civilite ."
                         ". dateNaissanceL dateNaissance ."
                         ". mailL mail ."
-                        ". passwordL password ."
-                        ". confirm_passwordL confirm_password ."
+                        ". passwordL password checkMdp1"
+                        ". confirm_passwordL confirm_password checkMdp2"
                         ". adresseFacturationL adresseFacturation ."
                         ". . validateIns .";
 }
@@ -142,4 +143,28 @@
 
 #inscription{
     grid-area: inscription;
+}
+
+/*Vérifiation des données entrées*/
+
+#checkMdp1{
+    grid-area: checkMdp1;
+}
+
+#checkMdp2{
+    grid-area: checkMdp2;
+}
+
+.wrongCross{
+    color: red;
+    font-weight: bold;
+    width: 1cm;
+    text-align: center;
+}
+
+.goodCross{
+    color: limegreen;
+    font-weight: bold;
+    width: 1cm;
+    text-align: center;
 }
