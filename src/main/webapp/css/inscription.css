@@ -149,15 +149,101 @@
 .gridyBody{
     display: grid;
     grid-template-columns: 3fr 4fr 3fr;
-    grid-template-areas: ". inscription .";
+    grid-template-areas: "statusFieldsLeft inscription statusFieldsRight";
 }
 
 #inscription{
     grid-area: inscription;
 }
 
-/*Vérifiation des données entrées*/
 
+/*4eme et 5eme gridy*/
+#statusFieldsRight{
+    grid-area: statusFieldsRight;
+}
+
+.gridyStatusFieldsRight{
+    display: grid;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    margin-right: 160px;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-areas:
+            "."
+            "."
+            "."
+            "."
+            "."
+            "mailStatus"
+            "mdpStatus"
+            "confirmMdpStatus"
+            ".";
+    width: 7.5cm;
+}
+
+
+.statusMsgLayout{
+    background-color: lightgray;
+    border: 2px solid slategray;
+    border-radius: 15px;
+    text-align: center;
+    vertical-align: center;
+    height: 0.65cm;
+    width: 7cm;
+    margin-bottom: 15px;
+    line-height: 25px;
+    color: crimson;
+}
+
+.statusMsgLayoutHidden{
+    height: 0.65cm;
+    width: 7cm;
+    margin-bottom: 15px;
+    line-height: 25px;
+}
+
+#mailStatus{
+    grid-area: mailStatus;
+}
+
+#mdpStatus{
+    grid-area: mdpStatus;
+}
+
+#confirmMdpStatus{
+    grid-area: confirmMdpStatus;
+}
+
+/*Côté gauche*/
+#statusFieldsLeft{
+    grid-area: statusFieldsLeft;
+}
+
+.gridyStatusFieldsLeft{
+    display: grid;
+    margin-top: 35px;
+    margin-bottom: 15px;
+    margin-left: 150px;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-areas:
+            "."
+            "."
+            "."
+            "."
+            "."
+            "."
+            "mdpStrengthStatus"
+            "mdpStrengthStatus"
+            ".";
+    width: 7.5cm;
+}
+
+#mdpStrengthStatus{
+    grid-area: mdpStrengthStatus;
+    height: 2cm;
+}
+
+/*Vérifiation des données entrées dans le même bloc que les inputs*/
 #checkMdp1{
     grid-area: checkMdp1;
 }

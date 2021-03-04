@@ -79,6 +79,16 @@
                 <input id="validateInscription" type="submit" value="Validez">
             </div>
         </form>
+
+        <div id="statusFieldsRight" class="gridyStatusFieldsRight">
+            <div id="mailStatus" class="statusMsgLayoutHidden"></div>
+            <div id="mdpStatus" class="statusMsgLayoutHidden"></div>
+            <div id="confirmMdpStatus" class="statusMsgLayoutHidden"></div>
+        </div>
+
+        <div id="statusFieldsLeft" class="gridyStatusFieldsLeft">
+            <div id="mdpStrengthStatus" class="statusMsgLayoutHidden"></div>
+        </div>
     </div>
 </body>
 
