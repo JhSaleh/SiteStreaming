@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient" %><%--
   Created by IntelliJ IDEA.
   User: jeanhanna
   Date: 19/02/2021
@@ -6,7 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<%@page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient"%>
+<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.MetaCompteClient" %>
+<%
+    CompteClient compteInscription = (CompteClient) request.getAttribute("compteInscription"); //Récupération du compte qu'on a essayé d'inscrire
+    MetaCompteClient compte = new MetaCompteClient(compteInscription);
+%>
 
 <html>
 <head>
@@ -39,42 +44,39 @@
     <div class="gridyBody">
         <form id="inscription" action="${pageContext.request.contextPath}/Acceuil/Inscription" method="POST">
             <div class="gridyInscriptionForm">
+
                 <label id="nomL" for="nom">Nom :</label>
-                <input id="nom" class="labelStyle" type="text" required name="nom"> <!--name pour récupérer le nom sous jee-->
+                <input id="nom" class="labelStyle" type="text" value=<%=compte.getNom()%> required name="nom"> <!--name pour récupérer le nom sous jee-->
 
                 <label id="prenomL" for="prenom">Prenom :</label>
-                <input id="prenom" class="labelStyle" type="text" required name="prenom">
+                <input id="prenom" class="labelStyle" type="text" value=<%=compte.getPrenom()%> required name="prenom">
 
                 <label id="dateNaissanceL" for="dateNaissance">Date de naissance :</label>
-                <input id="dateNaissance" class="labelStyle" type="date" required name="birthDate">
+                <input id="dateNaissance" class="labelStyle" type="date" value=<%=compte.getBirthDate()%> required name="birthDate">
 
                 <label id="civiliteL" for="civilite">Civilite :</label>
 
-                <!--
-                <input id="civilite" class="labelStyle" type="" required name="civilite">
-                -->
                 <!--La liste déroulante garantit l'input-->
-                <select id = "civilite" class="labelStyle" size="1" name="civilite">
+                <select id = "civilite" class="labelStyle" size="1" value=<%=compte.getCivilite()%> name="civilite">
                     <option>Monsieur</option>
                     <option>Madame</option>
                 </select>
 
                 <label id="mailL" for="mail">Adresse mail :</label>
-                <input id="mail" class="labelStyle" type="email" required name="mail">
+                <input id="mail" class="labelStyle" type="email" value=<%=compte.getMail()%>required name="mail">
                 <div id="checkMail"></div>
 
                 <label id="passwordL" for="password">Mot de passe :</label>
-                <input id="password" class="labelStyle" type="password" required name="password">
+                <input id="password" class="labelStyle" type="password" value=<%=compte.getPassword()%> required name="password">
                 <div id = "checkMdp1"></div>
 
                 <label id="confirmPasswordL" for="confirmPassword">Confirmation du mot de passe :</label>
-                <input id="confirmPassword" class="labelStyle" type="password" required name="confirmPassword">
+                <input id="confirmPassword" class="labelStyle" type="password" value=<%=compte.getPassword()%> required name="confirmPassword">
                 <div id = "checkMdp2"></div>
 
 
                 <label id="adresseFacturationL" for="adresseFacturation">Adresse de facturation :</label>
-                <input id="adresseFacturation" class="labelStyle" type="text" required name="adresseFacturation">
-
+                <input id="adresseFacturation" class="labelStyle" type="text" value=<%=compte.getAddress()%> required name="adresseFacturation">
 
                 <input id="validateInscription" type="submit" value="Validez">
             </div>
@@ -88,6 +90,9 @@
 
         <div id="statusFieldsLeft" class="gridyStatusFieldsLeft">
             <div id="mdpStrengthStatus" class="statusMsgLayoutHidden"></div>
+            <%if(compteInscription != null){%>
+            <div id="mailAlreadyTaken" class="statusMsgLayout">Mail non disponible.</div>
+            <%}%>
         </div>
     </div>
 </body>

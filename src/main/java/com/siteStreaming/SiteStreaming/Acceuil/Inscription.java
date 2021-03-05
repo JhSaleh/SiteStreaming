@@ -19,9 +19,14 @@ public class Inscription extends HttpServlet {
                                                         request.getParameter("birthDate"),
                                                         request.getParameter("adresseFacturation"));
 
-            compteToAdd.addToDatabase(compteToAdd);
-
+            //En cas d'échec de l'ajout, on envoit les champs déjà remplis remplis aux clients
+            boolean successAdd = compteToAdd.addToDatabase(compteToAdd);
+            if(!successAdd){
+                request.setAttribute("compteInscription", compteToAdd);
+            }
         }
+
+
 
 
         //Redirige vers la page d'acceuil
