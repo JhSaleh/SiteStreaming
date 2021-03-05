@@ -173,7 +173,7 @@
             "."
             "."
             "."
-            "."
+            "ageStatus"
             "mailStatus"
             "mdpStatus"
             "confirmMdpStatus"
@@ -212,6 +212,10 @@
 
 #confirmMdpStatus{
     grid-area: confirmMdpStatus;
+}
+
+#ageStatus{
+    grid-area: ageStatus;
 }
 
 /*Côté gauche*/

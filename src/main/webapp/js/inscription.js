@@ -6,13 +6,17 @@
  * Mise en place d'un système de vérification des champs
  */
 window.addEventListener("load", function (){
-    var blockedMdp = false; //Variable globale qui gère la validation/déblocage du bouton submit
-    var blockedStrengthMdp = false;
-    var blockedMail = false;
+    //Variable globale qui gère la validation/déblocage du bouton submit
+    var blockedMdp = false; //Indique si le bouton submit est bloqué à cause de mdp non identique
+    var blockedStrengthMdp = false; //Indique si le bouton submit est bloqué à cause d'un mdp faible
+    var blockedMail = false; //Indique si le bouton submit est bloqué à cause d'un mauvais format de mail
+    var blockedBirthDate = false; //Indique si le bouton submit est bloqué à cause d'une mauvaise date de naissance
 
     var buttonSumbitInscription = document.getElementById("validateInscription");
     var cross = "✘";
     var tick = "✔";
+
+    var ageLimit = 13; //Site interdit au moins de 13 ans
 
     /**
      * Bloque le bouton d'envoie du formulaire
@@ -32,9 +36,9 @@ window.addEventListener("load", function (){
 
     //Les formats doivent également être vérifié côté serveur
     validateMdpFormat = function (mdp){
-        var regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/; //Expression régulière de format de mdp
+        var regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,30}$/; //Expression régulière de format de mdp
         /**
-         * (?=.{8,20}) taille du mdp : min 8 characters, max 20
+         * (?=.{8,30}) taille du mdp : min 8 characters, max 20
          * (?=.*[a-z]) Doit contenir au moins une lettre minuscule
          * (?=.*[A-Z]) Doit contenir au moins une lettre majuscule
          * (?=.*\d) Des chiffres
@@ -86,7 +90,7 @@ window.addEventListener("load", function (){
         notStrongMdpMsg = function (){
             mdpStrengthStatus.className = "statusMsgLayout";
 
-            let errorMsg = "Mot de passe de taille 8 ayant:\n-1 chiffre\n-1 minuscule\n-1 majuscule\n-un caratère spécial"
+            let errorMsg = "Mot de passe de taille 8 ayant:\n-1 chiffre\n-1 minuscule\n-1 majuscule"
             mdpStrengthStatus.textContent = errorMsg;
         }
 
@@ -114,7 +118,7 @@ window.addEventListener("load", function (){
 
                 croix2.textContent = tick;
                 croix2.className = "goodCross";
-                if(!blockedMail && !blockedStrengthMdp){ //Empêche qu'un champs bloqué soit débloqué par un champ correcte
+                if(!blockedMail && !blockedStrengthMdp && !blockedBirthDate){ //Empêche qu'un champs bloqué soit débloqué par un champ correcte
                     unblockSubmitButton();
                 }
 
@@ -147,7 +151,7 @@ window.addEventListener("load", function (){
                 if(validateMdpFormat(mdp.value)){
                     strongMdpMsg();
                     blockedStrengthMdp = false;
-                    if(!blockedMdp && !blockedMail){
+                    if(!blockedMdp && !blockedMail && !blockedBirthDate){
                         unblockSubmitButton();
                         croix1.textContent = tick;
                         croix1.className = "goodCross";
@@ -162,7 +166,7 @@ window.addEventListener("load", function (){
             } else {
                 strongMdpMsg(); //Efface le msg
                 blockedStrengthMdp = false;
-                if(!blockedMdp && !blockedMail){
+                if(!blockedMdp && !blockedMail && !blockedBirthDate){
                     unblockSubmitButton();
                 }
             }
@@ -179,7 +183,7 @@ window.addEventListener("load", function (){
                 croix1.textContent = "";
                 croix2.textContent = "";
 
-                if(!blockedMail && !blockedStrengthMdp){
+                if(!blockedMail && !blockedStrengthMdp && !blockedBirthDate){
                     unblockSubmitButton();
                 }
                 blockedMdp = false;
@@ -199,7 +203,7 @@ window.addEventListener("load", function (){
             } else {
                 croix1.textContent = "";
                 croix2.textContent = "";
-                if(!blockedMail && !blockedStrengthMdp){
+                if(!blockedMail && !blockedStrengthMdp && !blockedBirthDate){
                     unblockSubmitButton();
                 }
                 blockedMdp = false;
@@ -211,10 +215,16 @@ window.addEventListener("load", function (){
     }
 
     //Les formats doivent également être vérifié côté serveur
+    /**
+     * Pour un email donné, vérifie qu'il respecte le bon format
+     * @param email
+     * @returns {boolean}
+     */
     validateEmailFormat = function(email){
         var regExp = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/; //Expression régulière de format d'email
         return regExp.test(email);
     }
+
 
     inscriptionEventChecksEmailFormat = function (){
         var email = document.getElementById("mail");
@@ -256,7 +266,7 @@ window.addEventListener("load", function (){
                     croix3.textContent = tick;
                     croix3.className = "goodCross";
 
-                    if(!blockedMdp && !blockedStrengthMdp){
+                    if(!blockedMdp && !blockedStrengthMdp && !blockedBirthDate){
                         unblockSubmitButton();
                     }
                     blockedMail = false;
@@ -276,13 +286,72 @@ window.addEventListener("load", function (){
             } else {
                 croix3.textContent = "";
 
-                if(!blockedMdp && !blockedStrengthMdp){
+                if(!blockedMdp && !blockedStrengthMdp && !blockedBirthDate){
                     unblockSubmitButton();
                 }
                 blockedMail = false;
 
                 //Traitement de status
                 correctMailStatus();
+            }
+        })
+    }
+
+
+    /**
+     * Calcule l'age d'une personne selon sa date de naissance
+     * @param dateString
+     * @returns {number}
+     */
+    ageCalculator = function (dateString){
+        var birthday = +new Date(dateString);
+        let lengthYear = 24*3600*365.25*1000
+        return ~~((Date.now() - birthday) / (lengthYear)); //~~ correspond à la fonction floor()
+    }
+
+
+    inscriptionEventChecksBirthDate = function (){
+        var birthDate = document.getElementById("dateNaissance");
+        var birthDateStatus = document.getElementById("ageStatus");
+
+        /**
+         * Affiche le msg d'erreur si la date selectionné est incorrecte
+         */
+        incorrectBirthDateStatusMsg = function (){
+            birthDateStatus.className = "statusMsgLayout";
+            birthDateStatus.textContent = "Inscription interdite au moins de 13 ans.";
+        }
+
+        /**
+         * Supprime le msg d'erreur lié au choix de la date
+         */
+        correctBirthDateStatusMsg = function (){
+            birthDateStatus.className = "statusMsgLayoutHidden";
+            birthDateStatus.textContent = "";
+        }
+
+        /**
+         * Bind l'évènement de changement de date avec la vérification de l'age
+         */
+        birthDate.addEventListener('input', function (){
+            if(birthDate.value.length > 0){ //S'assure que le champs est remplie
+                if(ageCalculator(birthDate.value) < ageLimit){
+                    blockSubmitButton();
+                    incorrectBirthDateStatusMsg();
+                    blockedBirthDate = true;
+                } else {
+                    if(!blockedMdp && !blockedStrengthMdp && !blockedMail){
+                        unblockSubmitButton();
+                    }
+                    correctBirthDateStatusMsg();
+                    blockedBirthDate = false;
+                }
+            } else {
+                if(!blockedMdp && !blockedStrengthMdp && !blockedMail){
+                    unblockSubmitButton();
+                }
+                correctBirthDateStatusMsg();
+                blockedBirthDate = false;
             }
         })
     }

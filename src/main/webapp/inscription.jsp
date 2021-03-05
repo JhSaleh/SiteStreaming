@@ -30,7 +30,11 @@
 
             //Vérification du formatage de mail
             var listIdToWait2 = ["mail", "checkMail"];
-            waitForManyElements(listIdToWait, inscriptionEventChecksEmailFormat); //Applique le binding aux champs de mdp
+            waitForManyElements(listIdToWait2, inscriptionEventChecksEmailFormat); //Applique le binding aux champs de mdp
+
+            //Vérification de la date de naissance
+            var listIdToWait3 = ["dateNaissance", "ageStatus"];
+            waitForManyElements(listIdToWait3, inscriptionEventChecksBirthDate);
         })
     </script>
 </head>
@@ -52,7 +56,7 @@
                 <input id="prenom" class="labelStyle" type="text" value=<%=compte.getPrenom()%> required name="prenom">
 
                 <label id="dateNaissanceL" for="dateNaissance">Date de naissance :</label>
-                <input id="dateNaissance" class="labelStyle" type="date" value=<%=compte.getBirthDate()%> required name="birthDate">
+                <input id="dateNaissance" class="labelStyle" type="date" value=<%=compte.getBirthDate()%> required name="birthDate" min="1900-01-01">
 
                 <label id="civiliteL" for="civilite">Civilite :</label>
 
@@ -86,6 +90,7 @@
             <div id="mailStatus" class="statusMsgLayoutHidden"></div>
             <div id="mdpStatus" class="statusMsgLayoutHidden"></div>
             <div id="confirmMdpStatus" class="statusMsgLayoutHidden"></div>
+            <div id="ageStatus" class="statusMsgLayoutHidden"></div>
         </div>
 
         <div id="statusFieldsLeft" class="gridyStatusFieldsLeft">
