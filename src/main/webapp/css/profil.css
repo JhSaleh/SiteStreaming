@@ -15,3 +15,152 @@
 
     text-decoration: none;
 }
+
+
+/* 1er gridy */
+.gridyHeaderProfil{
+    display: grid;
+    grid-template-columns: 9fr 10fr 9fr;
+    grid-template-areas: "title profilTitle .";
+    grid-row-gap: 50px;
+}
+
+
+#title{
+    text-align: left;
+    font-size: 50px;
+    font-weight: bold;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    grid-area: title;
+}
+
+#profilTitle{
+    grid-area: profilTitle;
+    font-size: 40px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+
+/* 2éme gridy */
+.gridyrofilForm{
+    background-color: darkslateblue;
+    border: mediumslateblue;
+    border-radius: 15px;
+    margin-top: 35px;
+    width: 12cm;
+
+    display: grid;
+    grid-template-columns: 1fr 4fr 4fr 1fr;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-areas:". . . ."
+                        ". nomL nom ."
+                        ". prenomL prenom ."
+                        ". civiliteL civilite ."
+                        ". dateNaissanceL dateNaissance ."
+                        ". mailL mail checkMail"
+                        ". passwordL password checkMdp1"
+                        ". confirm_passwordL confirm_password checkMdp2"
+                        ". adresseFacturationL adresseFacturation ."
+                        ". . validateIns .";
+}
+
+
+.labelStyle{
+    background-color: darkslateblue;
+    border: 2px solid slateblue;
+
+    border-radius: 5px;
+    color: aliceblue;
+    height: 0.7cm;
+}
+
+
+/*Bouton de validation*/
+#validateProfil{
+    border: 2px solid slateblue;
+    border-radius: 15px;
+    background-color: darkslateblue;
+    color: aliceblue;
+    height: 1cm;
+    margin-bottom: 15px;
+    grid-area: validateIns;
+}
+
+/*Bouton de validation après désactivation*/
+#validateProfilDisabled{
+    border: 2px solid darkgrey;
+    border-radius: 15px;
+    background-color: dimgrey;
+    color: aliceblue;
+    height: 1cm;
+    margin-bottom: 15px;
+    grid-area: validateIns;
+}
+
+
+/*Champs d'information du profil (modifiables)*/
+#nom{
+    grid-area: nom;
+}
+
+#prenom{
+    grid-area: prenom;
+}
+
+#civilite{
+    grid-area: civilite;
+}
+
+#dateNaissance{
+    grid-area: dateNaissance;
+}
+
+#mail{
+    grid-area: mail;
+}
+
+#password{
+    grid-area: password;
+}
+
+#confirmPassword{
+    grid-area: confirm_password;
+}
+
+#adresseFacturation{
+    grid-area: adresseFacturation;
+}
+
+/*Label d'information du profil'*/
+
+#nomL{
+    grid-area: nomL;
+}
+
+#prenomL{
+    grid-area: prenomL;
+}
+
+#civiliteL{
+    grid-area: civiliteL;
+}
+
+#dateNaissanceL{
+    grid-area: dateNaissanceL;
+}
+
+#mailL{
+    grid-area: mailL;
+}
+
+#passwordL{
+    grid-area: passwordL;
+}
+
+#confirmPasswordL{
+    grid-area: confirm_passwordL;
+}
+
+#adresseFacturationL{
+    grid-area: adresseFacturationL;
+}
