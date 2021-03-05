@@ -11,7 +11,6 @@
 
 <% //Récupération des données transmises depuis le servlet
     Boolean signedInSent = (Boolean)request.getAttribute("signedInSent");
-    Boolean signedIn = false;
     String[] infoClient = (String[])request.getAttribute("infoClient");
 %>
 

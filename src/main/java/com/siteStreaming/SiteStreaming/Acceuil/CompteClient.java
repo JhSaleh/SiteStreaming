@@ -118,5 +118,13 @@ public class CompteClient {
         return clientDatabase.addClientAccount(compteClient);
     }
 
+    /**
+     * Vérifie si un certain mot de passe est celui associé au compte client
+     * @param password
+     * @return
+     */
+    public boolean isPassWord(String password){
+        return this.getPassword().equals(password);
+    }
 
 }

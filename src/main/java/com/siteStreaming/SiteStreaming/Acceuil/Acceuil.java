@@ -20,14 +20,11 @@ public class Acceuil extends HttpServlet {
             ClientDatabase clientDatabase = new ClientDatabase();
             String infoClient[] = clientDatabase.getAllClientInformation(mail);
 
-            request.setAttribute("infoClient", infoClient); //transmet l'info à d'autre servlet et la page html
-            request.setAttribute("signedInSent", true);
-        }else{
-            //traitement cas d'erreur
-            request.setAttribute("errorSignIn", true);
-            request.setAttribute("lastMailWrote", request.getParameter("mailAddress"));
+            if(true){
+                request.setAttribute("infoClient", infoClient); //transmet l'info à d'autre servlet et la page html
+                request.setAttribute("signedInSent", true);
+            }
         }
-
 
 
 
