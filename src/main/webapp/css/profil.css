@@ -52,14 +52,14 @@
     grid-template-columns: 1fr 4fr 4fr 1fr;
     grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
     grid-template-areas:". . . ."
-                        ". nomL nom ."
-                        ". prenomL prenom ."
-                        ". civiliteL civilite ."
-                        ". dateNaissanceL dateNaissance ."
-                        ". mailL mail checkMail"
-                        ". passwordL password checkMdp1"
-                        ". confirm_passwordL confirm_password checkMdp2"
-                        ". adresseFacturationL adresseFacturation ."
+                        ". nomLUser nomUser ."
+                        ". prenomLUser prenomUser ."
+                        ". civiliteLUser civiliteUser ."
+                        ". dateNaissanceLUser dateNaissanceUser ."
+                        ". mailLUser mailUser checkMail"
+                        ". passwordLUser passwordUser checkMdp1"
+                        ". confirm_passwordLUser confirm_passwordUser checkMdp2"
+                        ". adresseFacturationLUser adresseFacturationUser ."
                         ". . validateIns .";
 }
 
@@ -98,68 +98,68 @@
 
 
 /*Champs d'information du profil (modifiables)*/
-#nom{
-    grid-area: nom;
+#nomUser{
+    grid-area: nomUser;
 }
 
-#prenom{
-    grid-area: prenom;
+#prenomUser{
+    grid-area: prenomUser;
 }
 
-#civilite{
-    grid-area: civilite;
+#civiliteUser{
+    grid-area: civiliteUser;
 }
 
-#dateNaissance{
-    grid-area: dateNaissance;
+#dateNaissanceUser{
+    grid-area: dateNaissanceUser;
 }
 
-#mail{
-    grid-area: mail;
+#mailUser{
+    grid-area: mailUser;
 }
 
-#password{
-    grid-area: password;
+#passwordUser{
+    grid-area: passwordUser;
 }
 
-#confirmPassword{
-    grid-area: confirm_password;
+#confirmPasswordUser{
+    grid-area: confirm_passwordUser;
 }
 
-#adresseFacturation{
-    grid-area: adresseFacturation;
+#adresseFacturationUser{
+    grid-area: adresseFacturationUser;
 }
 
 /*Label d'information du profil'*/
 
-#nomL{
-    grid-area: nomL;
+#nomLUser{
+    grid-area: nomLUser;
 }
 
-#prenomL{
-    grid-area: prenomL;
+#prenomLUser{
+    grid-area: prenomLUser;
 }
 
-#civiliteL{
-    grid-area: civiliteL;
+#civiliteLUser{
+    grid-area: civiliteLUser;
 }
 
-#dateNaissanceL{
-    grid-area: dateNaissanceL;
+#dateNaissanceLUser{
+    grid-area: dateNaissanceLUser;
 }
 
-#mailL{
-    grid-area: mailL;
+#mailLUser{
+    grid-area: mailLUser;
 }
 
-#passwordL{
-    grid-area: passwordL;
+#passwordLUser{
+    grid-area: passwordLUser;
 }
 
-#confirmPasswordL{
-    grid-area: confirm_passwordL;
+#confirmPasswordLUser{
+    grid-area: confirm_passwordLUser;
 }
 
-#adresseFacturationL{
-    grid-area: adresseFacturationL;
+#adresseFacturationLUser{
+    grid-area: adresseFacturationLUser;
 }
