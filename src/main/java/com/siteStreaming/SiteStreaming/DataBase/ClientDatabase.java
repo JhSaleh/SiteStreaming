@@ -70,7 +70,7 @@ public class ClientDatabase {
     }
 
     /**
-     * Renvoit le nom et prénom d'un client
+     * Renvoie le nom et prénom d'un client
      * @param mail
      * @return
      */
