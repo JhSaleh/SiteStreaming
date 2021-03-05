@@ -230,12 +230,27 @@ window.addEventListener("load", function (){
             mailStatus.textContent = "";
         }
 
+        /**
+         * Affiche le msg de mail au format incorrect
+         */
         incorrectMailFormatStatus = function(){
             mailStatus.className = "statusMsgLayout";
             mailStatus.textContent = "Format de mail incorrect.";
         }
 
+        /**
+         * Efface le msg de status de mail déjà utilisé
+         */
+        erraseMailAlreadyTakenStatus = function (){
+            var mailAlreadyTaken = document.getElementById("mailAlreadyTaken");
+            if(mailAlreadyTaken != undefined){ //Si le div existe
+                mailAlreadyTaken.className = "statusMsgLayoutHidden";
+                mailAlreadyTaken.textContent = "";
+            }
+        }
+
         email.addEventListener('input', function (){
+            erraseMailAlreadyTakenStatus(); //Dès qu'une touche est préssé, le msg est effacé
             if(email.value.length > 0){
                 if(validateEmailFormat(email.value)){
                     croix3.textContent = tick;

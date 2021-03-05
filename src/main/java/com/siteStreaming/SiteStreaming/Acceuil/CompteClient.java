@@ -80,6 +80,7 @@ public class CompteClient {
         return address;
     }
 
+
     //VersionDatabase
     public String getNomD() {
         return S.c(nom);
@@ -112,9 +113,9 @@ public class CompteClient {
      * Ajoute un compte client à la base de donnée
      * @param compteClient
      */
-    public void addToDatabase(CompteClient compteClient){
+    public boolean addToDatabase(CompteClient compteClient){
         ClientDatabase clientDatabase = new ClientDatabase(); //Créé une connexion avec la bdd
-        clientDatabase.addClientAccount(compteClient);
+        return clientDatabase.addClientAccount(compteClient);
     }
 
 

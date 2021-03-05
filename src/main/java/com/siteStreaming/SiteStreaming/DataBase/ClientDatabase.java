@@ -117,8 +117,9 @@ public class ClientDatabase {
      * Ajoute un client à la base de données
      * Attention, cela ne vérifie pas s'il y a respect de la clé primaire, i.e. un compte = un mail
      * @param compte
+     * @return boolean indiquant le succès de l'opération
      */
-    public void addClientAccount(CompteClient compte){
+    public boolean addClientAccount(CompteClient compte){
         try {
             String addToCompte = "insert into `Compte` values("+compte.getMailD()+","+
                             compte.getCiviliteD()+","+
@@ -133,9 +134,11 @@ public class ClientDatabase {
 
             this.statement.executeUpdate("insert into `CompteClient` values(NULL,"+compte.getMailD()+");");
             System.out.println("Client ajouté à la bdd!");
+            return true;
         } catch (SQLException e){
             System.out.println("Client non ajouté à la bdd!");
             e.printStackTrace();
+            return false;
         }
     }
 

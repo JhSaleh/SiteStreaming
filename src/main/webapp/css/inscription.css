@@ -231,7 +231,7 @@
             "."
             "."
             "."
-            "."
+            "mailAlreadyTaken"
             "mdpStrengthStatus"
             "mdpStrengthStatus"
             ".";
@@ -241,6 +241,10 @@
 #mdpStrengthStatus{
     grid-area: mdpStrengthStatus;
     height: 2cm;
+}
+
+#mailAlreadyTaken{
+    grid-area: mailAlreadyTaken;
 }
 
 /*Vérifiation des données entrées dans le même bloc que les inputs*/
