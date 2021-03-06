@@ -196,7 +196,7 @@
 
 
 .statusMsgLayout{
-    font-size: 10px;
+    font-size: 15px;
     background-color: lightgray;
     border: 2px solid slategray;
     border-radius: 15px;
@@ -253,13 +253,13 @@
             "mdpStrengthStatus"
             "mdpStrengthStatus"
             "mdpStrengthStatus"
-            "mdpStrengthStatus";
+            ".";
     width: 7.5cm;
 }
 
 #mdpStrengthStatus{
     grid-area: mdpStrengthStatus;
-    height: 3cm;
+    height: 3.3cm;
     white-space: pre-line;
 }
 
