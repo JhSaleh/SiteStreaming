@@ -19,18 +19,11 @@ public class Acceuil extends HttpServlet {
         String mail = request.getParameter("mailAddress");
         String password = request.getParameter("password");
 
-        /*
-        System.out.println("mail : "+mail);
-        System.out.println("password : "+password);
-        System.out.println("fake :"+passwordWow);
-        */
-
         if(mail != null){ //Si un formulaire a été envoyé
             System.out.println("Connection en cours. Preparation servlet.");
             ClientDatabase clientDatabase = new ClientDatabase();
             String infoClient[] = clientDatabase.getAllClientInformation(mail);
             CompteClient compteClient = clientDatabase.getCompteClient(mail);
-            CompteClient lastStateCompteClient = clientDatabase.getCompteClient(mail);
 
             if(compteClient != null){
                 System.out.println("Mdp entrée   : "+password);
@@ -50,6 +43,10 @@ public class Acceuil extends HttpServlet {
                     request.setAttribute("mailAddressUsed", mail);
                     request.setAttribute("passwordUsed", password);
                 }
+            } else {
+                System.out.println("Coté serveur : Echec de connection renvoit des données.");
+                request.setAttribute("mailAddressUsed", mail);
+                request.setAttribute("passwordUsed", password);
             }
         }
 

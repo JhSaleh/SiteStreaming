@@ -56,7 +56,8 @@ public class ClientDatabase {
      */
     public boolean isClientInDatabase(String mail){
         try{
-            String query = "SELECT * FROM CompteClient where adresseMailClient = mail;";
+            mail = S.cd(mail);
+            String query = "SELECT * FROM CompteClient where adresseMailClient="+mail+";";
             ResultSet res = this.statement.executeQuery(query);
             if(res.next()){ //S'il y a un élément dans le résultat, c'est que le client est présent dans la bdd
                 return true;

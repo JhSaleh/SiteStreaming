@@ -252,14 +252,15 @@
             "mailAlreadyTaken"
             "mdpStrengthStatus"
             "mdpStrengthStatus"
-            "."
-            ".";
+            "mdpStrengthStatus"
+            "mdpStrengthStatus";
     width: 7.5cm;
 }
 
 #mdpStrengthStatus{
     grid-area: mdpStrengthStatus;
-    height: 2cm;
+    height: 3cm;
+    white-space: pre-line;
 }
 
 #mailAlreadyTaken{
