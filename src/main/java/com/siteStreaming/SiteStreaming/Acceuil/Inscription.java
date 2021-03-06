@@ -24,6 +24,9 @@ public class Inscription extends HttpServlet {
             boolean successAdd = compteToAdd.addToDatabase(compteToAdd);
             if(!successAdd){
                 request.setAttribute("compteInscription", compteToAdd);
+                request.setAttribute("successSignUp", false);
+            } else {
+                request.setAttribute("successSignUp", true);
             }
         }
 

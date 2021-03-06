@@ -11,6 +11,7 @@
 <%
     CompteClient compteInscription = (CompteClient) request.getAttribute("compteInscription"); //Récupération du compte qu'on a essayé d'inscrire
     MetaCompteClient compte = new MetaCompteClient(compteInscription);
+    Boolean successSignUp = (Boolean) request.getAttribute("successSignUp");
 %>
 
 <html>
@@ -108,7 +109,13 @@
             <div id="mailAlreadyTaken" class="statusMsgLayout">Mail non disponible.</div>
             <%}%>
         </div>
+
+        <%if(successSignUp != null && successSignUp == true){%>
+            <div id = successSignUp>Inscription réussit !</div>
+        <%}%>
     </div>
+
+
 </body>
 
 <footer class="footer">© Copyright 2021 All Rights Reserved.</footer>
