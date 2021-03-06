@@ -34,7 +34,7 @@ window.addEventListener("load", function (){
         buttonSumbitInscription.id = "validateInscription";
     }
 
-    //Les formats doivent également être vérifié côté serveur
+    //Les formats doivent également être vérifiés côté serveur
     validateMdpFormat = function (mdp){
         var regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,30}$/; //Expression régulière de format de mdp
         /**
