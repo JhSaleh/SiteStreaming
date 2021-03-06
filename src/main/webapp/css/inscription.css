@@ -304,3 +304,13 @@
     grid-area: successSignUp;
     line-height: 50px;
 }
+
+.gridyProfilTitle{
+    display: grid;
+    grid-template-columns: 3fr 3fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "title inscriptionTitle LogOut"
+                        "title . .";
+    grid-column-gap: 15px;
+    z-index: auto;
+}

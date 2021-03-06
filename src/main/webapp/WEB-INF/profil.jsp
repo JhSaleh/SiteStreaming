@@ -44,9 +44,10 @@
 </head>
 
 <body>
-<div class = "gridyHeaderInscription">
+<div class = "gridyProfilTitle">
     <div id ="title"><a href="/SiteStreaming_war_exploded/Acceuil">UsTube</a></div>
     <div id = "inscriptionTitle">Profil</div>
+    <a href="/SiteStreaming_war_exploded/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
 </div>
 
 <div class="gridyBody">
