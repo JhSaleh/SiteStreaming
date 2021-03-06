@@ -8,16 +8,17 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="com.siteStreaming.SiteStreaming.DataBase.S" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Acceuil.MetaErrorHandler" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient" %>
 
 <%
     //Récupération des données transmises depuis le servlet en cas de connection
-    Boolean signedInSent = (Boolean)request.getAttribute("signedInSent");
-    String[] infoClient = (String[])request.getAttribute("infoClient");
-
-    //En cas d'erreur
+    //En cas d'erreur de tentative de connection
     String mailAddressUsed = (String)request.getAttribute("mailAddressUsed");
     String passwordUsed = (String)request.getAttribute("passwordUsed");
     MetaErrorHandler metaErrorHandler = new MetaErrorHandler(mailAddressUsed, passwordUsed);
+
+    //Création de la sessions
+    CompteClient client = (CompteClient) session.getAttribute("sessionUtilisateur");
 %>
 
 <!DOCTYPE html>
@@ -34,44 +35,31 @@
     <script src="js/titleBarCreation.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/waitForHTMLElementToLoad.js"></script>
-    <script src="js/deconnexion.js"></script>
     <script src="js/acceuil.js"></script>
 
 
 
-
-    <%if(signedInSent != null && signedInSent == true){ //Si l'info envoyé correspond à la connection de l'utilisateur, execution d'un script js%>
-    <script>
-        window.addEventListener("load", function (){
-            const userConnecte = new Client(<%=S.c(infoClient[2])%>, <%=S.c(infoClient[3])%>, <%=S.c(infoClient[1])%>, <%=S.c(infoClient[0])%>, <%=S.c(infoClient[4])%>, <%=S.c(infoClient[5])%>);
-            saveObject('client', userConnecte); //Important : Objet représentant la connection de l'utilisateur.
-            <%System.out.println("Informations client sauvegardé.\nClient connecté.");
-            signedInSent = false;
-            %>
-        }, false)
-    </script>
-    <%
-        } //les appels window.addEventListener stack de base
-    %>
-
-
-    <script>
-        window.addEventListener("load", function (){
-            //Attente de la construction de la barre
-
-            //Construction de la barre de menu en js, car l'information de connexion est au niveau du client
-            const client = getObject('client');
-            if (client != undefined) { //Donc un utilisateur est connecté
-                var nomClient = client.nom;
-                var prenomClient = client.prenom;
-                waitForElement("LogOut", disconnect); //Met en place le binding d'événement avec le bouton deconnexion
-                logedIn(nomClient, prenomClient); //Construit la barre de navigation dans le cas où l'utilisateur est connecté
-            } else {
+    <%//les appels window.addEventListener stack de base%>
+    <%if(client == null){%>
+        <script>
+            window.addEventListener("load", function (){
                 waitForElement("connexion", createModal); //Va attendre la creation du bouton SignIn avant d'executé le script du modal
                 logedOut(); //Cas utilisateur non connecté
-            }
-        });
+            })
+        </script>
+    <%} else {%>
+    <script>
+        window.addEventListener("load", function () {
+            //Attente de la construction de la barre
+
+            //Construction de la barre de menu en js, car l'information de connection est au niveau du client
+            //const client = getObject('client');
+            var nomClient = <%=S.cd(client.getNom())%>;
+            var prenomClient = <%=S.cd(client.getPrenom())%>;
+            logedIn(nomClient, prenomClient); //Construit la barre de navigation dans le cas où l'utilisateur est connecté
+        })
     </script>
+    <%}%>
 
     <script>
         window.addEventListener("load", function (){

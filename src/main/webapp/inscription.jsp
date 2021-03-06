@@ -12,7 +12,14 @@
     CompteClient compteInscription = (CompteClient) request.getAttribute("compteInscription"); //Récupération du compte qu'on a essayé d'inscrire
     MetaCompteClient compte = new MetaCompteClient(compteInscription);
     Boolean successSignUp = (Boolean) request.getAttribute("successSignUp");
+
+    CompteClient client = (CompteClient) session.getAttribute("client");
 %>
+
+<%if(client != null){
+    String redirectUrl = "/SiteStreaming_war_exploded/Acceuil";
+    response.sendRedirect(redirectUrl);
+}%>
 
 <html>
 <head>

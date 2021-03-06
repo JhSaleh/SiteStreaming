@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class Acceuil extends HttpServlet {
@@ -16,11 +17,12 @@ public class Acceuil extends HttpServlet {
         //Récupération des données du formulaire
         String mail = request.getParameter("mailAddress");
         String password = request.getParameter("password");
-        String passwordWow = request.getParameter("passwordzazffzfz");
 
+        /*
         System.out.println("mail : "+mail);
         System.out.println("password : "+password);
         System.out.println("fake :"+passwordWow);
+        */
 
         if(mail != null){ //Si un formulaire a été envoyé
             System.out.println("Connection en cours. Preparation servlet.");
@@ -33,7 +35,14 @@ public class Acceuil extends HttpServlet {
                 System.out.println("Mdp entrée   : "+password);
                 System.out.println("Mdp comparé  : "+compteClient.getPassword());
                 if(compteClient.isPassWord(password)){ //Vérification du mdp
+
+                    //Essaie
                     System.out.println("Coté serveur : Connection réussit.");
+                    HttpSession session = request.getSession(); //Création d'une session utilisateur s'il n'a pas été créé avant
+                    session.setAttribute("sessionUtilisateur", compteClient); //Ajoute à la session la notion de client
+
+
+
                     request.setAttribute("infoClient", infoClient); //transmet l'info à d'autre servlet et la page html
                     request.setAttribute("signedInSent", true);
                 } else {
@@ -42,8 +51,6 @@ public class Acceuil extends HttpServlet {
                     request.setAttribute("passwordUsed", password);
                 }
             }
-        } else {
-            System.out.println("Coté serveur : Rien n'a été envoyé.");
         }
 
 

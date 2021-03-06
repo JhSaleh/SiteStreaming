@@ -80,6 +80,10 @@ window.addEventListener("load", function (){
         deconnectionDiv.className = "buttonLayout changeButtonColor";
         deconnectionDiv.textContent = "Se déconnecter";
 
+        var deconnectionDivLink = document.createElement("a");
+        deconnectionDivLink.href = "/SiteStreaming_war_exploded/LogOut";
+
+
         //Bouton catalogue
         var catalogueMainDiv = document.getElementById("catalogue");
         var catalogueButtonDiv = document.createElement('div');
@@ -107,7 +111,8 @@ window.addEventListener("load", function (){
         titleDiv.appendChild(linkTitleDiv);
         div.appendChild(titleDiv);
         div.appendChild(nomPrenomUserDivLink);
-        div.appendChild(deconnectionDiv);
+        deconnectionDivLink.appendChild(deconnectionDiv);
+        div.appendChild(deconnectionDivLink);
         mainDiv.appendChild(div);
 
         //Bouton catalogue principale
