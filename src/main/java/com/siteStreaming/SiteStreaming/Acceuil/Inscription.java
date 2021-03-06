@@ -34,7 +34,7 @@ public class Inscription extends HttpServlet {
 
 
         //Redirige vers la page d'acceuil
-        String pageName = "/inscription.jsp";
+        String pageName = "/WEB-INF/inscription.jsp";
         RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
         try {
