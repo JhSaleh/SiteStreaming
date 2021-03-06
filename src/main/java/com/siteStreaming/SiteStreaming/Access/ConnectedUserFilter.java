@@ -18,6 +18,7 @@ public class ConnectedUserFilter implements Filter {
      */
     public static final String sessionUtilisateur = "sessionUtilisateur";
 
+
     /**
      * Initialisation du filtre
      * @param filterConfig

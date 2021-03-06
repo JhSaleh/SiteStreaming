@@ -182,13 +182,41 @@ public class ClientDatabase {
         }
     }
 
+    /**
+     *Modifie le compte d'un client pour un mail donné
+     * @param compte
+     * @return
+     */
+    public boolean modifyClientAccount(CompteClient compte){
+        try {
+            String modifyToCompte = "update `Compte` "+
+                    "set civilite="+compte.getCiviliteD()+
+                    ", nom="+compte.getNomD()+
+                    ", prenom="+compte.getPrenomD()+
+                    ", motDePasse="+compte.getPasswordD()+
+                    ", dateNaissance="+compte.getBirthDateD()+
+                    " where adresseMail="+compte.getMailD()+
+                ";";
+        System.out.println(modifyToCompte);
+        this.statement.executeUpdate(modifyToCompte);
+
+        this.statement.executeUpdate("update `CompteClient` set adresseFacturation="+compte.getAddressD()+",  styleMusique="+compte.getStyleMusiqueD()+" where adresseMailClient="+compte.getMailD()+";");
+        System.out.println("Informations client modifié dans la bdd!");
+        return true;
+        } catch (SQLException e){
+            System.out.println("Informations client modifié dans la bdd!");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static void main(String[] args){
         //Tests
         ClientDatabase clientDatabase = new ClientDatabase();
-        String infoClient[] = clientDatabase.getAllClientInformation("harryJ@gmail.com");
         CompteClient compteClient = clientDatabase.getCompteClient("harryJ@gmail.com");
+        compteClient.setNom("Instagram");
+        clientDatabase.modifyClientAccount(compteClient);
 
-        System.out.println(infoClient[0]);
         compteClient.displayInformation();
 
     }

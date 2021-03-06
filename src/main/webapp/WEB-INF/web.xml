@@ -50,6 +50,7 @@
 
     <!--FILTER-->
     <!--Filtre utilisateur non connecté-->
+
     <filter>
         <filter-name>NonConnectedUser</filter-name>
         <filter-class>com.siteStreaming.SiteStreaming.Access.NonConnectedUserFilter</filter-class>
@@ -60,7 +61,6 @@
         <servlet-name>Profil</servlet-name>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
-
     <!--Filtre utilisateur connecté-->
     <filter>
         <filter-name>ConnectedUser</filter-name>
@@ -72,5 +72,4 @@
         <servlet-name>Inscription</servlet-name>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
-
 </web-app>

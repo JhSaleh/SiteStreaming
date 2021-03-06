@@ -1,5 +1,6 @@
 package com.siteStreaming.SiteStreaming.Acceuil;
 
+import com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter;
 import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
 
 import javax.servlet.RequestDispatcher;
@@ -29,7 +30,7 @@ public class Acceuil extends HttpServlet {
             ClientDatabase clientDatabase = new ClientDatabase();
             String infoClient[] = clientDatabase.getAllClientInformation(mail);
             CompteClient compteClient = clientDatabase.getCompteClient(mail);
-
+            CompteClient lastStateCompteClient = clientDatabase.getCompteClient(mail);
 
             if(compteClient != null){
                 System.out.println("Mdp entrée   : "+password);
@@ -39,8 +40,7 @@ public class Acceuil extends HttpServlet {
                     //Essaie
                     System.out.println("Coté serveur : Connection réussit.");
                     HttpSession session = request.getSession(); //Création d'une session utilisateur s'il n'a pas été créé avant
-                    session.setAttribute("sessionUtilisateur", compteClient); //Ajoute à la session la notion de client
-
+                    session.setAttribute(ConnectedUserFilter.sessionUtilisateur, compteClient); //Ajoute à la session la notion de client
 
 
                     request.setAttribute("infoClient", infoClient); //transmet l'info à d'autre servlet et la page html
