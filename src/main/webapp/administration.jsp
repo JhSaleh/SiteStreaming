@@ -30,8 +30,12 @@
 
     <p>
         <%
-            String attribut = (String) request.getAttribute("actionLine");
-            out.println( attribut );
+            if((Boolean) request.getAttribute("showAction")) {
+                String attribut = (String) request.getAttribute("actionLine");
+                out.println(attribut);
+            }else{
+                out.println("veuillez remplir les deux chqmps");
+            }
         %>
     </p>
 
@@ -40,7 +44,7 @@
     <form action="AdminWeb" method="post">
         <div>
             <label for="nbtitres">Nombre de titres à afficher: </label>
-            <input type="text" id="nbtitres" name="nbtitres">
+            <input type="text" id="nbtitres" name="nbtitres" required>
         </div>
         <div class="button">
             <button type="submit">Afficher le top </button>

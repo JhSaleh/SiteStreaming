@@ -1,25 +1,55 @@
 package com.siteStreaming.SiteStreaming.PageWebAdmin;
 
+import com.siteStreaming.SiteStreaming.DataBase.AdminDatabase;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class PageWebAdministration extends HttpServlet {
-    private void doProcess(HttpServletRequest request, HttpServletResponse response){
+    private void doProcess(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-        String paramNom = request.getParameter( "nom" );
+
+        String defaultActionString = "action";
+        String defaultNbTitresString = "0";
+        String defaultNameString = "nom";
+        String actionLine;
+        boolean ActionLineStatus = false;
+
         String paramAction = request.getParameter( "actionEf" );
-        String paramNbTitres = request.getParameter("nbtitres");
-        String actionLine = "Vous voulez : "+paramAction+" le client :"+paramNom;
-        int formAction = 0;
+        String paramNom = request.getParameter( "nom" );
+        System.out.println("paramAction is : "+paramAction);
 
+        String paramNbTitres = request.getParameter("nbtitres");
+        if (paramNbTitres==null){
+            paramNbTitres = defaultNbTitresString;
+        }
+
+        if (paramAction==null|| paramNom==null) {
+            actionLine = "Vous voulez : " + defaultActionString + " le client :" + defaultNameString;
+            System.out.println("null null"+actionLine);
+
+        }else{
+            actionLine = "Vous voulez : " + paramAction + " le client : " + paramNom;
+            ActionLineStatus = true;
+            System.out.println("non null"+actionLine);
+        }
+
+        request.setAttribute("showAction",ActionLineStatus);
         request.setAttribute("actionLine",actionLine);
+
+        if (!paramNbTitres.equals("0")){
+            System.out.println("paramNbTitres = "+paramNbTitres);
+            AdminDatabase admDBImpl = new AdminDatabase();
+            System.out.println(admDBImpl.consulterTopNMusiques(Integer.parseInt(paramNbTitres),"periode"));
+        }
+
+
         String pageName = "/administration.jsp";
         this.getServletContext().getRequestDispatcher(pageName);
-
         RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
         try {
@@ -32,12 +62,20 @@ public class PageWebAdministration extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        doProcess(req, resp);
+        try {
+            doProcess(req, resp);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        doProcess(req, resp);
+        try {
+            doProcess(req, resp);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }
