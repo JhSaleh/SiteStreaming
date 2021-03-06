@@ -6,8 +6,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient"%>
+<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.MetaCompteClient" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
+
+<%
+    /* Compte du client connecté */
+    CompteClient compteProfil = (CompteClient) request.getAttribute("compteProfil");
+
+%>
 
 
 <html>
@@ -17,75 +27,87 @@
     <link rel="shortcut icon" href="#"> <!--favicon error-->
 
     <link rel="stylesheet" type="text/css" href="./css/profil.css">
-    <!--     <script src="../js/inscription.js"></script>                          JS à créer-->
-    <!--     <script src="../js/waitForHTMLElementToLoad.js"></script>                       -->
+    <script src="./js/profil.js"></script>
+  <!-- <script src="../js/waitForHTMLElementToLoad.js"></script> -->
 
-    <!--
+
     <script>
-        window.addEventListener("load", function () {
-            //Vérification de la cohérence des mdps
-            var listIdToWait = ["password", "confirmPassword", "checkMdp1", "checkMdp2"];
-            waitForManyElements(listIdToWait, inscriptionEventChecksMdp); //Applique le binding aux champs de mdp
 
-            //Vérification du formatage de mail
-            var listIdToWait2 = ["mail", "checkMail"];
-            waitForManyElements(listIdToWait, inscriptionEventChecksEmailFormat); //Applique le binding aux champs de mdp
-        })
+        /*
+
+    window.addEventListener("load", function () {
+    //Vérification de la cohérence des mdps
+    var listIdToWait = ["passwordUser", "confirmPasswordUser", "checkMdp1User", "checkMdp2User"];
+    waitForManyElements(listIdToWait, profilEventChecksMdp); //Applique le binding aux champs de mdp
+
+    //Vérification du formatage de mail
+    var listIdToWait2 = ["mailUser", "checkMailUser"];
+    waitForManyElements(listIdToWait2, profilEventChecksEmailFormat); //Applique le binding aux champs de mdp
+
+    //Vérification de la date de naissance
+    var listIdToWait3 = ["dateNaissanceUser", "ageStatusUser"];
+    waitForManyElements(listIdToWait3, profilEventChecksBirthDate);
+
+
+        }
+    )
+
+*/
     </script>
-    -->
+
 </head>
 
 
-<body>
+<body style ="background-color:black;">
     Page profil
 
     <div class = "gridyHeaderProfil">
-        <div id ="title"><a href="/SiteStreaming_war_exploded/Acceuil">UsTube</a></div>
-        <div id = "profilTitle">Mon compte</div>
+        <div id ="title"><a href="/SiteStreaming_war/Acceuil" style="color:#FFFFFF">UsTube</a></div>
+        <div id = "profilTitle" style="color:#FFFFFF">Mon compte</div>
     </div>
 
-    <div class="gridyBody">
-        <form id="profil" action="${pageContext.request.contextPath}/Profil" method="POST">  // Acceuil/Profil ????
+    <div class="gridyBodyUser">
+        <form id="profil" action="${pageContext.request.contextPath}/Profil" method="POST">
             <div class="gridyProfilForm">
-                <label id="nomL" for="nom">Nom :</label>
-                <input id="nom" class="labelStyle" type="text" required name="nom"> <!--name pour récupérer le nom sous jee-->
+                <label id="nomLUser" for="nomUser">Nom :</label>
+                <input id="nomUser" class="labelStyle" type="text" required name="nomUser" value="Nom du User">
 
-                <label id="prenomL" for="prenom">Prenom :</label>
-                <input id="prenom" class="labelStyle" type="text" required name="prenom">
+                <label id="prenomLUser" for="prenomUser">Prenom :</label>
+                <input id="prenomUser" class="labelStyle" type="text" required name="prenomUser" value="Prenom du User">
 
-                <label id="dateNaissanceL" for="dateNaissance">Date de naissance :</label>
-                <input id="dateNaissance" class="labelStyle" type="date" required name="birthDate">
+                <label id="dateNaissanceLUser" for="dateNaissanceUser">Date de naissance :</label>
+                <input id="dateNaissanceUser" class="labelStyle" type="date" required name="birthDateUser">
 
-                <label id="civiliteL" for="civilite">Civilite :</label>
+                <label id="civiliteLUser" for="civiliteUser">Civilite :</label>
 
                 <!--
                 <input id="civilite" class="labelStyle" type="" required name="civilite">
                 -->
                 <!--La liste déroulante garantit l'input-->
-                <select id = "civilite" class="labelStyle" size="1" name="sexe">
+                <select id = "civiliteUser" class="labelStyle" size="1" name="sexeUser">
                     <option>Homme</option>
                     <option>Femme</option>
                     <option>Non-binaire</option>
                 </select>
 
-                <label id="mailL" for="mail">Adresse mail :</label>
-                <input id="mail" class="labelStyle" type="email" required name="mail">
-                <div id="checkMail"></div>
+                <label id="mailLUser" for="mailUser">Adresse mail :</label>
+                <input id="mailUser" class="labelStyle" type="emailUser" required name="mailUser">
+                <div id="checkMailUser"></div>
 
-                <label id="passwordL" for="password">Mot de passe :</label>
-                <input id="password" class="labelStyle" type="password" required name="password">
-                <div id = "checkMdp1"></div>
+                <label id="passwordLUser" for="passwordUser">Mot de passe :</label>
+                <input id="passwordUser" class="labelStyle" type="passwordUser" required name="passwordUser">
+                <div id = "checkMdp1User"></div>
 
-                <label id="confirmPasswordL" for="confirmPassword">Confirmation du mot de passe :</label>
-                <input id="confirmPassword" class="labelStyle" type="password" required name="confirmPassword">
-                <div id = "checkMdp2"></div>
-
-
-                <label id="adresseFacturationL" for="adresseFacturation">Adresse de facturation :</label>
-                <input id="adresseFacturation" class="labelStyle" type="text" required name="adresseFacturation">
+                <label id="confirmPasswordLUser" for="confirmPasswordUser">Confirmation du mot de passe :</label>
+                <input id="confirmPasswordUser" class="labelStyle" type="passwordUser" required name="confirmPasswordUser">
+                <div id = "checkMdp2User"></div>
 
 
-                <input id="validateInscription" type="submit" value="Validez"> /////////////////////// A MODIFIER : Bouton pas encore ajouté
+                <label id="adresseFacturationLUser" for="adresseFacturationUser">Adresse de facturation :</label>
+                <input id="adresseFacturationUser" class="labelStyle" type="text" required name="adresseFacturationUser">
+
+
+                <input id="validateProfil" type="submit" value="Confirmer les modifications">
             </div>
         </form>
     </div>
