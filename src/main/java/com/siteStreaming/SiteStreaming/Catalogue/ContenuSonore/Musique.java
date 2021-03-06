@@ -1,5 +1,7 @@
 package com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical;
 
 public class Musique extends ContenuSonore {
@@ -18,7 +20,7 @@ public class Musique extends ContenuSonore {
     /**
      * genre musical
      */
-     com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical genreMusical;
+    static com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical genreMusical;
     /**
      * Duree de la musique
      */
@@ -83,5 +85,21 @@ public class Musique extends ContenuSonore {
         this.anneeCreation = anneeCreation;
         this.genreMusical = genreMusical;
         this.duree=duree;
+    }
+
+    public String musToJson(){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+                return mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void main(String[] args){
+        Musique m = new Musique("linktothemusic", false, "Melodie du soir", "joueur de piano"
+                , "2 mars 4000", genreMusical.romantique,100);
+        System.out.println(m.musToJson());
     }
 }

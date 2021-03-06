@@ -1,6 +1,7 @@
 package com.siteStreaming.SiteStreaming.Catalogue;
 
-import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
 import com.siteStreaming.SiteStreaming.DataBase.PlaylistDatabase;
 
@@ -84,14 +85,14 @@ public class Playlist {
 
     /**
      * Constructeur d'une playlist : à sa construction, elle est vide
-     * @param compteClient
+     * @param mail
      * @param titre
      * @param dureeTotale
      * @param anneeCreation
      */
-    public Playlist(CompteClient compteClient, String titre, int dureeTotale, String anneeCreation) {
+    public Playlist(String mail, String titre, int dureeTotale, String anneeCreation) {
         PlaylistDatabase playlistDatabase = new PlaylistDatabase();
-        this.idCompteClient = playlistDatabase.getIdClient(compteClient);
+        this.idCompteClient = playlistDatabase.getIdClient(mail);
         this.titre = titre;
         this.dureeTotale = dureeTotale;
         this.anneeCreation = anneeCreation;
@@ -182,7 +183,17 @@ public class Playlist {
         return existe;
     }
 
+    public String toJson(){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     public void enregistrer(){
 
     }
+
 }

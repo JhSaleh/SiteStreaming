@@ -61,7 +61,7 @@ public class PlaylistDatabase {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = this.connection.prepareStatement(
-                    "INSERT INTO `info_team07_schema`.`Playlist` (`idCompteClient`, `titre`, `dureeTotale`, `anneeCreation`) VALUES (?,?,?,EXTRACT(YEAR FROM CURRENT_DATE))");
+                    "INSERT INTO `info_team07_schema`.`Playlist` (`idCompteClient`, `titre`, `dureeTotale`, `anneeCreation`) VALUES (?,?,?,CURRENT_DATE)");
             preparedStatement.setInt(1, playlist.getIdCompteClient());
             preparedStatement.setString(2, playlist.getTitre());
             preparedStatement.setInt(3, playlist.getDureeTotale());
@@ -283,16 +283,16 @@ public class PlaylistDatabase {
     }
 
     /**
-     * Récupère l'id du client à partir de son compte
-     * @param client compte du client dont on veut l'id
+     * Récupère l'id du client à partir de son mail
+     * @param mail du client dont on veut l'id
      * @return l'id du client
      */
-    public int getIdClient(CompteClient client){
+    public int getIdClient(String mail){
         PreparedStatement preparedStatement = null;
         ResultSet res= null;
         try {
           preparedStatement = this.connection.prepareStatement("SELECT idCompteClient FROM CompteClient where adresseMailClient =?;");
-           preparedStatement.setString(1,client.getMail() );
+           preparedStatement.setString(1,mail );
            res = preparedStatement.executeQuery();
             if (res.next()) {
                 return res.getInt("idCompteClient");
@@ -313,14 +313,14 @@ public class PlaylistDatabase {
     }
     /**
      * Récupère la liste des playlist d'un client
-     * @param client dont on récupère les playlist
+     * @param mail du client dont on récupère les playlist
      * @return la liste des playlists si réussi, null sinon
      */
-    public List<Playlist> getAllPlaylist(CompteClient client){
+    public List<Playlist> getAllPlaylist(String mail){
         try {
             int idClient=-1;
             /* On récupère l'id du client */
-            idClient = this.getIdClient(client);
+            idClient = this.getIdClient(mail);
 
             if(idClient==-1){
                 System.out.println("ce client n'a pas été trouvé dans la base de donnée");
@@ -333,7 +333,7 @@ public class PlaylistDatabase {
                 Playlist temp;
                 List<Playlist> playlists = new ArrayList<>();
                 while (res.next()) {
-                    temp = new Playlist(client, res.getString("titre"), res.getInt("dureeTotale"),
+                    temp = new Playlist(mail, res.getString("titre"), res.getInt("dureeTotale"),
                             res.getString("anneeCreation"));
                     temp.setIdPlaylist(res.getInt("idPlaylist"));
                     playlists.add(temp);
@@ -388,9 +388,10 @@ public class PlaylistDatabase {
     /**
      * Récupère la playlist associée à l'identifiant donné
      * @param playlist dont on récupère l'identifiant
+     * @param mail du client
      * @return la playlist voulue
      */
-    public Playlist getPlaylistById(Playlist playlist, CompteClient client) {
+    public Playlist getPlaylistById(Playlist playlist, String mail) {
         try {
             if (playlist.getIdPlaylist()== -1) {
                 System.out.println("la playlist n'a pas d'identifiant");
@@ -402,7 +403,7 @@ public class PlaylistDatabase {
 
                 Playlist temp = null;
                 if (res.next()) {
-                    temp = new Playlist(client, res.getString("titre"), res.getInt("dureeTotale"),
+                    temp = new Playlist(mail, res.getString("titre"), res.getInt("dureeTotale"),
                             res.getString("anneeCreation"));
                     temp.setIdPlaylist(res.getInt("idPlaylist"));
                 }
@@ -420,7 +421,14 @@ public class PlaylistDatabase {
         }
     }
 
-
+    public void close(){
+        try {
+            this.statement.close();
+            this.connection.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     public static void main(String[] args){
 
@@ -431,12 +439,13 @@ public class PlaylistDatabase {
         //playlistDatabase.resetContenuPlaylist();
 
         CompteClient c = new CompteClient("Moulinex","lopmiur","M","aarobase@mail","vgtbhynju","12/12/12","12 prepre LPOP 70345", "Boys");
-    /*    c.addToDatabase(c);
+       c.addToDatabase(c);
 
-        Playlist p = new Playlist(c,"mesmusiquesperso",0,"9090");
-        Playlist p1 = new Playlist(c,"copie",234,"1252");
-
+        Playlist p = new Playlist(c.getMail(),"mesmusiquesperso",0,"9090");
         playlistDatabase.createPlaylist(p);
+
+      /*  Playlist p1 = new Playlist(c,"copie",234,"1252");
+
         playlistDatabase.createPlaylist(p1);
 
 
@@ -453,24 +462,28 @@ public class PlaylistDatabase {
         List<ContenuSonore> resultat = catDatabase.getTypeCatalogue("musique");
 
 
-        List<Playlist> mesplaylists = playlistDatabase.getAllPlaylist(c);
-
-Musique tp= null;
+        List<Playlist> mesplaylists = playlistDatabase.getAllPlaylist(c.getMail());
+        Musique tp= null;
         for(int i=0;i<resultat.size();i++) {
             tp = (Musique) resultat.get(i);
 
-            mesplaylists.get(1).ajouterElement(tp);
+            mesplaylists.get(0).ajouterElement(tp);
         }
-        playlistDatabase.enregistrerContenuPlaylist(mesplaylists.get(1));
+        playlistDatabase.enregistrerContenuPlaylist(mesplaylists.get(0));
+
+        mesplaylists = playlistDatabase.getAllPlaylist(c.getMail());
+        System.out.println(mesplaylists.get(0).toJson());
+/*
+
 
         mesplaylists.get(0).setTitre("je me change");
         playlistDatabase.renamePlaylist(mesplaylists.get(1));
 
-        Playlist modifié = playlistDatabase.getPlaylistById(mesplaylists.get(1),c);
+        Playlist modifié = playlistDatabase.getPlaylistById(mesplaylists.get(1),c.getMail());
         System.out.println(modifié.getTitre()+modifié.getDureeTotale());
         for(int i = 0; i<mesplaylists.size(); i++){
             System.out.println(mesplaylists.get(i).getTitre()+mesplaylists.get(i).getDureeTotale());
-        }
+        }*/
 
     }
 }

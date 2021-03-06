@@ -1,0 +1,17 @@
+
+.aside {
+    max-width: 20%;
+    float: left;
+}
+.section {
+    min-width: 75%;
+
+    float: right;
+}
+.button{
+    width: 100%;
+    background: #696969;
+}
+.titre {
+    font-weight: bold;
+}

@@ -48,6 +48,17 @@
         <url-pattern>/LogOut</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <display-name>DataHandler</display-name>
+        <servlet-name>DataHandler</servlet-name>
+        <servlet-class>com.siteStreaming.SiteStreaming.PageConnecté.DataHandler</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DataHandler</servlet-name>
+        <url-pattern>/DataHandler</url-pattern>
+    </servlet-mapping>
+
     <!--FILTER-->
     <!--Filtre utilisateur non connecté-->
     <filter>
@@ -73,4 +84,13 @@
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
+    <servlet>
+        <display-name>ExploreCatalogue</display-name>
+        <servlet-name>ExploreCat</servlet-name>
+        <servlet-class>com.siteStreaming.SiteStreaming.PageConnecté.ExploreCatalogue</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ExploreCat</servlet-name>
+        <url-pattern>/ExploreCat</url-pattern>
+    </servlet-mapping>
 </web-app>
