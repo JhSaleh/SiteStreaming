@@ -11,8 +11,10 @@ public class CompteClient {
     private String password;
     private String birthDate;
     private String address;
+    private String styleMusique;
 
-    public CompteClient(String inNom, String inPrenom, String inCivilite, String inMail, String inPassword, String inBirthDate, String inAddress){
+
+    public CompteClient(String inNom, String inPrenom, String inCivilite, String inMail, String inPassword, String inBirthDate, String inAddress, String inStyleMusique){
         this.nom = inNom;
         this.prenom = inPrenom;
         this.civilite = inCivilite;
@@ -20,6 +22,7 @@ public class CompteClient {
         this.password = inPassword;
         this.birthDate = inBirthDate;
         this.address = inAddress;
+        this.styleMusique = inStyleMusique;
     }
 
     //Setter
@@ -51,6 +54,10 @@ public class CompteClient {
         this.address = address;
     }
 
+    public void setStyleMusique(String styleMusique) {
+        this.styleMusique = styleMusique;
+    }
+
     //Getter
     public String getNom() {
         return nom;
@@ -80,6 +87,9 @@ public class CompteClient {
         return address;
     }
 
+    public String getStyleMusique() {
+        return styleMusique;
+    }
 
     //VersionDatabase
     public String getNomD() {
@@ -108,6 +118,10 @@ public class CompteClient {
         return S.c(address);
     }
 
+    public String getStyleMusiqueD(){
+        return S.c(styleMusique);
+    }
+
 
     /**
      * Ajoute un compte client à la base de donnée
@@ -116,6 +130,20 @@ public class CompteClient {
     public boolean addToDatabase(CompteClient compteClient){
         ClientDatabase clientDatabase = new ClientDatabase(); //Créé une connexion avec la bdd
         return clientDatabase.addClientAccount(compteClient);
+    }
+
+    /**
+     * Affiche les informations liées au compte client
+     */
+    public void displayInformation(){
+        System.out.println("Nom :"+nom);
+        System.out.println("Prenom :"+prenom);
+        System.out.println("Civilite :"+civilite);
+        System.out.println("AdresseMail :"+mail);
+        System.out.println("MotDePasse :"+password);
+        System.out.println("DateNaissance :"+birthDate);
+        System.out.println("AdresseFacturation :"+address);
+        System.out.println("AdresseFacturation :"+styleMusique);
     }
 
     /**

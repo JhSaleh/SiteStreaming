@@ -99,5 +99,17 @@ public class MetaCompteClient {
         return S.cd(compte.getAddress());
     }
 
+    /**
+     * Renvoit le champs styleMusique si l'objet existe, sinon un string vide
+     * Version a utilisé dans une page jsp
+     * @return
+     */
+    public String getStyleMusique(){
+        if(this.compte == null){
+            return defaultStringAnswer;
+        }
+        return  S.cd(compte.getStyleMusique());
+    }
+
 
 }

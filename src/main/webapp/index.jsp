@@ -7,11 +7,17 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="com.siteStreaming.SiteStreaming.DataBase.S" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.MetaErrorHandler" %>
 
-
-<% //Récupération des données transmises depuis le servlet
+<%
+    //Récupération des données transmises depuis le servlet en cas de connection
     Boolean signedInSent = (Boolean)request.getAttribute("signedInSent");
     String[] infoClient = (String[])request.getAttribute("infoClient");
+
+    //En cas d'erreur
+    String mailAddressUsed = (String)request.getAttribute("mailAddressUsed");
+    String passwordUsed = (String)request.getAttribute("passwordUsed");
+    MetaErrorHandler metaErrorHandler = new MetaErrorHandler(mailAddressUsed, passwordUsed);
 %>
 
 <!DOCTYPE html>
@@ -29,15 +35,15 @@
     <script src="js/modal.js"></script>
     <script src="js/waitForHTMLElementToLoad.js"></script>
     <script src="js/deconnexion.js"></script>
+    <script src="js/acceuil.js"></script>
 
 
 
 
-    <%System.out.println("@infoClient"+infoClient);%>
     <%if(signedInSent != null && signedInSent == true){ //Si l'info envoyé correspond à la connection de l'utilisateur, execution d'un script js%>
     <script>
         window.addEventListener("load", function (){
-            const userConnecte = new Client(<%=S.c(infoClient[2])%>, <%=S.c(infoClient[3])%>, <%=S.c(infoClient[1])%>, <%=S.c(infoClient[0])%>, <%=S.c(infoClient[4])%>, <%=S.c(infoClient[5])%>, <%=S.c(infoClient[6])%>);
+            const userConnecte = new Client(<%=S.c(infoClient[2])%>, <%=S.c(infoClient[3])%>, <%=S.c(infoClient[1])%>, <%=S.c(infoClient[0])%>, <%=S.c(infoClient[4])%>, <%=S.c(infoClient[5])%>);
             saveObject('client', userConnecte); //Important : Objet représentant la connection de l'utilisateur.
             <%System.out.println("Informations client sauvegardé.\nClient connecté.");
             signedInSent = false;
@@ -67,6 +73,14 @@
         });
     </script>
 
+    <script>
+        window.addEventListener("load", function (){
+            //Bind le fait d'appuyer au clavier avec la disparition du msg de status en cas d'erreur de credentials
+            var listId = ["mailAddress", "statusMsg"];
+            waitForManyElements(listId, acceuilCheckEventTypingMailConnection);
+        })
+    </script>
+
 </head>
 
 
@@ -82,29 +96,38 @@
 
 <body>
     <!--Modal : ou page superposée-->
-    <div id="connexion" class="modal">
+    <%if(mailAddressUsed == null){%>
+        <div id="connexion" class="modal modalHidden">
+    <%}else{ //En cas d'erreur de connection, réaffichage automatique du modal%>
+        <div id="connexion" class="modal modalNotHidden">
+    <%}%>
         <div class="modal-content gridyModal"> <!--Contenu du modal-->
             <div id="SignUpModal">Se connecter</div>
             <div class="close">&times;</div> <!--syntaxe pour le bouton x-->
             <form id="formSignIn" action="${pageContext.request.contextPath}/Acceuil" method="POST">
 
                 <div class="gridyFields">
-                    <label id="mailAddressLabel" for="mailAddress">Adresse mail</label>
-                    <input id="mailAddress" class="labelStyle" type="email" required name="mailAddress">
+                    <label id="mailAddressLabel" for="mailAddress">Adresse mail :</label>
+                    <input id="mailAddress" class="labelStyle" type="email" value=<%=metaErrorHandler.getEmailUsed()%> required name="mailAddress">
 
-                    <label id="mailPasswordLabel" for="password">Mot de passe</label>
-                    <input id="password" class="labelStyle" type="password" required name="password">
+                    <label id="mailPasswordLabel" for="password">Mot de passe :</label>
+                    <input id="password" class="labelStyle" type="password" value=<%=metaErrorHandler.getPasswordUsed()%> required name="password">
 
                     <input id="validate" type="submit" value="Validez">
                 </div>
             </form>
+            <%if(mailAddressUsed == null){%>
+                <div id="statusMsg" class="statusMsgLayoutHidden"></div>
+            <%}else{%>
+                <div id="statusMsg" class="statusMsgLayout">Email ou mot de passe incorrect.</div>
+            <%}%>
         </div>
     </div>
     <!--Fin du modal-->
 
 
 <!--Partie visible du site-->
-    <div id="gridyHeader">
+    <div id="gridyHeader"> <!--Construit dans titleBarCreation.js-->
 
     </div>
 

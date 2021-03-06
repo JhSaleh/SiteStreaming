@@ -82,6 +82,15 @@
                 <label id="adresseFacturationL" for="adresseFacturation">Adresse de facturation :</label>
                 <input id="adresseFacturation" class="labelStyle" type="text" value=<%=compte.getAddress()%> required name="adresseFacturation">
 
+                <label id ="styleMusiqueL" for="styleMusique">Style de musique préféré</label>
+                <select id ="styleMusique" class="labelStyle" size="1" value=<%=compte.getStyleMusique()%> name="styleMusique">
+                    <option>House</option>
+                    <option>Pop</option>
+                    <option>Metal</option>
+                    <option>Classique</option>
+                    <option>Jazz</option>
+                </select>
+
                 <input id="validateInscription" type="submit" value="Validez">
             </div>
         </form>

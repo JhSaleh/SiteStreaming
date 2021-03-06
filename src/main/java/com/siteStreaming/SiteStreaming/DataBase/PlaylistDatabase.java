@@ -423,13 +423,14 @@ public class PlaylistDatabase {
 
 
     public static void main(String[] args){
+
         //Tests
 
         PlaylistDatabase playlistDatabase = new PlaylistDatabase();
 
         //playlistDatabase.resetContenuPlaylist();
 
-        CompteClient c = new CompteClient("Moulinex","lopmiur","M","aarobase@mail","vgtbhynju","12/12/12","12 prepre LPOP 70345");
+        CompteClient c = new CompteClient("Moulinex","lopmiur","M","aarobase@mail","vgtbhynju","12/12/12","12 prepre LPOP 70345", "Boys");
     /*    c.addToDatabase(c);
 
         Playlist p = new Playlist(c,"mesmusiquesperso",0,"9090");
@@ -448,7 +449,7 @@ public class PlaylistDatabase {
         catDatabase.createContenuSonore(m);
         catDatabase.createContenuSonore(m1);
 */
-       CatalogueDatabase catDatabase = new CatalogueDatabase();
+        CatalogueDatabase catDatabase = new CatalogueDatabase();
         List<ContenuSonore> resultat = catDatabase.getTypeCatalogue("musique");
 
 

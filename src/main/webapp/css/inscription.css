@@ -31,7 +31,7 @@
 
     display: grid;
     grid-template-columns: 1fr 4fr 4fr 1fr;
-    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
     grid-template-areas:". . . ."
                         ". nomL nom ."
                         ". prenomL prenom ."
@@ -41,6 +41,7 @@
                         ". passwordL password checkMdp1"
                         ". confirm_passwordL confirm_password checkMdp2"
                         ". adresseFacturationL adresseFacturation ."
+                        ". styleMusiqueL styleMusique ."
                         ". . validateIns .";
 }
 
@@ -145,6 +146,14 @@
     grid-area: adresseFacturationL;
 }
 
+#styleMusiqueL{
+    grid-area: styleMusiqueL;
+}
+
+#styleMusique{
+    grid-area: styleMusique;
+}
+
 /*3eme gridy*/
 .gridyBody{
     display: grid;
@@ -167,7 +176,7 @@
     margin-top: 35px;
     margin-bottom: 15px;
     margin-right: 160px;
-    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
     grid-template-areas:
             "."
             "."
@@ -177,12 +186,14 @@
             "mailStatus"
             "mdpStatus"
             "confirmMdpStatus"
+            "."
             ".";
     width: 7.5cm;
 }
 
 
 .statusMsgLayout{
+    font-size: 10px;
     background-color: lightgray;
     border: 2px solid slategray;
     border-radius: 15px;
@@ -228,7 +239,7 @@
     margin-top: 35px;
     margin-bottom: 15px;
     margin-left: 150px;
-    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
     grid-template-areas:
             "."
             "."
@@ -238,6 +249,7 @@
             "mailAlreadyTaken"
             "mdpStrengthStatus"
             "mdpStrengthStatus"
+            "."
             ".";
     width: 7.5cm;
 }

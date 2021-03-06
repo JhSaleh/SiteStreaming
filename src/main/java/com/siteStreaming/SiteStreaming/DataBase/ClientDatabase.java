@@ -101,9 +101,50 @@ public class ClientDatabase {
             String query = "SELECT * FROM Compte where adresseMail ="+mail+";";
             ResultSet res = this.statement.executeQuery(query);
             if (res.next()) { //S'il y a un élément dans le résultat, c'est que le client est présent dans la bdd
-                String[] answer = {res.getString("adresseMail"), res.getString("civilite"), res.getString("nom"), res.getString("prenom"), res.getString("motDePasse"), res.getString("dateNaissance"), res.getString("adresseFacturation")};
-                System.out.println("Tte les infos clients : "+ answer[0] +answer[1] + answer[3] + answer[4] + " etc.");
+                String[] answer = {res.getString("adresseMail"), res.getString("civilite"), res.getString("nom"), res.getString("prenom"), res.getString("motDePasse"), res.getString("dateNaissance")};
+                //System.out.println("Tte les infos clients : "+ answer[0] +answer[1] + answer[3] + answer[4] + " etc.");
                 return answer;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Renvoit le compte client s'il existe pour un mail donné
+     * @param mail
+     * @return
+     */
+    public CompteClient getCompteClient(String mail){
+        String nom, prenom, civilite, email, mdp, dateNaissance, addresseFacturation, styleMusique;
+        try{
+            mail = "'"+mail+"'";
+
+            String query = "SELECT * FROM Compte where adresseMail ="+mail+";";
+            ResultSet res = this.statement.executeQuery(query);
+            if (res.next()) { //S'il y a un élément dans le résultat, c'est que le client est présent dans la bdd
+
+                //Récupération des élèments de compte client
+                nom = res.getString("nom");
+                prenom = res.getString("prenom");
+                civilite = res.getString("civilite");
+                email = res.getString("adresseMail");
+                mdp = res.getString("motDePasse");
+                dateNaissance = res.getString("dateNaissance");
+
+                String query2 = "SELECT * FROM CompteClient where adresseMailClient ="+mail+";";
+                ResultSet res2 = this.statement.executeQuery(query2);
+                if (res2.next()){
+                    addresseFacturation = res2.getString("adresseFacturation");
+                    styleMusique = res2.getString("styleMusique");
+                    System.out.println("Succes finding the client !");
+                    return new CompteClient(nom, prenom, civilite, email, mdp, dateNaissance, addresseFacturation, styleMusique);
+                }
+
+                return null;
             } else {
                 return null;
             }
@@ -126,13 +167,12 @@ public class ClientDatabase {
                             compte.getNomD()+","+
                             compte.getPrenomD()+","+
                             compte.getPasswordD()+","+
-                            compte.getBirthDateD()+","+
-                            compte.getAddressD()+
+                            compte.getBirthDateD()+
                             ");";
             System.out.println(addToCompte);
             this.statement.executeUpdate(addToCompte);
 
-            this.statement.executeUpdate("insert into `CompteClient` values(NULL,"+compte.getMailD()+");");
+            this.statement.executeUpdate("insert into `CompteClient` values(NULL,"+compte.getMailD()+","+compte.getAddressD()+","+compte.getStyleMusiqueD()+");");
             System.out.println("Client ajouté à la bdd!");
             return true;
         } catch (SQLException e){
@@ -145,18 +185,11 @@ public class ClientDatabase {
     public static void main(String[] args){
         //Tests
         ClientDatabase clientDatabase = new ClientDatabase();
-        /*
-        clientDatabase.createAccountTable();
-        clientDatabase.createClientTable();
-        */
-        /*
-        CompteClient bob = new CompteClient("Bob", "Prenom", "Monsieur", "bob2@gmail.com", "123456", "12-02-2002", "Paris");
-        clientDatabase.addClientAccount(bob);
-        */
-        String res[] = clientDatabase.getAllClientInformation("bob2@gmail.com");
-        for(int i = 0; i<res.length; i++){
-            System.out.println(res[i]);
-        }
+        String infoClient[] = clientDatabase.getAllClientInformation("harryJ@gmail.com");
+        CompteClient compteClient = clientDatabase.getCompteClient("harryJ@gmail.com");
+
+        System.out.println(infoClient[0]);
+        compteClient.displayInformation();
 
     }
 
