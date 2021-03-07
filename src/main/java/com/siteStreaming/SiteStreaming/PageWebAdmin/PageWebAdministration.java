@@ -14,7 +14,6 @@ public class PageWebAdministration extends HttpServlet {
 
 
         String defaultActionString = "action";
-        String defaultNbTitresString = "0";
         String defaultNameString = "nom";
         String actionLine;
         boolean ActionLineStatus = false;
@@ -22,11 +21,6 @@ public class PageWebAdministration extends HttpServlet {
         String paramAction = request.getParameter( "actionEf" );
         String paramNom = request.getParameter( "nom" );
         System.out.println("paramAction is : "+paramAction);
-
-        String paramNbTitres = request.getParameter("nbtitres");
-        if (paramNbTitres==null){
-            paramNbTitres = defaultNbTitresString;
-        }
 
         if (paramAction==null|| paramNom==null) {
             actionLine = "Vous voulez : " + defaultActionString + " le client :" + defaultNameString;
@@ -41,12 +35,29 @@ public class PageWebAdministration extends HttpServlet {
         request.setAttribute("showAction",ActionLineStatus);
         request.setAttribute("actionLine",actionLine);
 
-        if (!paramNbTitres.equals("0")){
-            System.out.println("paramNbTitres = "+paramNbTitres);
-            AdminDatabase admDBImpl = new AdminDatabase();
-            System.out.println(admDBImpl.consulterTopNMusiques(Integer.parseInt(paramNbTitres),"periode"));
+        String defaultNbTitresString = "0";
+        String byPeriode = request.getParameter("byPeriode");
+        String paramNbTitres = request.getParameter("nbtitres");
+        if (paramNbTitres==null){
+            paramNbTitres = defaultNbTitresString;
+        }
+        if (paramNbTitres.equals("")){
+            paramNbTitres=defaultNbTitresString;
         }
 
+        System.out.println("byPeriode checkbox status = "+byPeriode);
+
+
+
+        if (!paramNbTitres.equals("0")) {
+            System.out.println("paramNbTitres = " + paramNbTitres);
+            AdminDatabase admDBImpl = new AdminDatabase();
+            if ((byPeriode.equals("byAll"))) {
+                request.setAttribute("topNmusique",admDBImpl.consulterTopNMusiques(Integer.parseInt(paramNbTitres), "all"));
+            } else {
+                request.setAttribute("topNmusique",admDBImpl.consulterTopNMusiques(Integer.parseInt(paramNbTitres), "mois"));
+            }
+        }
 
         String pageName = "/administration.jsp";
         this.getServletContext().getRequestDispatcher(pageName);
