@@ -31,7 +31,7 @@ public class AdminDatabase {
     }
 
     /**
-     * Afficher les n titres les plus écoutés
+     * Afficher les n musiques les plus écoutés en fonction de la période
      */
     public List<Musique> consulterTopNMusiques(int n, String periode) throws SQLException {
 
@@ -85,6 +85,9 @@ public class AdminDatabase {
         return topNmusique;
     }
 
+    /**
+     * Afficher les n titres les plus écoutés en fonction de la période et du type
+     */
     public List<ContenuSonore> consulterTopN(int n, String periode, String type) throws SQLException {
 
         List<ContenuSonore> topN = new ArrayList<>();
@@ -120,72 +123,82 @@ public class AdminDatabase {
             java.sql.Statement statement2 = connexion.createStatement();
             java.sql.ResultSet CategorieTest = statement2.executeQuery("select * from "+qType+" where id"+qType+" = '"+idContenuSonore+"'");
 
-            if(type == "music") {
+            switch (type) {
+                case "music": {
 
-                String titre;
-                String interprete;
-                genreMusical genreMusical;
-                int duree;
-                String annee;
+                    String titre;
+                    String interprete;
+                    genreMusical genreMusical;
+                    int duree;
+                    String annee;
 
-                if (CategorieTest.next()) {
-                    nbLectureMois = rs.getInt("nbLectureMois");
-                    nbLectureTotal = rs.getInt("nbLectureTotal");
-                    contenu = rs.getString("fichierAudio");
-                    titre = CategorieTest.getString("titre");
-                    interprete = CategorieTest.getString("interprete");
-                    genreMusical = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical.valueOf(CategorieTest.getString("genreMusical"));
-                    duree = CategorieTest.getInt("duree");
-                    annee = CategorieTest.getString("anneeCreation");
-                    System.out.println("idContenuSonore = " + idContenuSonore + ", nbLectureMois = " + nbLectureMois + ", nbLectureTotal = " + nbLectureTotal);
+                    if (CategorieTest.next()) {
+                        nbLectureMois = rs.getInt("nbLectureMois");
+                        nbLectureTotal = rs.getInt("nbLectureTotal");
+                        contenu = rs.getString("fichierAudio");
+                        titre = CategorieTest.getString("titre");
+                        interprete = CategorieTest.getString("interprete");
+                        genreMusical = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical.valueOf(CategorieTest.getString("genreMusical"));
+                        duree = CategorieTest.getInt("duree");
+                        annee = CategorieTest.getString("anneeCreation");
+                        System.out.println("idContenuSonore = " + idContenuSonore + ", nbLectureMois = " + nbLectureMois + ", nbLectureTotal = " + nbLectureTotal);
 
 
-                    ContenuSonore cont = new Musique(contenu, false, titre, interprete, annee, genreMusical, duree);
+                        ContenuSonore cont = new Musique(contenu, false, titre, interprete, annee, genreMusical, duree);
 
-                    topN.add(cont);
-                    counter += 1;
+                        topN.add(cont);
+                        counter += 1;
+                    }
+                    break;
                 }
-            }
-            else if(type == "radio"){
+                case "radio": {
 
-                String nom;
-                genreMusical genreMusical;
+                    String nom;
+                    genreMusical genreMusical;
 
 
-                if (CategorieTest.next()){
-                    nbLectureMois = rs.getInt("nbLectureMois");
-                    nbLectureTotal = rs.getInt("nbLectureTotal");
-                    contenu = rs.getString("fichierAudio");
-                    nom = CategorieTest.getString("nom");
-                    genreMusical = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical.valueOf(CategorieTest.getString("genreMusical"));
-                    System.out.println("idContenuSonore = "+idContenuSonore+", nbLectureMois = "+nbLectureMois+", nbLectureTotal = "+nbLectureTotal);
-                    ContenuSonore cont = new Radio(contenu,false,nom,genreMusical);
-                    topN.add(cont);
-                    counter+=1;
+                    if (CategorieTest.next()) {
+                        nbLectureMois = rs.getInt("nbLectureMois");
+                        nbLectureTotal = rs.getInt("nbLectureTotal");
+                        contenu = rs.getString("fichierAudio");
+                        nom = CategorieTest.getString("nom");
+                        genreMusical = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical.valueOf(CategorieTest.getString("genreMusical"));
+                        System.out.println("idContenuSonore = " + idContenuSonore + ", nbLectureMois = " + nbLectureMois + ", nbLectureTotal = " + nbLectureTotal);
+                        ContenuSonore cont = new Radio(contenu, false, nom, genreMusical);
+                        topN.add(cont);
+                        counter += 1;
+                    }
+                    break;
                 }
-            }else{
+                case "podcast": {
 
-                String titre;
-                String auteur;
-                int duree;
-                categorie categorie;
+                    String titre;
+                    String auteur;
+                    int duree;
+                    categorie categorie;
 
-                if (CategorieTest.next()){
-                    nbLectureMois = rs.getInt("nbLectureMois");
-                    nbLectureTotal = rs.getInt("nbLectureTotal");
-                    contenu = rs.getString("fichierAudio");
-                    titre = CategorieTest.getString("titre");
-                    duree = CategorieTest.getInt("duree");
-                    auteur = CategorieTest.getString("auteur");
-                    categorie = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie.valueOf(CategorieTest.getString("categorie"));
-                    System.out.println("idContenuSonore = "+idContenuSonore+", nbLectureMois = "+nbLectureMois+", nbLectureTotal = "+nbLectureTotal);
-                    ContenuSonore cont = new Podcast(contenu,false,titre,duree,auteur,categorie);
-                    topN.add(cont);
-                    counter+=1;
+                    if (CategorieTest.next()) {
+                        nbLectureMois = rs.getInt("nbLectureMois");
+                        nbLectureTotal = rs.getInt("nbLectureTotal");
+                        contenu = rs.getString("fichierAudio");
+                        titre = CategorieTest.getString("titre");
+                        duree = CategorieTest.getInt("duree");
+                        auteur = CategorieTest.getString("auteur");
+                        categorie = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie.valueOf(CategorieTest.getString("categorie"));
+                        System.out.println("idContenuSonore = " + idContenuSonore + ", nbLectureMois = " + nbLectureMois + ", nbLectureTotal = " + nbLectureTotal);
+                        ContenuSonore cont = new Podcast(contenu, false, titre, duree, auteur, categorie);
+                        topN.add(cont);
+                        counter += 1;
+                    }
+                    break;
                 }
             }
         }
 
         return topN;
     }
+
+    /**
+     * Afficher les n utlisateurs les plus actifs en fonction de la période
+     */
 }

@@ -45,11 +45,11 @@
 
     <form action="${pageContext.request.contextPath}/AdminWeb" method="POST">
         <div>
-            <input type="radio" id="musique" name="byType" value ="musique" checked>
-            <label for="musique">Musiques</label>
-            <input type="radio" id="radio" name="byType" value ="radio" checked>
+            <input type="radio" id="music" name="byType" value ="music" checked>
+            <label for="music">Musiques</label>
+            <input type="radio" id="radio" name="byType" value ="radio">
             <label for="radio">Radios</label>
-            <input type="radio" id="podcast" name="byType" value ="podcast" checked>
+            <input type="radio" id="podcast" name="byType" value ="podcast">
             <label for="podcast">Podcasts</label>
         </div>
         <div>

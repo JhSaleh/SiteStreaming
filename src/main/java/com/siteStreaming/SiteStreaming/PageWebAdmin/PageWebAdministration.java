@@ -38,6 +38,8 @@ public class PageWebAdministration extends HttpServlet {
         String defaultNbTitresString = "0";
         String byPeriode = request.getParameter("byPeriode");
         String paramNbTitres = request.getParameter("nbtitres");
+        String byType = request.getParameter("byType");
+
         if (paramNbTitres==null){
             paramNbTitres = defaultNbTitresString;
         }
@@ -46,6 +48,7 @@ public class PageWebAdministration extends HttpServlet {
         }
 
         System.out.println("byPeriode checkbox status = "+byPeriode);
+        System.out.println("byType checkbox status = "+byType);
 
 
 
@@ -53,9 +56,9 @@ public class PageWebAdministration extends HttpServlet {
             System.out.println("paramNbTitres = " + paramNbTitres);
             AdminDatabase admDBImpl = new AdminDatabase();
             if ((byPeriode.equals("byAll"))) {
-                request.setAttribute("topNmusique",admDBImpl.consulterTopNMusiques(Integer.parseInt(paramNbTitres), "all"));
+                request.setAttribute("topNmusique",admDBImpl.consulterTopN(Integer.parseInt(paramNbTitres), "all",byType));
             } else {
-                request.setAttribute("topNmusique",admDBImpl.consulterTopNMusiques(Integer.parseInt(paramNbTitres), "mois"));
+                request.setAttribute("topNmusique",admDBImpl.consulterTopN(Integer.parseInt(paramNbTitres), "mois",byType));
             }
         }
 
