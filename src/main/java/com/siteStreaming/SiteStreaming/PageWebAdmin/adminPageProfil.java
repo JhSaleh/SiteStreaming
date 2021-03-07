@@ -1,3 +1,6 @@
+/**
+ * @author: Jean-Hanna SALEH
+ */
 package com.siteStreaming.SiteStreaming.PageWebAdmin;
 
 import com.siteStreaming.SiteStreaming.Access.AdminFilter;
@@ -17,8 +20,37 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class adminPageProfil extends HttpServlet {
-    public static String utilisateurSelectionne = "utilisateurSelectionne";
+    public static String mailUtilisateurSelectionne = "mailUtilisateurSelectionne";
     public static String groupeUtilisateurEnvoye = "groupeUtilisateurEnvoye";
+
+
+    public Boolean hasChangedInformation(CompteClient compteClient, String[] infosClient){
+
+        System.out.println("Passage avant null");
+        if(infosClient[0] != null) {
+            System.out.println("Passage après null");
+            if (compteClient.getNom() != infosClient[0]) {
+                return true;
+            } else if (compteClient.getPrenom() != infosClient[1]) {
+                return true;
+            } else if (compteClient.getCivilite() != infosClient[2]) {
+                return true;
+            } else if (compteClient.getPassword() != infosClient[4]) {
+                return true;
+            } else if (compteClient.getBirthDate() != infosClient[5]) {
+                return true;
+            } else if (compteClient.getAddressD() != infosClient[6]) {
+                return true;
+            } else if (compteClient.getStyleMusique() != infosClient[7]) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
 
     private void doProcess(HttpServletRequest request, HttpServletResponse response){
         //Cas où le formulaire a été envoyé
@@ -51,10 +83,16 @@ public class adminPageProfil extends HttpServlet {
                 page = pageNameResearch;
             }
         } else {
+            HttpSession session = request.getSession();
             request.setAttribute("emailSelected", emailSelected); //Transfert de la valeur sur la seconde page
+            String sentModification = request.getParameter("sentModification");
+            if (sentModification != null){ //L'admin a appuyé sur le bouton
+                processingData(emailSelected, request, response);
+                request.setAttribute("successModification", true); //Déclenche le div
+            }
+
             page = pageNameModification;
         }
-
 
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher(page);
@@ -66,6 +104,52 @@ public class adminPageProfil extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void processingData(String mail, HttpServletRequest request, HttpServletResponse response){
+        String infosClient[] = {request.getParameter("nomUser"),
+                request.getParameter("prenomUser"),
+                request.getParameter("civiliteUser"),
+                request.getParameter("mailUser"),
+                request.getParameter("passwordUser"),
+                request.getParameter("birthDateUser"),
+                request.getParameter("adresseFacturationUser"),
+                request.getParameter("styleMusiqueUser")};
+        System.out.println("nom :"+infosClient[0] +" prenom :"+ infosClient[1] + "mail :"+ infosClient[3]);
+
+        //Redirige vers la page d'acceuil
+        ClientDatabase clientDatabase = new ClientDatabase();
+        CompteClient currentCompteClient = clientDatabase.getCompteClient(mail);
+        System.out.println("Passage dans Profil");
+
+        if(hasChangedInformation(currentCompteClient, infosClient)) {
+            System.out.println("Succes");
+            CompteClient compteToModify = new CompteClient(infosClient[0],
+                    infosClient[1],
+                    infosClient[2],
+                    currentCompteClient.getMail(), //car un champs input avec le label disable renvoit null
+                    infosClient[4],
+                    infosClient[5],
+                    infosClient[6],
+                    infosClient[7]); //Provient du formulaire
+            clientDatabase.modifyClientAccount(compteToModify);
+            clientDatabase.closeConnection();
+            request.setAttribute("successModification", true); //Déclenche le div
+        }
+        /*
+        //Redirige vers la page
+        String pageName = "${pageContext.request.contextPath}/Administration/AdminProfilClient?emailSelected="+mail;
+        RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
+
+        try {
+            rd.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+         */
     }
 
     @Override

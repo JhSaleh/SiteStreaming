@@ -257,8 +257,8 @@ public class ClientDatabase {
               addresseFacturation = res.getString("adresseFacturation");
               styleMusique = res.getString("styleMusique");
               compte = new CompteClient(nom, prenom, civilite, email, mdp, dateNaissance, addresseFacturation, styleMusique);
-              //System.out.println("-------------");
-              //compte.displayInformation();
+              System.out.println("-------------");
+              compte.displayInformation();
               resultList.add(compte);
           }
           return resultList;

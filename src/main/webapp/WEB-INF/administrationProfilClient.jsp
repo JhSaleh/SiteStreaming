@@ -49,13 +49,13 @@
 <body>
 <div class = "gridyProfilTitle">
     <div id ="title"><a href="/SiteStreaming_war_exploded/Acceuil">UsTube</a></div>
-    <div id = "inscriptionTitle">Modification Profil Client</div>
+    <a href="${pageContext.request.contextPath}/Administration/AdminProfilClient"><div id = "inscriptionTitle">Modification Profil Client</div></a>
     <a href="/SiteStreaming_war_exploded/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
 </div>
 
 
 <div class="gridyBody">
-    <form id="inscription" action="${pageContext.request.contextPath}/Profil" method="POST">
+    <form id="inscription" action="${pageContext.request.contextPath}/Administration/AdminProfilClient?emailSelected=<%=mailClient+"&sentModification=true"%>" method="POST">
         <div class="gridyInscriptionForm">
 
             <label id="nomL" for="nom">Nom :</label>

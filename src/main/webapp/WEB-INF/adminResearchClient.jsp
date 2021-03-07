@@ -31,7 +31,7 @@
 <body>
 <div class = "gridyProfilTitle">
     <div id ="title"><a href="/SiteStreaming_war_exploded/Acceuil">UsTube</a></div>
-    <div id = "inscriptionTitle">Modification Profil Client</div>
+    <a href="${pageContext.request.contextPath}/Administration/AdminProfilClient"><div id = "inscriptionTitle">Modification Profil Client</div></a>
     <a href="/SiteStreaming_war_exploded/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
 </div>
 
@@ -75,7 +75,7 @@
         </div>-->
 
 <%if(resultatResearch != null){
-    if(resultatResearch.size() > 1){
+    if(resultatResearch.size() > 0){
 %>
         <table class="tableSearchClient">
             <thead class="headColumns">

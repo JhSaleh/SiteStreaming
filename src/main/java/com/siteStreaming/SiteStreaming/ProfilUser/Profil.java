@@ -1,3 +1,6 @@
+/**
+ * @author: Jean-Hanna SALEH
+ */
 package com.siteStreaming.SiteStreaming.ProfilUser;
 
 import com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter;
