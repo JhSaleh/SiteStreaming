@@ -100,7 +100,7 @@ body{
 #gridyRecommendedVideos{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 5fr 1fr 1fr 1fr;
     grid-column-gap: 30px;
     grid-template-areas: "vidRec1 vidRec2 vidRec3 vidRec4 vidRec5"
                          "titleRec1 titleRec2 titleRec3 titleRec4 titleRec5"
@@ -217,7 +217,7 @@ body{
 #gridyPopularVideos{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 5fr 1fr 1fr 1fr 1fr;
     grid-column-gap: 30px;
     grid-template-areas: "vidPop1 vidPop2 vidPop3 vidPop4 vidPop5"
                         "titlePop1 titlePop2 titlePop3 titlePop4 titlePop5"
@@ -371,7 +371,6 @@ body{
     width: 80%;
     height: 50px;
     bottom: 0; /*bloque le footer vers le bas*/
-    position: fixed;
     z-index: -1;
 }
 
