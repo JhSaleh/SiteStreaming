@@ -3,7 +3,9 @@ package com.siteStreaming.SiteStreaming.PageConnecté;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
+import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
 import com.siteStreaming.SiteStreaming.Catalogue.Playlist;
+import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.DBManager;
 import com.siteStreaming.SiteStreaming.DataBase.PlaylistDatabase;
@@ -23,29 +25,53 @@ public class ExploreCatalogue extends HttpServlet {
         try {
         //Cas où le formulaire a été envoyé
         //request.getParameter("mailAddress")
-        String mail = "aarobase@mail";
-        if(mail != null){
-            System.out.println("Connection en cours. Preparation servlet.");
-            //ClientDatabase clientDatabase = new ClientDatabase();
-            //String infoClient[] = clientDatabase.getAllClientInformation(mail);
+            String mail = "aarobase@mail";
+            if(mail != null) {
+                PlaylistDatabase playlistDatabase = new PlaylistDatabase();
+                List<Playlist> mesplaylists = playlistDatabase.getAllPlaylist(mail);
 
-            //request.setAttribute("infoClient", infoClient); //transmet l'info à d'autre servlet et la page html
-            //request.setAttribute("signedInSent", true);
-            PlaylistDatabase playlistDatabase = new PlaylistDatabase();
-            List<Playlist> mesplaylists = playlistDatabase.getAllPlaylist(mail);
+                String playlists;
+                ObjectMapper mapper = new ObjectMapper();
 
-            String playlists;
-            ObjectMapper mapper = new ObjectMapper();
+                playlists = mapper.writeValueAsString(mesplaylists);
+                request.setAttribute("mesplaylists", playlists);
+                playlistDatabase.close();
 
-            playlists = mapper.writeValueAsString(mesplaylists);
-            System.out.println(playlists);
-            request.setAttribute("mesplaylists",playlists);
-            playlistDatabase.close();
+                CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
+                List<ContenuSonore> res;
+                Boolean recherche;
+                //Si une recherche pour un contenu sonore a été faite
+                if(request.getParameter("searchText")!=null) {
 
+                    String search = request.getParameter("searchText");
+                    recherche=true;
+                    System.out.println("recherche : " + search);
+                    request.setAttribute("search",search);
+
+                    res = catalogueDatabase.searchAllByTitle(search);
+                    res.addAll(catalogueDatabase.searchByAutor(search));
+                    res.addAll(catalogueDatabase.searchByCategorie(search));
+                    res.addAll(catalogueDatabase.searchByGenreMusical(search));
+
+                }else{
+                    recherche=false;
+                    System.out.println("pas de recherche, affiche les par défaut");
+                    res = catalogueDatabase.getRecommendationMoment();
+                    res.addAll(catalogueDatabase.getMorceauxPopulaires());
+                }
+                catalogueDatabase.close();
+
+                String resJson = mapper.writeValueAsString(res);
+                System.out.println(resJson);
+                if(recherche){
+                    request.setAttribute("musiques", resJson);
+                }else {
+                    request.setAttribute("musiquesDefault", resJson);
+                }
         }
 
         //Redirige vers la page d'acceuil
-        String pageName = "/restrictAdmin/exploreCat.jsp";
+        String pageName = "/WEB-INF/restrictAdmin/exploreCat.jsp";
         RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
         rd.forward(request, response);
@@ -60,13 +86,14 @@ public class ExploreCatalogue extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         doProcess(req, resp);
-    }
+}
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         doProcess(req, resp);
+        }
     }
-}
+
 
 
