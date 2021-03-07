@@ -101,7 +101,7 @@
             <td class="columnResult"><%=compte.getBirthDate()%></td>
             <td class="columnResult"><%=compte.getAddress()%></td>
             <td class="columnResult"><%=compte.getStyleMusique()%></td>
-            <td class="columnResult"><input type="submit" value="Validez"></td>
+            <td class="columnResult"><a href="${pageContext.request.contextPath}/Administration/AdminProfilClient?emailSelected=<%=compte.getMail()%>"><div style="height: 100%; width: 100%">Select</div></a></td>
         </tr>
         <%}%>
         </table>

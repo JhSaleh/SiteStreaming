@@ -9,11 +9,14 @@
 <%@page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient"%>
 <%@ page import="com.siteStreaming.SiteStreaming.Acceuil.MetaCompteClient" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter" %>
+<%@ page import="com.siteStreaming.SiteStreaming.DataBase.ClientDatabase" %>
 <%
     //CompteClient compteInscription = (CompteClient) request.getAttribute("compteInscription"); //Récupération du compte qu'on a essayé d'inscrire
-    Boolean successModification = (Boolean) request.getAttribute("successModification");
-    CompteClient client = (CompteClient) session.getAttribute(ConnectedUserFilter.sessionUtilisateur);
+    String mailClient = (String) request.getParameter("emailSelected"); //Récupération du mail sélectionné par l'administrateur
+    ClientDatabase clientDatabase = new ClientDatabase();
+    CompteClient client = clientDatabase.getCompteClient(mailClient);
     MetaCompteClient compte = new MetaCompteClient(client);
+    Boolean successModification = (Boolean) request.getAttribute("successModification");
 %>
 
 

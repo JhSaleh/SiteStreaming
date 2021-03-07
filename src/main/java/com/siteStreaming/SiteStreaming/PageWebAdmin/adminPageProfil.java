@@ -32,26 +32,32 @@ public class adminPageProfil extends HttpServlet {
         //Redirige vers la page d'acceuil
         String pageNameModification = "/WEB-INF/administrationProfilClient.jsp";
         String pageNameResearch = "/WEB-INF/adminResearchClient.jsp";
+        String page = "";
 
         String mail = request.getParameter("email");
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
+        String emailSelected = request.getParameter("emailSelected");
 
-        if(mail != null || nom != null || prenom != null){
-            System.out.println(mail + " " + nom + " " + prenom);
-            System.out.println("Passage dans la research");
-            ClientDatabase clientDatabase = new ClientDatabase();
-            ArrayList<CompteClient> result = clientDatabase.searchClient(nom, prenom, mail);
-            request.setAttribute(groupeUtilisateurEnvoye, result);
+        if(emailSelected == null) {
+            if (mail != null || nom != null || prenom != null) {
+                System.out.println(mail + " " + nom + " " + prenom);
+                System.out.println("Passage dans la research");
+                ClientDatabase clientDatabase = new ClientDatabase();
+                ArrayList<CompteClient> result = clientDatabase.searchClient(nom, prenom, mail);
+                request.setAttribute(groupeUtilisateurEnvoye, result);
+                page = pageNameResearch;
+            } else {
+                page = pageNameResearch;
+            }
+        } else {
+            request.setAttribute("emailSelected", emailSelected); //Transfert de la valeur sur la seconde page
+            page = pageNameModification;
         }
 
 
 
-
-
-
-
-        RequestDispatcher rd = getServletContext().getRequestDispatcher(pageNameResearch);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher(page);
 
         try {
             rd.forward(request, response);
