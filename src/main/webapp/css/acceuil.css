@@ -89,8 +89,12 @@ body{
 
 /*sections*/
 .section{
+    padding-left: 3%;
+    padding-right: 4%;
+    padding-bottom: 3%;
     border-radius: 5px;
     background-color: dimgrey;
+    border: 5px solid gray;
     margin-bottom: 150px;
     min-width: min-content;
     z-index: auto;

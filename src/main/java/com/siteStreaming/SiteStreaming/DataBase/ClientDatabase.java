@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class ClientDatabase {
     public Connection connection;
@@ -211,14 +212,78 @@ public class ClientDatabase {
         }
     }
 
+    public String checkIfNull(String string){
+        if(string == null || string == ""){
+            return "null";
+        } else {
+            return  string;
+        }
+    }
+
+    /**
+     * Recherche des clients dans la base de données basé sur les informations rentrées
+     * @param nomSearch
+     * @param prenomSearch
+     * @param emailSearch
+     * @return
+     */
+    public ArrayList<CompteClient> searchClient(String nomSearch, String prenomSearch, String emailSearch){
+        nomSearch = checkIfNull(nomSearch);
+        prenomSearch = checkIfNull(prenomSearch);
+        emailSearch = checkIfNull(emailSearch);
+
+        nomSearch = S.c("%"+nomSearch+"%");
+        prenomSearch = S.c("%"+prenomSearch+"%");
+        emailSearch = S.c("%"+emailSearch+"%");
+        String nom, prenom, civilite, email, mdp, dateNaissance, addresseFacturation, styleMusique;
+        ArrayList<CompteClient> resultList;
+
+        try{
+            String query = "SELECT * FROM Compte JOIN CompteClient ON Compte.adresseMail=adresseMailClient" +
+                           " WHERE Compte.nom LIKE "+nomSearch+"OR Compte.prenom LIKE"+prenomSearch+"OR Compte.adresseMail LIKE"+emailSearch+";";
+
+
+          System.out.println(query);
+          ResultSet res = this.statement.executeQuery(query);
+          CompteClient compte;
+          resultList = new ArrayList<>();
+          while(res.next()){
+              nom = res.getString("nom");
+              prenom = res.getString("prenom");
+              civilite = res.getString("civilite");
+              email = res.getString("adresseMail");
+              mdp = res.getString("motDePasse");
+              dateNaissance = res.getString("dateNaissance");
+              addresseFacturation = res.getString("adresseFacturation");
+              styleMusique = res.getString("styleMusique");
+              compte = new CompteClient(nom, prenom, civilite, email, mdp, dateNaissance, addresseFacturation, styleMusique);
+              System.out.println("-------------");
+              compte.displayInformation();
+              resultList.add(compte);
+          }
+          return resultList;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Ferme la connection active avec la base de données.
+     */
+    public void closeConnection(){
+        try {
+            this.connection.close();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args){
         //Tests
         ClientDatabase clientDatabase = new ClientDatabase();
-        CompteClient compteClient = clientDatabase.getCompteClient("harryJ@gmail.com");
-        compteClient.setNom("Instagram");
-        clientDatabase.modifyClientAccount(compteClient);
-
-        compteClient.displayInformation();
+        clientDatabase.searchClient(null, null, "yahoo");
 
     }
 
