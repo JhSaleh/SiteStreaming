@@ -48,6 +48,18 @@
         <url-pattern>/LogOut</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <display-name>Administration</display-name>
+        <servlet-name>Administration</servlet-name>
+        <servlet-class>com.siteStreaming.SiteStreaming.PageWebAdmin.PageWebAdministration</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Administration</servlet-name>
+        <url-pattern>/Administration</url-pattern>
+    </servlet-mapping>
+
+
     <!--FILTER-->
     <!--Filtre utilisateur non connecté-->
 

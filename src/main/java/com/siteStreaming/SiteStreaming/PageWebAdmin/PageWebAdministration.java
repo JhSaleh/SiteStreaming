@@ -62,7 +62,7 @@ public class PageWebAdministration extends HttpServlet {
             }
         }
 
-        String pageName = "/administration.jsp";
+        String pageName = "/WEB-INF/administration.jsp";
         this.getServletContext().getRequestDispatcher(pageName);
         RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
