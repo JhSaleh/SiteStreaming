@@ -50,12 +50,12 @@
 
     <servlet>
         <display-name>Administration</display-name>
-        <servlet-name>Administration</servlet-name>
+        <servlet-name>PageWebAdministration</servlet-name>
         <servlet-class>com.siteStreaming.SiteStreaming.PageWebAdmin.PageWebAdministration</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Administration</servlet-name>
+        <servlet-name>PageWebAdministration</servlet-name>
         <url-pattern>/Administration</url-pattern>
     </servlet-mapping>
 
