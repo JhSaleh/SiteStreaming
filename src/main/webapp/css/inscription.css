@@ -31,7 +31,7 @@
 
     display: grid;
     grid-template-columns: 1fr 4fr 4fr 1fr;
-    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
     grid-template-areas:". . . ."
                         ". nomL nom ."
                         ". prenomL prenom ."
@@ -41,7 +41,6 @@
                         ". passwordL password checkMdp1"
                         ". confirm_passwordL confirm_password checkMdp2"
                         ". adresseFacturationL adresseFacturation ."
-                        ". styleMusiqueL styleMusique ."
                         ". . validateIns .";
 }
 
@@ -146,22 +145,11 @@
     grid-area: adresseFacturationL;
 }
 
-#styleMusiqueL{
-    grid-area: styleMusiqueL;
-}
-
-#styleMusique{
-    grid-area: styleMusique;
-}
-
 /*3eme gridy*/
 .gridyBody{
     display: grid;
     grid-template-columns: 3fr 4fr 3fr;
-    grid-template-rows: 10fr 1fr;
-    grid-template-areas:
-            "statusFieldsLeft inscription statusFieldsRight"
-            ". successSignUp .";
+    grid-template-areas: "statusFieldsLeft inscription statusFieldsRight";
 }
 
 #inscription{
@@ -179,7 +167,7 @@
     margin-top: 35px;
     margin-bottom: 15px;
     margin-right: 160px;
-    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
     grid-template-areas:
             "."
             "."
@@ -189,14 +177,12 @@
             "mailStatus"
             "mdpStatus"
             "confirmMdpStatus"
-            "."
             ".";
     width: 7.5cm;
 }
 
 
 .statusMsgLayout{
-    font-size: 15px;
     background-color: lightgray;
     border: 2px solid slategray;
     border-radius: 15px;
@@ -242,7 +228,7 @@
     margin-top: 35px;
     margin-bottom: 15px;
     margin-left: 150px;
-    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
     grid-template-areas:
             "."
             "."
@@ -252,15 +238,13 @@
             "mailAlreadyTaken"
             "mdpStrengthStatus"
             "mdpStrengthStatus"
-            "mdpStrengthStatus"
             ".";
     width: 7.5cm;
 }
 
 #mdpStrengthStatus{
     grid-area: mdpStrengthStatus;
-    height: 3.3cm;
-    white-space: pre-line;
+    height: 2cm;
 }
 
 #mailAlreadyTaken{
@@ -292,25 +276,4 @@
     font-weight: bold;
     width: 1cm;
     text-align: center;
-}
-
-#successSignUp{
-    background-color: darkslateblue;
-    font-size: 30px;
-    font-weight: bold;
-    color: aliceblue;
-    border-radius: 50px;
-    text-align: center;
-    grid-area: successSignUp;
-    line-height: 50px;
-}
-
-.gridyProfilTitle{
-    display: grid;
-    grid-template-columns: 3fr 3fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas: "title inscriptionTitle LogOut"
-                        "title . .";
-    grid-column-gap: 15px;
-    z-index: auto;
 }

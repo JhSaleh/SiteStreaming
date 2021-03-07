@@ -17,16 +17,12 @@ public class Inscription extends HttpServlet {
                                                         request.getParameter("mail"),
                                                         request.getParameter("password"),
                                                         request.getParameter("birthDate"),
-                                                        request.getParameter("adresseFacturation"),
-                                                        request.getParameter("styleMusique"));
+                                                        request.getParameter("adresseFacturation"));
 
             //En cas d'échec de l'ajout, on envoit les champs déjà remplis remplis aux clients
             boolean successAdd = compteToAdd.addToDatabase(compteToAdd);
             if(!successAdd){
                 request.setAttribute("compteInscription", compteToAdd);
-                request.setAttribute("successSignUp", false);
-            } else {
-                request.setAttribute("successSignUp", true);
             }
         }
 
@@ -34,7 +30,7 @@ public class Inscription extends HttpServlet {
 
 
         //Redirige vers la page d'acceuil
-        String pageName = "/WEB-INF/inscription.jsp";
+        String pageName = "/inscription.jsp";
         RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
         try {

@@ -2,13 +2,14 @@
  * @author: Jean-Hanna SALEH
  */
 class Client{
-    constructor(nom, prenom, civilite, mail, password, birthdate) {
+    constructor(nom, prenom, civilite, mail, password, birthdate, adresseFacturation) {
         this.nom = nom;
         this.prenom = prenom;
         this.civilite = civilite;
         this.mail = mail;
         this.password = password;
         this.birthdate = birthdate;
+        this.adresseFacturation = adresseFacturation;
     }
 
 
@@ -21,5 +22,6 @@ class Client{
         console.log("mail :"+this.mail);
         console.log("password :"+this.password);
         console.log("birthdate :"+this.birthdate);
+        console.log("@Facturation :"+this.adresseFacturation);
     };
 }
