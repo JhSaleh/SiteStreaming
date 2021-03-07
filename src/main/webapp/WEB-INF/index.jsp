@@ -28,8 +28,9 @@
     <link rel="shortcut icon" href="#"> <!--favicon error-->
     <link rel="stylesheet" type="text/css" href="css/acceuil.css">
     <link rel="stylesheet" type="text/css" href="css/connexion.css">
-    <link rel="stylesheet" type="text/css" href="css/profil.css">
     <link rel="stylesheet" type="text/css" href="css/catalogue.css">
+    <link rel="stylesheet" type="text/css" href="css/imageFormat.css">
+
     <script src="js/client.js"></script>
     <script src="js/storeObject.js"></script>
     <script src="js/titleBarCreation.js"></script>
@@ -130,15 +131,19 @@
                 String titleRec = "";
                 String nbViewsRec = "";
                 String yearRec = "";
+                String linkImg = "";
+                String baseLink = "pictures/musicImg";
                 for(int i = 1; i<6; i++){
                 videoRec = "vidRec" + Integer.toString(i);
+                linkImg = baseLink +Integer.toString(i)+".jpg"; //génère le lien de l'image
+
                 titleRec = "titleRec" + Integer.toString(i);
                 nbViewsRec = "nbViewsRec" + Integer.toString(i);
                 yearRec = "yearRec" + Integer.toString(i);
 
             %>
 
-            <div id = <%=videoRec%>><%=defaultValue %></div>
+            <img id = <%=videoRec%> class="imageFormat" src=<%=linkImg%> alt="<%=defaultValue %>">
             <div id = <%=titleRec%>><%=defaultValueTitle%></div>
             <div id = <%=nbViewsRec%>><%=defaultValueViews%></div>
             <div id = <%=yearRec%>><%=defaultValueYear%></div>
@@ -160,15 +165,19 @@
                 String nbViewsPop = "";
                 String yearPop = "";
                 String playPop = "";
-                for(int i = 1; i<6; i++){
-                    videoPop = "vidPop" + Integer.toString(i);
-                    titlePop = "titlePop" + Integer.toString(i);
-                    nbViewsPop = "nbViewsPop" + Integer.toString(i);
-                    yearPop = "yearPop" + Integer.toString(i);
-                    playPop = "playPop" + Integer.toString(i);
+
+                String linkImgP = "";
+                String baseLinkP = "pictures/musicImg";
+                for(int j = 1; j<6; j++){
+                    videoPop = "vidPop" + Integer.toString(j);
+                    linkImgP = baseLinkP + Integer.toString(j+5)+".jpg";
+                    titlePop = "titlePop" + Integer.toString(j);
+                    nbViewsPop = "nbViewsPop" + Integer.toString(j);
+                    yearPop = "yearPop" + Integer.toString(j);
+                    playPop = "playPop" + Integer.toString(j);
             %>
 
-            <div id = <%=videoPop%>><%=defaultValue%></div>
+            <img id = <%=videoPop%> class="imageFormat" src=<%=linkImgP%> alt="<%=defaultValue %>">
             <div id = <%=titlePop%>><%=defaultValueTitle%></div>
             <div id = <%=nbViewsPop%>><%=defaultValueViews%></div>
             <div id = <%=yearPop%>><%=defaultValueYear%></div>

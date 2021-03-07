@@ -16,10 +16,7 @@
     CompteClient client = (CompteClient) session.getAttribute("client");
 %>
 
-<%if(client != null){
-    String redirectUrl = "/SiteStreaming_war_exploded/Acceuil";
-    response.sendRedirect(redirectUrl);
-}%>
+
 
 <html>
 <head>

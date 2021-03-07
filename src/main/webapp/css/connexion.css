@@ -28,10 +28,12 @@
 
 #mailAddressLabel{
     grid-area: labelMail;
+    width: max-content;
 }
 
 #mailPasswordLabel{
     grid-area: labelPwd;
+    width: max-content;
 }
 
 .labelStyle{

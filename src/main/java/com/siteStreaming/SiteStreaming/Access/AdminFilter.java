@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class ConnectedUserFilter implements Filter {
+public class AdminFilter implements Filter {
     /**
      * Page vers laquelle on redirige les utilisateurs qui n'ont pas de session ouverte.
      */
@@ -16,7 +16,7 @@ public class ConnectedUserFilter implements Filter {
     /**
      * Objet identifiant la session
      */
-    public static final String sessionUtilisateur = "sessionUtilisateur";
+    public static final String sessionAdmin = "sessionAdministrateur";
 
 
     /**
@@ -41,10 +41,10 @@ public class ConnectedUserFilter implements Filter {
         System.out.println("On filtre la requete dans AccessFilter.");
 
         /*
-         * Si l'objet utilisateur existe dans la session en cours, alors
-         * l'utilisateur n'a pas le droit d'accéder à la page d'inscription
+         * Si l'objet administrateur existe dans la session en cours, alors
+         * l'administrateur n'a pas le droit d'accéder à la page d'inscription
          */
-        if ( session.getAttribute(sessionUtilisateur) != null ) {
+        if ( session.getAttribute(sessionAdmin) == null ) {
             /* Redirection vers la page publique */
             response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
         } else {

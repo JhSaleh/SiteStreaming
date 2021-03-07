@@ -90,7 +90,7 @@ window.addEventListener("load", function (){
         notStrongMdpMsg = function (){
             mdpStrengthStatus.className = "statusMsgLayout";
 
-            let errorMsg = "Mot de passe de taille 8 ayant:\n-1 chiffre\n-1 minuscule\n-1 majuscule"
+            let errorMsg = "Mot de passe de taille 8 ayant au moins:\n -1 chiffre \n -1 minuscule\n -1 majuscule"
             mdpStrengthStatus.textContent = errorMsg;
         }
 
@@ -98,8 +98,8 @@ window.addEventListener("load", function (){
          * Cache le msg d'erreur si le mdp est fort
          */
         strongMdpMsg = function (){
-            mdpStrengthStatus.className = "statusMsgHiddenLayout";
             mdpStrengthStatus.textContent = "";
+            mdpStrengthStatus.className = "statusMsgHiddenLayout";
         }
 
         /**

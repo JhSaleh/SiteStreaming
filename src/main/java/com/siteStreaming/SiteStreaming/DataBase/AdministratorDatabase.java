@@ -1,5 +1,5 @@
 package com.siteStreaming.SiteStreaming.DataBase;
-
+import com.siteStreaming.SiteStreaming.Acceuil.CompteAdmin;
 import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
 
 import java.sql.Connection;
@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ClientDatabase {
+public class AdministratorDatabase {
     public Connection connection;
     public Statement statement;
 
@@ -15,7 +15,7 @@ public class ClientDatabase {
     /**
      * Crée une connection avec la base de données
      */
-    public ClientDatabase(){
+    public AdministratorDatabase(){
         try{
             this.connection = DBManager.getInstance().getConnection();
             this.statement = this.connection.createStatement();
@@ -24,37 +24,14 @@ public class ClientDatabase {
         }
     }
 
-    /**
-     * A utilisé si la table Compte est supprimée
-     */
-    public void createAccountTable(){
-        try {
-            this.statement.executeUpdate("DROP TABLE IF EXISTS `Compte`;");
-            //mettre dernière version
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
 
-    }
-
-    /**
-     * A utiliser seulement si la table CompteClient est supprimée
-     */
-    public void createClientTable(){
-        try {
-            this.statement.executeUpdate("DROP TABLE IF EXISTS `CompteClient`;");
-            //mettre dernière version
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Vérifie si un client est présent dans une bdd
      * @param mail
      * @return
      */
-    public boolean isClientInDatabase(String mail){
+    public boolean isAdminInDatabase(String mail){
         try{
             mail = S.cd(mail);
             String query = "SELECT * FROM CompteClient where adresseMailClient="+mail+";";
@@ -119,8 +96,8 @@ public class ClientDatabase {
      * @param mail
      * @return
      */
-    public CompteClient getCompteClient(String mail){
-        String nom, prenom, civilite, email, mdp, dateNaissance, addresseFacturation, styleMusique;
+    public CompteAdmin getCompteAdmin(String mail){
+        String nom, prenom, civilite, email, mdp, dateNaissance, isProfilManagerClient;
         try{
             mail = "'"+mail+"'";
 
@@ -136,13 +113,12 @@ public class ClientDatabase {
                 mdp = res.getString("motDePasse");
                 dateNaissance = res.getString("dateNaissance");
 
-                String query2 = "SELECT * FROM CompteClient where adresseMailClient ="+mail+";";
+                String query2 = "SELECT * FROM CompteAdmin where adresseMailAdmin ="+mail+";";
                 ResultSet res2 = this.statement.executeQuery(query2);
                 if (res2.next()){
-                    addresseFacturation = res2.getString("adresseFacturation");
-                    styleMusique = res2.getString("styleMusique");
-                    System.out.println("Succes finding the client !");
-                    return new CompteClient(nom, prenom, civilite, email, mdp, dateNaissance, addresseFacturation, styleMusique);
+                    isProfilManagerClient = res2.getString("isProfilManagerClient");
+                    System.out.println("Succes finding the admin !");
+                    return new CompteAdmin(nom, prenom, civilite, email, mdp, dateNaissance, isProfilManagerClient);
                 }
 
                 return null;
@@ -161,51 +137,23 @@ public class ClientDatabase {
      * @param compte
      * @return boolean indiquant le succès de l'opération
      */
-    public boolean addClientAccount(CompteClient compte){
+    public boolean addAdminAccount(CompteAdmin compte){
         try {
             String addToCompte = "insert into `Compte` values("+compte.getMailD()+","+
-                            compte.getCiviliteD()+","+
-                            compte.getNomD()+","+
-                            compte.getPrenomD()+","+
-                            compte.getPasswordD()+","+
-                            compte.getBirthDateD()+
-                            ");";
+                    compte.getCiviliteD()+","+
+                    compte.getNomD()+","+
+                    compte.getPrenomD()+","+
+                    compte.getPasswordD()+","+
+                    compte.getBirthDateD()+
+                    ");";
             System.out.println(addToCompte);
             this.statement.executeUpdate(addToCompte);
 
-            this.statement.executeUpdate("insert into `CompteClient` values(NULL,"+compte.getMailD()+","+compte.getAddressD()+","+compte.getStyleMusiqueD()+");");
-            System.out.println("Client ajouté à la bdd!");
+            this.statement.executeUpdate("insert into `CompteAdmin` values(NULL,"+compte.getMailD()+","+compte.getIsProfilManagerClientD()+");");
+            System.out.println("Admin ajouté à la bdd!");
             return true;
         } catch (SQLException e){
-            System.out.println("Client non ajouté à la bdd!");
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     *Modifie le compte d'un client pour un mail donné
-     * @param compte
-     * @return
-     */
-    public boolean modifyClientAccount(CompteClient compte){
-        try {
-            String modifyToCompte = "update `Compte` "+
-                    "set civilite="+compte.getCiviliteD()+
-                    ", nom="+compte.getNomD()+
-                    ", prenom="+compte.getPrenomD()+
-                    ", motDePasse="+compte.getPasswordD()+
-                    ", dateNaissance="+compte.getBirthDateD()+
-                    " where adresseMail="+compte.getMailD()+
-                ";";
-        System.out.println(modifyToCompte);
-        this.statement.executeUpdate(modifyToCompte);
-
-        this.statement.executeUpdate("update `CompteClient` set adresseFacturation="+compte.getAddressD()+",  styleMusique="+compte.getStyleMusiqueD()+" where adresseMailClient="+compte.getMailD()+";");
-        System.out.println("Informations client modifié dans la bdd!");
-        return true;
-        } catch (SQLException e){
-            System.out.println("Informations client modifié dans la bdd!");
+            System.out.println("Admin non ajouté à la bdd!");
             e.printStackTrace();
             return false;
         }
@@ -213,13 +161,11 @@ public class ClientDatabase {
 
     public static void main(String[] args){
         //Tests
-        ClientDatabase clientDatabase = new ClientDatabase();
-        CompteClient compteClient = clientDatabase.getCompteClient("harryJ@gmail.com");
-        compteClient.setNom("Instagram");
-        clientDatabase.modifyClientAccount(compteClient);
-
-        compteClient.displayInformation();
-
+        AdministratorDatabase administratorDatabase = new AdministratorDatabase();
+        CompteAdmin compteAdmin = new CompteAdmin("Josh", "ManageClient", "Monsieur", "joshS@gmail.com", "fjYn7p6yBcwWaPp", "1988-12-02", "true");
+        administratorDatabase.addAdminAccount(compteAdmin);
+        CompteAdmin compteAdmin2 = new CompteAdmin("Tyler", "ManageMusicLibrary", "Monsieur", "joshS2@gmail.com", "fjYn7p6yBcwWaPp", "1988-12-02", "false");
+        administratorDatabase.addAdminAccount(compteAdmin2);
     }
 
 }

@@ -196,7 +196,7 @@
 
 
 .statusMsgLayout{
-    font-size: 10px;
+    font-size: 15px;
     background-color: lightgray;
     border: 2px solid slategray;
     border-radius: 15px;
@@ -252,14 +252,15 @@
             "mailAlreadyTaken"
             "mdpStrengthStatus"
             "mdpStrengthStatus"
-            "."
+            "mdpStrengthStatus"
             ".";
     width: 7.5cm;
 }
 
 #mdpStrengthStatus{
     grid-area: mdpStrengthStatus;
-    height: 2cm;
+    height: 3.3cm;
+    white-space: pre-line;
 }
 
 #mailAlreadyTaken{
@@ -302,4 +303,14 @@
     text-align: center;
     grid-area: successSignUp;
     line-height: 50px;
+}
+
+.gridyProfilTitle{
+    display: grid;
+    grid-template-columns: 3fr 3fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "title inscriptionTitle LogOut"
+                        "title . .";
+    grid-column-gap: 15px;
+    z-index: auto;
 }
