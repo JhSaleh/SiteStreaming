@@ -49,6 +49,14 @@
     </servlet-mapping>
 
     <servlet>
+        <display-name>Administration</display-name>
+        <servlet-name>PageWebAdministration</servlet-name>
+        <servlet-class>com.siteStreaming.SiteStreaming.PageWebAdmin.PageWebAdministration</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>PageWebAdministration</servlet-name>
+        <url-pattern>/Administration</url-pattern>
         <display-name>AdminProfilClient</display-name>
         <servlet-name>AdminProfilClient</servlet-name>
         <servlet-class>com.siteStreaming.SiteStreaming.PageWebAdmin.adminPageProfil</servlet-class>
