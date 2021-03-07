@@ -57,12 +57,19 @@
     <servlet-mapping>
         <servlet-name>PageWebAdministration</servlet-name>
         <url-pattern>/Administration</url-pattern>
+        <display-name>AdminProfilClient</display-name>
+        <servlet-name>AdminProfilClient</servlet-name>
+        <servlet-class>com.siteStreaming.SiteStreaming.PageWebAdmin.adminPageProfil</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdminProfilClient</servlet-name>
+        <url-pattern>/Administration/AdminProfilClient</url-pattern>
     </servlet-mapping>
 
 
     <!--FILTER-->
     <!--Filtre utilisateur non connecté-->
-
     <filter>
         <filter-name>NonConnectedUser</filter-name>
         <filter-class>com.siteStreaming.SiteStreaming.Access.NonConnectedUserFilter</filter-class>
@@ -73,6 +80,7 @@
         <servlet-name>Profil</servlet-name>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
+
     <!--Filtre utilisateur connecté-->
     <filter>
         <filter-name>ConnectedUser</filter-name>
@@ -84,4 +92,14 @@
         <servlet-name>Inscription</servlet-name>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
+
+    <servlet>
+        <display-name>ExploreCatalogue</display-name>
+        <servlet-name>ExploreCat</servlet-name>
+        <servlet-class>com.siteStreaming.SiteStreaming.PageConnecté.ExploreCatalogue</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ExploreCat</servlet-name>
+        <url-pattern>/ExploreCat</url-pattern>
+    </servlet-mapping>
 </web-app>

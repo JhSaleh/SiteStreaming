@@ -1,0 +1,40 @@
+/*1er gridy*/
+#gridyMainBodySearchClient{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+            "EmailSearchBlock LastNameSearchBlock FirstNameSearchBlock"
+            ". ResearchButton .";
+}
+
+#EmailSearchBlock{
+    grid-area: EmailSearchBlock;
+}
+
+#LastNameSearchBlock{
+    grid-area: LastNameSearchBlock;
+}
+
+#FirstNameSearchBlock{
+    grid-area: FirstNameSearchBlock;
+}
+
+#ResearchButton{
+    border: 2px solid slateblue;
+    border-radius: 15px;
+    background-color: darkslateblue;
+    color: aliceblue;
+    height: 1cm;
+    margin-bottom: 15px;
+    grid-area: validateIns;
+    grid-area: ResearchButton;
+}
+
+/*autre Gridy*/
+
+.alignResultsGreedy{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: "emailUser nomUser prenomUser civiliteUser mdpUser birthdateUse adresseFacturationUser styleMusique";
+}
