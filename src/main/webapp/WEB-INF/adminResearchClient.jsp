@@ -40,7 +40,7 @@
 
             <div id="EmailSearchBlock">
                 <label id="emailResearchL" for="emailResearch">E-mail :</label>
-                <input id="emailResearch" class="labelStyle" type="email" name="email">
+                <input id="emailResearch" class="labelStyle" type="text" name="email">
             </div>
 
             <div id="LastNameSearchBlock">
@@ -57,25 +57,61 @@
     </div>
 </form>
 
-<%if(resultatResearch != null){%>
-    <div id = "clientsFound" class="section">
-        <div>Resultats :</div>
+<!--
+        <div id = "clientsFound" class="section">
+
+        <div class="alignResultsGreedy">
+
+                <div id="emailUser"></div>
+                <div id="nomUser"></div>
+                <div id="prenomUser"></div>
+                <div id="civiliteUser"></div>
+                <div id="mdpUser"></div>
+                <div id="birthdateUse"></div>
+                <div id="adresseFacturationUser"></div>
+                <div id="styleMusique"></div>
+
+            </div>
+        </div>-->
+
+<%if(resultatResearch != null){
+    if(resultatResearch.size() > 1){
+%>
+        <table class="tableSearchClient">
+            <thead class="headColumns">
+                <td>E-Mail</td>
+                <td>Nom</td>
+                <td>Prenom</td>
+                <td>Civilite</td>
+                <td>Mot de passe</td>
+                <td>Date de naissance</td>
+                <td>Adresse de Facturation</td>
+                <td>Style de musique</td>
+                <td>Valider</td>
+            </thead>
         <%for(int i = 0; i<resultatResearch.size(); i++){
         CompteClient compte = resultatResearch.get(i);
         %>
-            <div class="alignResultsGreedy">
-                <div id="emailUser"><%=compte.getMail()%></div>
-                <div id="nomUser"><%=compte.getNom()%></div>
-                <div id="prenomUser"><%=compte.getPrenom()%></div>
-                <div id="civiliteUser"><%=compte.getCivilite()%></div>
-                <div id="mdpUser"><%=compte.getPassword()%></div>
-                <div id="birthdateUse"><%=compte.getBirthDate()%></div>
-                <div id="adresseFacturationUser"><%=compte.getAddress()%></div>
-                <div id="styleMusique"><%=compte.getStyleMusique()%></div>
-            </div>
+        <tr class="rowTableStyle<%=i%2%>">
+            <td class="columnResult"><%=compte.getMail()%></td>
+            <td class="columnResult"><%=compte.getNom()%></td>
+            <td class="columnResult"><%=compte.getPrenom()%></td>
+            <td class="columnResult"><%=compte.getCivilite()%></td>
+            <td class="columnResult"><%=compte.getPassword()%></td>
+            <td class="columnResult"><%=compte.getBirthDate()%></td>
+            <td class="columnResult"><%=compte.getAddress()%></td>
+            <td class="columnResult"><%=compte.getStyleMusique()%></td>
+            <td class="columnResult"><input type="submit" value="Validez"></td>
+        </tr>
         <%}%>
-    </div>
-<%}%>
+        </table>
+
+<%} else {%>
+<div class="errorMsgResearchClient">Aucun résultats.</div>
+<%
+    }
+    }
+%>
 </body>
 
 <footer class="footer">© Copyright 2021 All Rights Reserved.</footer>

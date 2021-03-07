@@ -38,6 +38,7 @@ public class adminPageProfil extends HttpServlet {
         String prenom = request.getParameter("prenom");
 
         if(mail != null || nom != null || prenom != null){
+            System.out.println(mail + " " + nom + " " + prenom);
             System.out.println("Passage dans la research");
             ClientDatabase clientDatabase = new ClientDatabase();
             ArrayList<CompteClient> result = clientDatabase.searchClient(nom, prenom, mail);

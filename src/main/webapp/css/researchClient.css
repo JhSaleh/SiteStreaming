@@ -32,9 +32,51 @@
 }
 
 /*autre Gridy*/
-
+/*
 .alignResultsGreedy{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: "emailUser nomUser prenomUser civiliteUser mdpUser birthdateUse adresseFacturationUser styleMusique";
+}
+*/
+/*Table*/
+.tableSearchClient{
+    margin-left: 10%;
+    border-radius: 10px;
+    background-color: inherit;
+    border-collapse: collapse;
+    cell-spacing: 10px;
+}
+
+.columnResult{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+}
+
+.headColumns{
+    background-color: mediumslateblue;
+    padding-right: 15px;
+}
+
+.rowTableStyle0{
+    background-color: #aaaaaa;
+}
+
+.rowTableStyle1{
+    background-color: dimgrey;
+}
+
+.errorMsgResearchClient{
+    background-color: darkslateblue;
+    font-weight: bold;
+    color: aliceblue;
+    border-radius: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border: 8px solid mediumslateblue;
+    text-align: center;
 }
