@@ -13,4 +13,13 @@ public class S {
     public static String c(String word){
         return "'"+word+"'";
     }
+
+    /**
+     * Concatene de part et d'autre un mot par le symbole "
+     * @param word
+     * @return
+     */
+    public static String cd(String word){
+        return "\""+word+"\"";
+    }
 }

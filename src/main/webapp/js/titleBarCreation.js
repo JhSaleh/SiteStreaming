@@ -72,13 +72,34 @@ window.addEventListener("load", function (){
         nomPrenomUserDiv.className = "profilButtonLayout changeButtonProfilColor";
         nomPrenomUserDiv.textContent = userFirstName+" "+userLastName;
 
+        var nomPrenomUserDivLink = document.createElement('a');
+        nomPrenomUserDivLink.href = "Profil";
+
         var deconnectionDiv = document.createElement('div');
         deconnectionDiv.id = "LogOut";
         deconnectionDiv.className = "buttonLayout changeButtonColor";
         deconnectionDiv.textContent = "Se déconnecter";
 
+        var deconnectionDivLink = document.createElement("a");
+        deconnectionDivLink.href = "/SiteStreaming_war_exploded/LogOut";
+
+
+        //Bouton catalogue
+        var catalogueMainDiv = document.getElementById("catalogue");
+        var catalogueButtonDiv = document.createElement('div');
+        catalogueButtonDiv.textContent = "Parcourir le catalogue";
+        catalogueButtonDiv.className = "buttonLayout changeButtonColor";
+        catalogueButtonDiv.id = "buttonCatalogue";
+
+
+        var catalogueButtonDivLink = document.createElement('a');
+        catalogueButtonDivLink.href = "Acceuil/Catalogue";
+        catalogueButtonDivLink.id = "buttonCatalogueLink";
+
+
+
         //Assemblage
-        //Titre
+        //Titre-Barre de menu
         var titleDiv = document.createElement('div');
         titleDiv.id = "title";
 
@@ -86,11 +107,16 @@ window.addEventListener("load", function (){
         linkTitleDiv.href = "Acceuil";
         linkTitleDiv.textContent = "UsTube";
 
-
+        nomPrenomUserDivLink.appendChild(nomPrenomUserDiv);
         titleDiv.appendChild(linkTitleDiv);
         div.appendChild(titleDiv);
-        div.appendChild(nomPrenomUserDiv);
-        div.appendChild(deconnectionDiv);
+        div.appendChild(nomPrenomUserDivLink);
+        deconnectionDivLink.appendChild(deconnectionDiv);
+        div.appendChild(deconnectionDivLink);
         mainDiv.appendChild(div);
+
+        //Bouton catalogue principale
+        catalogueButtonDivLink.appendChild(catalogueButtonDiv);
+        catalogueMainDiv.appendChild(catalogueButtonDivLink);
     }
 })

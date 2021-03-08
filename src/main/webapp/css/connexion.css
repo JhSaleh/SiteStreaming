@@ -3,11 +3,17 @@
     grid-template-columns: 3fr 2fr 5fr 4fr 1fr;
     grid-template-rows: 1fr 2fr;
     grid-template-areas: ". . SignUpModal . close"
-                        ". formSignIn formSignIn . .";
+                        ". formSignIn formSignIn statusMsg statusMsg";
 }
 
 #formSignIn{
     grid-area: formSignIn;
+}
+
+#statusMsg{
+    grid-area: statusMsg;
+    font-size: 10px;
+    margin-left: 25px;
 }
 
 .gridyFields{
@@ -22,10 +28,12 @@
 
 #mailAddressLabel{
     grid-area: labelMail;
+    width: max-content;
 }
 
 #mailPasswordLabel{
     grid-area: labelPwd;
+    width: max-content;
 }
 
 .labelStyle{
@@ -60,8 +68,16 @@
     height: 100%;
     width: 100%;
 
-    display: none; : /*par defaut n'est pas affiché*/
+    /*display: none;*/  /*par defaut n'est pas affiché*/
     z-index: 2;
+}
+
+.modalHidden{
+    display: none;
+}
+
+.modalNotHidden{
+    display: block;
 }
 
 .modal-content{
@@ -70,9 +86,9 @@
     border-radius: 15px;
 
     border: 5px solid mediumslateblue;
-    width: 50%;
+    width: 18cm;
     top: 0%;
-    left: 25%;
+    left: 30%;
     position: absolute;
     z-index: 2;
 
@@ -109,4 +125,25 @@
     grid-area: validate;
     height: 1cm;
     margin-bottom: 15px;
+}
+
+/*Msg de status*/
+.statusMsgLayout{
+    background-color: lightgray;
+    border: 2px solid slategray;
+    border-radius: 15px;
+    text-align: center;
+    vertical-align: center;
+    height: 0.65cm;
+    width: 5cm;
+    margin-bottom: 15px;
+    line-height: 25px;
+    color: crimson;
+}
+
+.statusMsgLayoutHidden{
+    height: 0.65cm;
+    width: 5cm;
+    margin-bottom: 15px;
+    line-height: 25px;
 }

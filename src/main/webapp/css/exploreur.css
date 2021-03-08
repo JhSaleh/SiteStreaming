@@ -1,0 +1,152 @@
+
+.aside {
+    min-width: 23%;
+    float: left;
+    background: #696969;
+    border-radius: 5px;
+
+}
+.Recherche{
+    padding-left: 25%;
+
+}
+
+.section {
+    width: 73%;
+    padding-left: 1%;
+    padding-right: 1%;
+    float: right;
+}
+.playlist{
+    border-radius: 5px 5px 5px 5px;
+    min-width: 100%;
+    padding: 3px;
+
+    background: #696969;
+    color: white;
+    border-top: 1px solid #a9a9a9;
+    border-bottom: 1px solid #a9a9a9;
+
+    border-left: 1px solid #a9a9a9;
+    border-right: 1px solid #a9a9a9;
+    font-weight:bold;
+
+}
+.playlist:hover{
+    background: #4d4646;
+}
+.sub-list{
+    border-style:none;
+
+    font-weight: normal;
+
+}
+.in-button{
+    margin: 0px;
+
+    border-top: 1px solid #696969
+}
+
+
+
+
+audio{
+    width: 100%;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    bottom: 0;
+}
+.controls {
+    width: 100%;
+    min-height: 2em;
+
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    bottom: 0;
+    visibility: hidden;
+
+    border-radius: 10px;
+
+    left: 50%;
+    margin-left: -200px;
+    background-color: black;
+    box-shadow: 3px 3px 5px black;
+    display: flex;
+}
+.player{
+
+
+}
+#info{
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    bottom: 2em;
+
+}
+.player:hover .controls, player:focus .controls {
+    opacity: 1;
+}
+
+
+.timer {
+    line-height: 38px;
+    font-size: 10px;
+    font-family: monospace;
+    text-shadow: 1px 1px 0px black;
+    color: white;
+    flex: 5;
+    position: relative;
+}
+
+.timer div {
+    position: absolute;
+    background-color: rgba(255,255,255,0.2);
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 38px;
+    z-index: 2;
+}
+
+.timer span {
+    position: absolute;
+    z-index: 3;
+    left: 19px;
+}
+#pause{
+    background-image: url(chrome://global/skin/media/playButton.svg);
+    background-size:100% 100%;
+    width: 5%;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+#play{
+    background-image: url(chrome://global/skin/media/pauseButton.svg);
+    background-size:100% 100%;
+    width: 5%;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+#recule{
+    background-image: url(chrome://global/skin/media/playButton.svg);
+    background-size:100% 100%;
+    width: 5%;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+#avance{
+    background-image: url(chrome://global/skin/media/playButton.svg);
+    background-size:100% 100%;
+    width: 5%;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+#stop{
+    background-color: black;
+}
+#stopchild{
+    background-color: #FFFFFF;
+    max-width: 1em;
+}

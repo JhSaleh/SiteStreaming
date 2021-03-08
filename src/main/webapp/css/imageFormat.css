@@ -1,0 +1,9 @@
+.imageFormat{
+    border-radius: 8px;
+    width: 4cm;
+    height: 4cm;
+    /*centre image*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
