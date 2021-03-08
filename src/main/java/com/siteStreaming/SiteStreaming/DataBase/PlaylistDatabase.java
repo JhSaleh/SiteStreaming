@@ -61,7 +61,7 @@ public class PlaylistDatabase {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = this.connection.prepareStatement(
-                    "INSERT INTO `info_team07_schema`.`Playlist` (`idCompteClient`, `titre`, `dureeTotale`, `anneeCreation`) VALUES (?,?,?,CURRENT_DATE)");
+                    "INSERT INTO `Playlist` (`idCompteClient`, `titre`, `dureeTotale`, `anneeCreation`) VALUES (?,?,?,CURRENT_DATE)");
             preparedStatement.setInt(1, playlist.getIdCompteClient());
             preparedStatement.setString(2, playlist.getTitre());
             preparedStatement.setInt(3, playlist.getDureeTotale());
@@ -91,7 +91,7 @@ public class PlaylistDatabase {
                 System.out.print("pas d'id pour cette playlist !");
                 return false;
             }else {
-                preparedStatement = this.connection.prepareStatement("UPDATE `info_team07_schema`.`Playlist` SET `titre`=? " +
+                preparedStatement = this.connection.prepareStatement("UPDATE `Playlist` SET `titre`=? " +
                                 "where idPlaylist = ?;");
                 preparedStatement.setString(1,playlist.getTitre());
                 preparedStatement.setInt(2,playlist.getIdPlaylist());
@@ -124,7 +124,7 @@ public class PlaylistDatabase {
                 System.out.print("pas d'id pour cette playlist !");
                 return false;
             }else {
-                preparedStatement = this.connection.prepareStatement("UPDATE `info_team07_schema`.`Playlist` SET `dureeTotale`=? " +
+                preparedStatement = this.connection.prepareStatement("UPDATE `Playlist` SET `dureeTotale`=? " +
                                 "where idPlaylist=?;");
                 preparedStatement.setInt(1,playlist.getDureeTotale());
                 preparedStatement.setInt(2,playlist.getIdPlaylist());
@@ -155,7 +155,7 @@ public class PlaylistDatabase {
                 System.out.print("pas d'id pour cette playlist !");
                 return false;
             }else {
-                String query = "DELETE FROM `info_team07_schema`.`Playlist`" +
+                String query = "DELETE FROM `Playlist`" +
                         "WHERE idPlaylist='" + playlist.getIdPlaylist() + "';";
 
                 this.statement.executeUpdate(query);
@@ -195,7 +195,7 @@ public class PlaylistDatabase {
                     }
                     res.close();
 
-                   preparedStatement = this.connection.prepareStatement("INSERT INTO `info_team07_schema`.`ContenuPlaylist` " +
+                   preparedStatement = this.connection.prepareStatement("INSERT INTO `ContenuPlaylist` " +
                            "(`idMusique`, `idPlaylist`, `position`) VALUES (?,?,?);");
                    preparedStatement.setInt(1,musique.getId());
                     preparedStatement.setInt(2,playlist.getIdPlaylist());
@@ -234,7 +234,7 @@ public class PlaylistDatabase {
                 return false;
             }else {
                 /* On supprime la playlist de la liste pour la réenregistrer totalement */
-                String query = "DELETE FROM `info_team07_schema`.`ContenuPlaylist`  WHERE idPlaylist = '" + playlist.getIdPlaylist() + "';";
+                String query = "DELETE FROM `ContenuPlaylist`  WHERE idPlaylist = '" + playlist.getIdPlaylist() + "';";
                 this.statement.executeUpdate(query);
 
 
@@ -369,7 +369,7 @@ public class PlaylistDatabase {
             } else {
                /* On récupère les musiques de la playlist */
                 List<Musique> tempMus = new ArrayList<>();
-                preparedStatement =this.connection.prepareStatement("SELECT * FROM info_team07_schema.ContenuPlaylist where idPlaylist='" +
+                preparedStatement =this.connection.prepareStatement("SELECT * FROM ContenuPlaylist where idPlaylist='" +
                         idPlaylist + "';");
                 int pos;
                 ResultSet res2 = preparedStatement.executeQuery();

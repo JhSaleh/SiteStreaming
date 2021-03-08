@@ -104,18 +104,18 @@ public class Acceuil extends HttpServlet {
         List<ContenuSonore> listMus = cataloqueDatabase.getRecommendationMoment();
         listMus.addAll(cataloqueDatabase.getMorceauxPopulaires());
         request.setAttribute("listMus",listMus);
+        System.out.println("mise des musiques en attribut");
 
         //Regarde si une musique est écoutée
         PlaylistDatabase playlistDatabase = new PlaylistDatabase();
-        if(request.getParameter("idMusique")!=null) {
-            int idMusique = Integer.parseInt(request.getParameter("idMusique"));
+        if(request.getParameter("hiddenChamp")!=null) {
+            int idMusique = Integer.parseInt(request.getParameter("hiddenChamp"));
             Musique m = playlistDatabase.getMusique(idMusique);
             m.setNbLectureTotal(m.getNbLectureTotal() + 1);
             m.setNbLectureMois(m.getNbLectureMois() + 1);
             cataloqueDatabase.infoStatMAJContenuSonore(m);
             //renvoie la musique à écouter
             request.setAttribute("musique", m);
-
         }
         playlistDatabase.close();
         cataloqueDatabase.close();

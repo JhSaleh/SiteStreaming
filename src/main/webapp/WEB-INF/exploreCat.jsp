@@ -16,6 +16,7 @@
     <link rel="stylesheet" type="text/css" href="css/profil.css">
     <link rel="stylesheet" type="text/css" href="css/catalogue.css">
     <link rel="stylesheet" type="text/css" href="css/exploreur.css">
+    <link rel="stylesheet" type="text/css" href="css/lecteur.css">
     <script src="js/client.js"></script>
     <script src="js/storeObject.js"></script>
     <script src="js/titleBarCreation.js"></script>
@@ -119,7 +120,7 @@
 </div>
 <div class="audio">
     <div class="player">
-        <audio id="audioid" controls>
+        <audio id="audioid" controls autoplay>
             <source src="https://dl5.webmfiles.org/big-buck-bunny_trailer.webm" type="audio/webm" id="srceId">
         </audio>
         <div id="info"></div>
@@ -144,7 +145,7 @@
     var j;
     for(j=0;j<playlistArray.length;j++){
         let div = document.createElement("div");
-        div.id = playlistArray[j].idPlaylist+"Div";
+        div.id = playlistArray[j].idPlaylist;
         div.setAttribute("num",j);
 
         let but = document.createElement("button");
@@ -164,7 +165,7 @@
             item.textContent =musiqueArray[i].titre;
             item.style.display = "none";
             item.className = "playlist sub-list";
-            item.id=musiqueArray[i].id;
+            item.id="p"+musiqueArray[i].id;
             item.setAttribute("num",i);
             item.addEventListener("click",chooseAction,false);
             div.appendChild(item);
@@ -287,12 +288,17 @@
         }
         console.log(bool2);
         var TidPlaylist =-1;
-        var TidMusi = e.currentTarget.id;
+        var TidMusi;
+        if(bool2){
+            TidMusi = parseInt(e.currentTarget.id.slice(1,10));
+        }else{
+            TidMusi = e.currentTarget.id;
+        }
         var numMusi = e.currentTarget.getAttribute("num");
         console.log(TidMusi+numMusi);
         var numPlaylist=-1;
         if(bool2){
-            TidPlaylist = parseInt(e.currentTarget.parentElement.id.slice(1), 10);
+            TidPlaylist = parseInt(e.currentTarget.parentElement.id);
             numPlaylist = e.currentTarget.parentElement.getAttribute("num");
         }
         document.getElementById("hiddenChamp2").setAttribute("value",TidPlaylist);
@@ -331,23 +337,11 @@
          paraMus =<%=paraMus%>;
          console.log("paraMus : "+paraMus);
          paraPlaylist = <%=paraPlaylist%>;
+        console.log("paraPlay : "+paraPlaylist);
     }else{
          paraMus ="0";
          paraPlaylist=-1;
     }
-
-
-        if (paraMus !== "0") {
-            if (paraPlaylist !== -1) {
-                idPlaylist = getNumPlaylist(paraPlaylist);
-                playPlaylist();
-            } else {
-                playMusique();
-            }
-        }
-
-
-
     var media = document.getElementById("audioid");
     var controls = document.querySelector('.controls');
 
@@ -369,9 +363,19 @@
     const isPlaylist = (idPlaylist!==-1);
     var info = document.getElementById("info");
 
+        if (paraMus !== "0") {
+            if (paraPlaylist !== -1) {
+                idPlaylist = getNumPlaylist(paraPlaylist);
+                console.log(idPlaylist);
+                playPlaylist();
+            } else {
+                playMusique();
+            }
+        }
+
 
     function getNumPlaylist(idPlaylist){
-        playlistEl = document.getElementById("p"+idPlaylist);
+        playlistEl = document.getElementById(idPlaylist);
         return playlistEl.num;
     }
 
@@ -408,13 +412,13 @@
           media.currentTime = 0;
 
           setInfoMus(idMusique);
-          console.log("here idmus: " + idMusique);
           dureeMus = paraMus.duree;
       }
 
     function playPlaylist() {
         raz = 0;
         idMusique = paraMus.id;
+        numMusique = document.getElementById("p"+idMusique).num;
         controls.style.visibility = 'visible';
         media.currentTime = 0;
         setInfoPlaylist(idMusique);
@@ -461,9 +465,16 @@
     }
 
     stop.addEventListener('click', stopMedia);
-    media.addEventListener('ended', stopMedia);
+    media.addEventListener('ended', stopMedia1);
 
-    function stopMedia() {
+    function stopMedia(){
+        media.pause();
+        media.currentTime = 0;
+        play.id = "pause";
+        raz = 0;
+    }
+
+    function stopMedia1() {
         if (dureeMus === null) {
             //si c'est une radio on tourne en boucle
             raz = raz + media.currentTime;
@@ -494,22 +505,16 @@
 
 
     function musAvant() {
-       // if (isPlaylist === false && videoArray[idMusique - 1] != null) {
-           // playMusiqueFunction(idMusique - 1)
-       // }
         //on ne peut naviguer que dans une playlist
-        if (isPlaylist === true && playlistArray[idPlaylist].musique[idMus - 1].id != null) {
+        if (isPlaylist === true && playlistArray[idPlaylist].musique[idMusique - 1].id != null) {
             playMusiqueFunction(idMusique - 1);
         }
     }
 
 
     function musSuivant() {
-       // if (isPlaylist === false && videoArray[idMusique + 1] != null) {
-            //playMusiqueFunction(idMusique + 1)
-        //}
         //on ne peut naviguer que dans une playlist
-        if (isPlaylist === true && playlistArray[idPlaylist].musique[idMus + 1].id != null) {
+        if (isPlaylist === true && playlistArray[idPlaylist].musique[idMusique + 1].id != null) {
             playMusiqueFunction(idMusique + 1);
         }
     }

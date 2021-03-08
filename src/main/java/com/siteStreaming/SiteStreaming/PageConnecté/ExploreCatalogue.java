@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ExploreCatalogue extends HttpServlet {
 
@@ -67,24 +69,32 @@ public class ExploreCatalogue extends HttpServlet {
                         request.setAttribute("idPlaylist", idPlay);
                     } else {
                         //si on n'est pas dans une playlist, on cherche le type de contenu
-                        List<ContenuSonore> contenutemp = null;
+                        List<ContenuSonore> contenutemp =null;
                         Podcast p =null;
                         Radio r = null;
                         Musique m = playlistDatabase.getMusique(idMus);
-                        if(m==null){
-                            contenutemp=catalogueDatabase.readResultset("podcast",
-                                    catalogueDatabase.getAllBy("podcast", " and idPodcast=? limit 1", String.valueOf(idMus)));
-                            if(contenutemp!=null || !contenutemp.isEmpty()){
-                                p = (Podcast) contenutemp.get(0);
-                            }else{
+                        if(m==null) {
+                            contenutemp = (catalogueDatabase.readResultset("podcast",
+                                    catalogueDatabase.getAllBy("podcast", " and idPodcast=? limit 1", String.valueOf(idMus))));
+
+                            if (contenutemp == null || contenutemp.toArray().length == 0) {
+                                System.out.println("podcast  null");
                                 contenutemp = catalogueDatabase.readResultset("radio",
                                         catalogueDatabase.getAllBy("radio", " and idRadio=? limit 1", String.valueOf(idMus)));
-                                if(contenutemp!=null || !contenutemp.isEmpty()){
+
+                                if (contenutemp == null || contenutemp.toArray().length == 0) {
+                                    System.out.println("radio is null");
+                                } else {
+                                    System.out.println("radio not null");
+                                    System.out.println(contenutemp);
                                     r = (Radio) contenutemp.get(0);
                                 }
+                            } else {
+                                System.out.println("podcast not null");
+                                System.out.println(contenutemp);
+                                p = (Podcast) contenutemp.get(0);
                             }
                         }
-
 
                         //On met à jour le nombre de lecture, l'enregistre et le
                         // converti en Json

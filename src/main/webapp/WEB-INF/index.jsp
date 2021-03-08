@@ -26,6 +26,13 @@
     List<ContenuSonore> listMus = (List<ContenuSonore>) request.getAttribute("listMus");
 
     Musique m = (Musique) request.getAttribute("musique");
+    int duree = -1;
+    String titreMus = "0";
+    Boolean lect = (m!=null);
+    if(lect){
+        titreMus = m.getTitre();
+        duree = m.getDuree();
+    }
 %>
 
 <!DOCTYPE html>
@@ -37,7 +44,7 @@
     <link rel="stylesheet" type="text/css" href="css/connexion.css">
     <link rel="stylesheet" type="text/css" href="css/catalogue.css">
     <link rel="stylesheet" type="text/css" href="css/imageFormat.css">
-
+    <link rel="stylesheet" type="text/css" href="css/lecteur.css">
     <script src="js/client.js"></script>
     <script src="js/storeObject.js"></script>
     <script src="js/titleBarCreation.js"></script>
@@ -81,8 +88,11 @@
 
 
 
-<%
+<%!
     String defaultValue = "VideoImage";
+    String defaultValueTitle = "VideoTitle";
+    String defaultValueViews = "-9999";
+    String defaultValueYear = "01/02/2021";
 %>
 
 
@@ -115,6 +125,22 @@
             <%}%>
         </div>
     </div>
+
+            <div id="lecture" class="modal modalHidden">
+                <div id="formlecture" class="modal modalNotHidden">
+                    <div class="modal-content"> <!--Contenu du modal-->
+                        <div class="close" style="float:right">&times;</div> <!--syntaxe pour le bouton x-->
+                        <h3 id="TitreMus" style="float:left; padding-left: 3%; padding-right: 3%;"></h3>
+                        </br>
+                        <div class="forms">
+                            <form action="${pageContext.request.contextPath}/Acceuil" method=POST">
+                                <input type="hidden" id="hiddenChamp" name="hiddenChamp">
+                                <input type="submit" id="Ecouter" value="Ecouter">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
     <!--Fin du modal-->
 
 
@@ -137,20 +163,31 @@
                 String tptitle;
                 int tpNbViewsRec;
                 String tpannee;
+                int id = -1;
                 for(int i = 1;i<6;i++){
-                    if(listMus.get(i).getRecommendationMoment()){
-                        linkImg = baseLink +Integer.toString(i)+".jpg"; //génère le lien de l'image
-                        videoRec = "vidRec" + Integer.toString(i);
-                        temp = (Musique) listMus.get(i);
-                        tptitle = temp.getTitre();
-                        tpNbViewsRec = temp.getNbLectureTotal();
-                        tpannee = temp.getAnneeCreation();
-                        out.println("<div class=\"musiques\" id="+temp.getId()+">");
-                        out.println("<img id ="+videoRec+" class=\"imageFormat\" src="+
-                                linkImg+" alt=\""+defaultValue+">");
-                        out.println(" <div id ="+tptitle+">"+tptitle+"</div>");
-                        out.println(" <div id ="+tpNbViewsRec+">"+tpNbViewsRec+" vues</div>");
-                        out.println(" <div id = "+tpannee+">"+tpannee+"</div></div>");
+                    if(listMus!=null && i<listMus.size() && listMus.get(i)!=null) {
+                        if (listMus.get(i).getRecommendationMoment()) {
+                            linkImg = baseLink + Integer.toString(i) + ".jpg"; //génère le lien de l'image
+                            videoRec = "vidRec" + Integer.toString(i);
+                            try {
+                                temp = (Musique) listMus.get(i);
+                                tptitle = temp.getTitre();
+                                tpannee = temp.getAnneeCreation();
+                                tpNbViewsRec = temp.getNbLectureTotal();
+                                id = temp.getId();
+                            }catch (Exception e){
+                                System.out.println("ceci n'est pas une musique !");
+                                tptitle = defaultValueTitle;
+                                tpannee = defaultValueYear;
+                                tpNbViewsRec = Integer.parseInt(defaultValueViews);
+                            }
+                            out.println("<div class=\"musiques\" id=" + id + ">\n");
+                            out.println("<img id =" + videoRec + " class=\"imageFormat\" src=" +
+                                    linkImg + " alt=\"" + defaultValue + "\">\n");
+                            out.println(" <div id =" + tptitle + ">" + tptitle + "</div>\n");
+                            out.println(" <div id =" + tpNbViewsRec + ">" + tpNbViewsRec + " vues</div>\n");
+                            out.println(" <div id = " + tpannee + ">" + tpannee + "</div>\n</div>\n");
+                        }
                     }
                 }
             %>
@@ -164,33 +201,202 @@
         <div id = "gridyPopularVideos">
             <%
                 for(int i = 6;i<11;i++){
-                    if(listMus.get(i).getMorceauPopulaire()){
-                        linkImg= baseLink + Integer.toString(i)+".jpg";
-                        videoRec = "vidRec" + Integer.toString(i);
-                        temp = (Musique) listMus.get(i);
-                        tptitle = temp.getTitre();
-                        tpNbViewsRec = temp.getNbLectureTotal();
-                        tpannee = temp.getAnneeCreation();
-                        out.println("<div class=\"musiques\" id="+temp.getId()+">");
-                        out.println("<img id ="+videoRec+" class=\"imageFormat\" src="+
-                                linkImg+" alt=\""+defaultValue+">");
-                        out.println(" <div id ="+tptitle+">"+tptitle+"</div>");
-                        out.println(" <div id ="+tpNbViewsRec+">"+tpNbViewsRec+" vues</div>");
-                        out.println(" <div id = "+tpannee+">"+tpannee+"</div></div>");
+                    if(listMus!=null  && i<listMus.size() && listMus.get(i)!=null) {
+                        if (listMus.get(i).getMorceauPopulaire()) {
+                            linkImg = baseLink + Integer.toString(i) + ".jpg";
+                            videoRec = "vidRec" + Integer.toString(i);
+                            try {
+                                temp = (Musique) listMus.get(i);
+                                tptitle = temp.getTitre();
+                                tpannee = temp.getAnneeCreation();
+                                tpNbViewsRec = temp.getNbLectureTotal();
+                                id = temp.getId();
+                            }catch (Exception e){
+                                System.out.println("ceci n'est pas une musique !");
+                                tptitle = defaultValueTitle;
+                                tpannee = defaultValueYear;
+                                tpNbViewsRec = Integer.parseInt(defaultValueViews);
+                            }
+                            out.println("<div class=\"musiques\" id=" + id + " name=\""+tptitle+"\">\n");
+                            out.println("<img id =" + videoRec + " class=\"imageFormat\" src=" +
+                                    linkImg + " alt=\"" + defaultValue + "\">\n");
+                            out.println(" <div id =" + tptitle + ">" + tptitle + "</div>\n");
+                            out.println(" <div id =" + tpNbViewsRec + ">" + tpNbViewsRec + " vues</div>\n");
+                            out.println(" <div id = " + tpannee + ">" + tpannee + "</div>\n</div>\n");
+                        }
                     }
                 }
             %>
         </div>
     </div>
-
+            <div class="audio">
+                <div class="player">
+                    <audio id="audioid" controls>
+                        <source src="https://dl5.webmfiles.org/big-buck-bunny_trailer.webm" type="audio/webm" id="srceId">
+                    </audio>
+                    <div id="info"></div>
+                    <div class="controls">
+                        <button class="play"  aria-label="bascule lecture pause"></button>
+                        <button class="stop"  aria-label="stop"></button>
+                        <div class="timer">
+                            <div></div>
+                            <span aria-label="timer">00:00</span>
+                        </div>
+                        <button class="rwd"  aria-label="retour prec"></button>
+                        <button class="fwd" aria-label="avance suivante"></button>
+                    </div>
+                </div>
+            </div>
     <div id = "catalogue">
 
     </div>
 
     <script language="JavaScript">
 
-        document.getElementsByClassName("musques").addEventListener("click",EcouterMus,false);
-        function EcouterMus(){}
+        var musiques = document.getElementsByClassName("musiques");
+        for(var i=0;i<musiques.length;i++){
+            musiques[i].addEventListener("click",AffMod,false);
+        }
+
+        var modal = document.getElementById("lecture");
+        var span = document.getElementsByClassName("close")[1];
+        span.onclick = function () { modal.style.display = "none";}
+
+
+        function AffMod(e){
+            modal.style.display = "block";
+            document.getElementById("hiddenChamp").setAttribute("value",e.currentTarget.id);
+            document.getElementById("TitreMus").textContent = e.currentTarget.;
+
+        }
+
+        var lect = <%=lect%>;
+
+        if(lect){
+            EcouterMus();
+        }
+
+        var media = document.getElementById("audioid");
+        var controls = document.querySelector('.controls');
+
+        var play = document.querySelector('.play');
+        var stop = document.querySelector('.stop');
+        var rwd = document.querySelector('.rwd');
+        var fwd = document.querySelector('.fwd');
+
+        var timerWrapper = document.querySelector('.timer');
+        var timer = document.querySelector('.timer span');
+        var timerBar = document.querySelector('.timer div');
+
+        media.removeAttribute('controls');
+
+        var dureeMus = <%=duree%>;
+        var titreMus = <%=titreMus%>;
+        var raz = 0;
+        var info = document.getElementById("info");
+
+        function setInfoMus() {
+            var title = document.createElement("p");
+            //title.className ="in-button";
+            info.textContent = "Musique";
+            title.textContent = titreMus + " -- " + dureeMus;
+
+            info.appendChild(title);
+        }
+
+
+        function EcouterMus(){
+            raz = 0;
+            controls.style.visibility = 'visible';
+            media.currentTime = 0;
+            setInfoMus();
+        }
+
+        play.addEventListener('click', playPauseMedia);
+
+        rwd.id = "avance";
+        fwd.id = "recule";
+
+        stopchild = document.createElement("canvas");
+        stopchild.id = "stopchild";
+        stop.appendChild(stopchild);
+        stop.id = "stop";
+        play.id = "pause";
+
+
+        function playPauseMedia() {
+            if (media.paused) {
+                play.id = "play";
+                media.play();
+            } else {
+                play.id = "pause";
+                media.pause();
+            }
+        }
+
+        stop.addEventListener('click', stopMedia);
+        media.addEventListener('ended', stopMedia1);
+
+        function stopMedia(){
+            media.pause();
+            media.currentTime = 0;
+            play.id = "pause";
+            raz = 0;
+        }
+        function stopMedia1() {
+            if (dureeMus === null) {
+                //si c'est une radio on tourne en boucle
+                raz = raz + media.currentTime;
+                media.currentTime = 0;
+                media.play();
+            } else if (media.duration < dureeMus && raz < dureeMus) {
+                //si la musique à encore du temps on reprend la musique
+                raz = raz + media.duration;
+                media.currentTime = 0;
+                media.play();
+            }else {
+                //sinon on termine la musique
+                media.pause();
+                media.currentTime = 0;
+                play.id = "pause";
+                raz = 0;
+            }
+        }
+
+        media.addEventListener('timeupdate', setTime);
+
+
+        function setTime() {
+            if ((media.duration > dureeMus && media.currentTime >= dureeMus) || raz > dureeMus) {
+                // arrete la musique si on a dépassé le temps de la musique
+                stopMedia();
+            }
+
+            var minutes = Math.floor((media.currentTime + raz) / 60);
+            var seconds = Math.floor((media.currentTime + raz) - minutes * 60);
+            var minuteValue;
+            var secondValue;
+
+            if (minutes < 10) {
+                minuteValue = '0' + minutes;
+            } else {
+                minuteValue = minutes;
+            }
+
+            if (seconds < 10) {
+                secondValue = '0' + seconds;
+            } else {
+                secondValue = seconds;
+            }
+
+            var mediaTime = minuteValue + ':' + secondValue;
+            timer.textContent = mediaTime;
+
+            if(dureeMus!=null) {
+                var barLength = timerWrapper.clientWidth * ((media.currentTime+raz) / dureeMus);
+                timerBar.style.width = barLength + 'px';
+            }
+        }
 
     </script>
 </body>
