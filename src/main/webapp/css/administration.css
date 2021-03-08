@@ -1,683 +1,80 @@
 /*1er greedy*/
-
-.gridyHeaderAdministration{
+.gridyHeaderInscription{
     display: grid;
-    grid-template-columns: 9fr 1fr 9fr;
-    grid-template-areas: "title AdminTitle .";
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-areas: "title inscriptionTitle .";
     grid-row-gap: 50px;
 }
 
 #title{
-    text-align: left;
-    font-size: 50px;
+    text-align: center;
+    font-size: 70px;
     font-weight: bold;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     grid-area: title;
 }
 
-#AdminTitle{
-    grid-area: AdminTitle;
-    font-size: 40px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+#inscriptionTitle{
+    grid-area: inscriptionTitle;
+    font-size: 30px;
 }
 
-/*2eme gridy = acces statistiques*/
-.gridyStatsForm{
-    background-color: darkslateblue;
-    border: mediumslateblue;
-    border-radius: 15px;
-    margin-top: 35px;
-    width: 12cm;
 
+/*Autre gridy*/
+
+#gridyOptionsModifications{
+    margin-top:5%;
     display: grid;
-    grid-template-columns: 1fr 4fr 4fr 1fr;
-    grid-template-rows: 1fr 2fr 2fr 2fr 10fr 2fr;
-    grid-template-areas:". . . ."
-                        ". typeL type ."
-                        ". nbTitresL nbTitres ."
-                        ". periodeL periode ."
-                        ". topNlisteL topNliste ."
-                        ". . validateStats . ";
-}
-
-
-.labelStyle{
-    background-color: darkslateblue;
-    border: 2px solid slateblue;
-
-    border-radius: 5px;
-    color: aliceblue;
-    height: 0.7cm;
-}
-
-
-/*Bouton de validation*/
-#validateStats{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: validateStats;
-}
-
-
-/*Champs Acces Stats*/
-#type{
-    grid-area: type;
-}
-
-#nbTitres{
-    grid-area: nbTitres;
-}
-
-#periode{
-    grid-area: periode;
-}
-
-#topNliste{
-    grid-area: topNliste;
-}
-
-/*Label d'acces Stats'*/
-
-#typeL{
-    grid-area: typeL;
-}
-
-#nbTitresL{
-    grid-area: nbTitresL;
-}
-
-#periodeL{
-    grid-area: periodeL;
-}
-
-#topNlisteL{
-    grid-area: topNlisteL;
-}
-
-
-
-/*3eme gridy = modification client*/
-.gridyGestionClient{
-    background-color: darkslateblue;
-    border: mediumslateblue;
-    border-radius: 15px;
-    margin-top: 35px;
-    width: 12cm;
-
-    display: grid;
-    grid-template-columns: 1fr 4fr 4fr 1fr;
-    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
-    grid-template-areas:". . . ."
-                        ". ADM_mailSearchL ADM_mailSearch ."
-                        ". . ADM_validateMailSearch ."
-                        ". ADM_nomL ADM_nom ."
-                        ". ADM_prenomL ADM_prenom ."
-                        ". ADM_civiliteL ADM_civilite ."
-                        ". ADM_dateNaissanceL ADM_dateNaissance ."
-                        ". ADM_mailL ADM_mail ADM_checkMail"
-                        ". ADM_adresseFacturationL ADM_adresseFacturation ."
-                        ". ADM_styleMusiqueL ADM_styleMusique ."
-                        ". . ADM_validateMod .";
-}
-
-
-.labelStyle{
-    background-color: darkslateblue;
-    border: 2px solid slateblue;
-
-    border-radius: 5px;
-    color: aliceblue;
-    height: 0.7cm;
-}
-
-
-/*Bouton de validation*/
-#ADM_validateMod{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_validateMod;
-}
-
-/*Bouton de validation de recherche d'adresse mail*/
-#ADM_validateMailSearch{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_validateMailSearch;
-}
-
-/*Bouton de validation après désactivation*/
-#validateInscriptionDisabled{
-    border: 2px solid darkgrey;
-    border-radius: 15px;
-    background-color: dimgrey;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_validateMod;
-}
-
-
-/*Champs de modification*/
-#ADM_mailSearch{
-    grid-area: ADM_mailSearch
-}
-
-#ADM_nom{
-    grid-area: ADM_nom;
-}
-
-#ADM_prenom{
-    grid-area: ADM_;
-}
-
-#ADM_civilite{
-    grid-area: ADM_civilite;
-}
-
-#ADM_dateNaissance{
-    grid-area: ADM_dateNaissance;
-}
-
-#ADM_mail{
-    grid-area: ADM_mail;
-}
-
-#ADM_adresseFacturation{
-    grid-area: ADM_adresseFacturation;
-}
-
-/*Label d'inscription*/
-#ADM_mailSearchL{
-    grid-area: ADM_mailSearchL
-}
-
-#ADM_nomL{
-    grid-area: ADM_nomL;
-}
-
-#ADM_prenomL{
-    grid-area: ADM_prenomL;
-}
-
-#ADM_civiliteL{
-    grid-area: ADM_civiliteL;
-}
-
-#ADM_dateNaissanceL{
-    grid-area: ADM_dateNaissanceL;
-}
-
-#ADM_mailL{
-    grid-area: ADM_mailL;
-}
-
-#ADM_adresseFacturationL{
-    grid-area: ADM_adresseFacturationL;
-}
-
-#ADM_styleMusiqueL{
-    grid-area: ADM_styleMusiqueL;
-}
-
-#ADM_styleMusique{
-    grid-area: ADM_styleMusique;
-}
-
-/*3eme gridy = modification catalogue choix créer, supprimer, modifier*/
-.gridyChoixActionCatalogue{
-    background-color: darkslateblue;
-    border: mediumslateblue;
-    border-radius: 15px;
-    margin-top: 35px;
-    width: 12cm;
-
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: 1fr 2fr 2fr 2fr 1fr;
-    grid-template-areas:". . . ."
-                        ". ADM_creer ."
-                        ". ADM_supprimer ."
-                        ". ADM_modifier ."
-                        ". . . .";
-}
-
-
-.labelStyle{
-    background-color: darkslateblue;
-    border: 2px solid slateblue;
-
-    border-radius: 5px;
-    color: aliceblue;
-    height: 0.7cm;
-}
-
-
-/*Bouton de création*/
-#ADM_creer{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_creer;
-}
-
-/*Bouton de suppression*/
-#ADM_supprimer{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_supprimer;
-}
-
-/*Bouton de modification*/
-#ADM_modifier{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_modifier;
-}
-
-/*4eme gridy = choix type*/
-.gridyChoixType{
-    background-color: darkslateblue;
-    border: mediumslateblue;
-    border-radius: 15px;
-    margin-top: 35px;
-    width: 12cm;
-
-    display: grid;
-    grid-template-columns: 1fr 4fr 4fr 4fr 1fr;
-    grid-template-rows: 1fr 2fr 2fr 1fr;
-    grid-template-areas:". . . . ."
-                        ". ADM_cRadio ADM_cPodcast ADM_cMusique."
-                        ". ADM_cRetour . ADM_cValider."
-                        ". . . . .";
-}
-
-
-.labelStyle{
-    background-color: darkslateblue;
-    border: 2px solid slateblue;
-
-    border-radius: 5px;
-    color: aliceblue;
-    height: 0.7cm;
-}
-
-
-/*Bouton Musique*/
-#ADM_cMusique{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_cMusique;
-}
-
-/*Bouton Podcast*/
-#ADM_cPodcast{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_cPodcast;
-}
-
-/*Bouton Radio*/
-#ADM_cRadio{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_cRadio;
-}
-
-/*Bouton Retour*/
-#ADM_cRetour{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_cRetour;
-}
-
-/*Bouton Valider*/
-#ADM_cValider{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_cValider;
-}
-
-/*5eme gridy modifier musique*/
-.gridyModMus{
-    display: grid;
-    grid-template-columns: 1fr 4fr 4fr 1fr;
-    grid-template-rows: 1fr 2fr 2fr 2fr 10fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
-            ". . . ."
-            ". ADM_modmustypeSearchL ADM_modmustypeSearch ."
-            ". ADM_modmusSearchL ADM_modmusSearch ."
-            ". . ADM_modmusValidateSearch ."
-            ". . ADM_modmusResults ."
-            ". ADM_modmusSelectedElemL ADM_modmusSelectedElem . "
-            ". ADM_modmusTitreL ADM_modmusTitre ."
-            ". ADM_modmusInterpL ADM_modmusInterp ."
-            ". ADM_modmusAnneeL ADM_modmusAnnee ."
-            ". ADM_modmusDureeL ADM_modmusDuree ."
-            ". ADM_modmusGenreL ADM_modmusGenre ."
-            ". . ADM_modmusValidateModif ."
-            ". . . . .";
+            " action choixContenu validateModificationHeader";
+    grid-column-gap: 5px;
 }
 
-/*Bouton Validation de recherche*/
-#ADM_modmusValidateSearch{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_modmusValidateSearch;
+#action{
+    grid-area: action;
 }
 
-/*Bouton Validation de recherche*/
-#ADM_modmusValidateModif{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_modmusValidateModif;
+#choixContenu{
+    grid-area: choixContenu;
 }
 
-#ADM_modmustypeSearchL{
-    grid-area: ADM_modmustypeSearchL;
+#actionL{
+    grid-area: actionL;
 }
 
-#ADM_modmusSearchL{
-    grid-area: ADM_modmusSearchL;
+#choixContenuL{
+    grid-area: choixContenuL;
 }
 
-#ADM_modmusDureeL{
-    grid-area: ADM_modmusDureeL;
+#validateModificationHeader{
+    grid-area: validateModificationHeader;
 }
 
-#ADM_modmusAnneeL{
-    grid-area: ADM_modmusAnneeL;
-}
-
-#ADM_modmusInterpL{
-    grid-area: ADM_modmusInterpL;
-}
-
-#ADM_modmusTitreL{
-    grid-area: ADM_modmusTitreL;
-}
-
-#ADM_modmusGenreL{
-    grid-area: ADM_modmusGenreL;
-}
-
-#ADM_modmusSelectedElemL{
-    grid-area: ADM_modmusSelectedElemL;
-}
-
-/**==========================================**/
-
-#ADM_modmustypeSearch{
-    grid-area: ADM_modmustypeSearch;
-}
-
-#ADM_modmusSearch{
-    grid-area: ADM_modmusSearch;
-}
-
-#ADM_modmusResults{
-    grid-area: ADM_modmusResults;
-}
-
-#ADM_modmusSelectedElem{
-    grid-area: ADM_modmusSelectedElem;
-}
-
-#ADM_modmusDuree{
-    grid-area: ADM_modmusDuree;
-}
-
-#ADM_modmusAnnee{
-    grid-area: ADM_modmusAnnee;
-}
-
-#ADM_modmusInterp{
-    grid-area: ADM_modmusInterp;
-}
-
-#ADM_modmusTitre{
-    grid-area: ADM_modmusTitre;
-}
-
-#ADM_modmusGenre{
-    grid-area: ADM_modmusGenre;
-}
-
-/*5eme gridy modifier podcast*/
-.gridyModPod{
+#gridyModifierSupprimer{
+    margin-top:5%;
     display: grid;
-    grid-template-columns: 1fr 4fr 4fr 1fr;
-    grid-template-rows: 1fr 2fr 2fr 2fr 10fr 2fr 2fr 2fr 2fr 2fr 2fr 1fr;
-    grid-template-areas:
-            ". . . . "
-            ". ADM_modpodtypeSearchL ADM_modpodtypeSearch ."
-            ". ADM_modpodSearchL ADM_modpodSearch ."
-            ". . ADM_modpodValidateSearch ."
-            ". . ADM_modpodsResults ."
-            ". ADM_modpodSelectedElemL ADM_modpodSelectedElem . "
-            ". ADM_modpodTitreL ADM_modpodTitre ."
-            ". ADM_modpodDureeL ADM_modpodDuree ."
-            ". ADM_modpodAuteurL ADM_modpodAuteur ."
-            ". ADM_modpodCatL ADM_modpodCat ."
-            ". . ADM_modpodValidateModif ."
-            ". . . .";
-}
-
-/*Bouton Validation de recherche*/
-#ADM_modmusValidateSearch{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_modmusValidateSearch;
-}
-
-/*Bouton Validation de recherche*/
-#ADM_modmusValidateModif{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_modmusValidateModif;
-}
-
-#ADM_modpodtypeSearchL{
-    grid-area: ADM_modpodtypeSearchL;
-}
-
-#ADM_modpodSearchL{
-    grid-area: ADM_modpodSearchL;
-}
-
-#ADM_modpodDureeL{
-    grid-area: ADM_modpodDureeL;
-}
-
-#ADM_modpodAuteurL{
-    grid-area: ADM_modpodAuteurL;
-}
-
-#ADM_modpodTitreL{
-    grid-area: ADM_modpodTitreL;
-}
-
-#ADM_modpodCatL{
-    grid-area: ADM_modpodCatL;
-}
-
-#ADM_modmusSelectedElemL{
-    grid-area: ADM_modmusSelectedElemL;
-}
-
-/**==========================================**/
-
-#ADM_modpodtypeSearch{
-    grid-area: ADM_modmustypeSearch;
-}
-
-#ADM_modpodSearch{
-    grid-area: ADM_modmusSearch;
-}
-
-#ADM_modpodResults{
-    grid-area: ADM_modmusResults;
-}
-
-#ADM_modpodSelectedElem{
-    grid-area: ADM_modmusSelectedElem;
-}
-
-#ADM_modpodDuree{
-    grid-area: ADM_modmusDuree;
-}
-
-#ADM_modpodAuteur{
-    grid-area: ADM_modpodAuteur;
-}
-
-#ADM_modpodTitre{
-    grid-area: AADM_modpodTitre;
-}
-
-#ADM_modpodCat{
-    grid-area: ADM_modpodCat;
-}
-
-/*5eme gridy creation podcast*/
-.gridyCrePod{
-    display: grid;
-    grid-template-columns: 1fr 4fr 4fr 1fr;
-    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 1fr;
-    grid-template-areas:
-            ". . . . "
-            ". ADM_crepodTitreL ADM_crepodTitre ."
-            ". ADM_crepoddDureeL ADM_crepodDuree ."
-            ". ADM_crepodAuteurL ADM_crepodAuteur ."
-            ". ADM_crepodCatL ADM_crepodCat ."
-            ". . ADM_crepodValidateCre ."
-            ". . . .";
-}
-
-/*Bouton Validation de création*/
-#ADM_crepodValidateCre{
-    border: 2px solid slateblue;
-    border-radius: 15px;
-    background-color: darkslateblue;
-    color: aliceblue;
-    height: 1cm;
-    margin-bottom: 15px;
-    grid-area: ADM_crepodValidateCre;
-}
-
-
-#ADM_crepodDureeL{
-    grid-area: ADM_modpodDureeL;
-}
-
-#ADM_crepodAuteurL{
-    grid-area: ADM_modpodAuteurL;
-}
-
-#ADM_crepodTitreL{
-    grid-area: ADM_modpodTitreL;
-}
-
-#ADM_crepodCatL{
-    grid-area: ADM_modpodCatL;
-}
-
-/**==========================================**/
-
-#ADM_crepodDuree{
-    grid-area: ADM_modmusDuree;
-}
-
-#ADM_crepodAuteur{
-    grid-area: ADM_modpodAuteur;
-}
-
-#ADM_crepodTitre{
-    grid-area: AADM_modpodTitre;
-}
-
-#ADM_crepodCat{
-    grid-area: ADM_modpodCat;
-}
-
-
-.gridyProfilTitle{
-    display: grid;
-    grid-template-columns: 3fr 3fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    grid-template-areas: "title inscriptionTitle LogOut"
-                        "title . .";
-    grid-column-gap: 15px;
-    z-index: auto;
+    grid-template-areas:
+            " rechercherPar champsSelectModifierSupprimer fieldModifierSupprimer"
+            ". validateModifierSupprimer .";
+    grid-column-gap: 5px;
+    grid-row-gap: 15px;
 }
 
-.gridyBody_CatADM{
-    display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
-    grid-template-rows: 1fr 2fr 2fr 2fr 1fr;
-    grid-template-areas: ". . ."
-                        " . choixActionTypeID ."
-                        ". . .";
+#rechercherPar{
+    grid-area: rechercherPar;
 }
 
-#choixActionTypeID{
-    grid-area: choixActionTypeID;
+#champsSelectModifierSupprimer{
+    grid-area: champsSelectModifierSupprimer;
+}
+
+#fieldModifierSupprimer{
+    grid-area: fieldModifierSupprimer;
+}
+
+#validateModifierSupprimer{
+    grid-area: validateModifierSupprimer;
 }

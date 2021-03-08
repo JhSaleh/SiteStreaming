@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * A enlever, CLASSE INUTILE
+ */
 public class PageWebAdministration extends HttpServlet {
     private void doProcess(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
