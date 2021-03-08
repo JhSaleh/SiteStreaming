@@ -1,5 +1,4 @@
-
-audio{
+.audio{
     width: 100%;
     position: -webkit-sticky; /* Safari */
     position: sticky;
@@ -7,19 +6,16 @@ audio{
 }
 .controls {
     width: 100%;
-    min-height: 2em;
+    min-height: 2.5em;
 
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
-    bottom: 0;
-    visibility: hidden;
+
 
     border-radius: 10px;
 
     left: 50%;
     margin-left: -200px;
     background-color: black;
-    box-shadow: 3px 3px 5px black;
+    box-shadow: 1px 3px 3px 2px #696969;
     display: flex;
 }
 .player{

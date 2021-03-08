@@ -1,8 +1,0 @@
-window.addEventListener("load", function () {
-
-
-
-
-
-
-})
