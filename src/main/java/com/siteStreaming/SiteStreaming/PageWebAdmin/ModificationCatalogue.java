@@ -4,6 +4,7 @@ import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
 import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,10 @@ public class ModificationCatalogue extends HttpServlet {
         ResultSet res = catalogue.getAllBy("musique","",byID);
         List<ContenuSonore> listMusique = catalogue.readResultset("musique",res);
         request.setAttribute("ModMus",listMusique);
+
+        String pageName = "/adminModifCatalogue.jsp";
+        this.getServletContext().getRequestDispatcher(pageName);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
 
     }
