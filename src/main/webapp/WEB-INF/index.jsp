@@ -9,9 +9,6 @@
 <%@page import="com.siteStreaming.SiteStreaming.DataBase.S" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Acceuil.MetaErrorHandler" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient" %>
-<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique" %>
 
 <%
     //Récupération des données transmises depuis le servlet en cas de connection
@@ -22,9 +19,6 @@
 
     //Création de la sessions
     CompteClient client = (CompteClient) session.getAttribute("sessionUtilisateur");
-
-    List<ContenuSonore> listMus = (List<ContenuSonore>) request.getAttribute("listMus");
-    Musique m = (Musique) request.getAttribute("musique");
 %>
 
 <!DOCTYPE html>
@@ -82,6 +76,10 @@
 
 <%
     String defaultValue = "VideoImage";
+    String defaultValueTitle = "VideoTitle";
+    String defaultValueViews = "-9999";
+    String defaultValueYear = "01/02/2021";
+
 %>
 
 
@@ -130,28 +128,28 @@
         <div id="gridyRecommendedVideos">
             <%
                 String videoRec = "";
+                String titleRec = "";
+                String nbViewsRec = "";
+                String yearRec = "";
                 String linkImg = "";
                 String baseLink = "pictures/musicImg";
-                Musique temp;
-                String tptitle;
-                int tpNbViewsRec;
-                String tpannee;
-                for(int i = 1;i<6;i++){
-                    if(listMus.get(i).getRecommendationMoment()){
-                        linkImg = baseLink +Integer.toString(i)+".jpg"; //génère le lien de l'image
-                        videoRec = "vidRec" + Integer.toString(i);
-                        temp = (Musique) listMus.get(i);
-                        tptitle = temp.getTitre();
-                        tpNbViewsRec = temp.getNbLectureTotal();
-                        tpannee = temp.getAnneeCreation();
-                        out.println("<div class=\"musiques\" id="+temp.getId()+">");
-                        out.println("<img id ="+videoRec+" class=\"imageFormat\" src="+
-                                linkImg+" alt=\""+defaultValue+">");
-                        out.println(" <div id ="+tptitle+">"+tptitle+"</div>");
-                        out.println(" <div id ="+tpNbViewsRec+">"+tpNbViewsRec+" vues</div>");
-                        out.println(" <div id = "+tpannee+">"+tpannee+"</div></div>");
-                    }
-                }
+                for(int i = 1; i<6; i++){
+                videoRec = "vidRec" + Integer.toString(i);
+                linkImg = baseLink +Integer.toString(i)+".jpg"; //génère le lien de l'image
+
+                titleRec = "titleRec" + Integer.toString(i);
+                nbViewsRec = "nbViewsRec" + Integer.toString(i);
+                yearRec = "yearRec" + Integer.toString(i);
+
+            %>
+
+            <img id = <%=videoRec%> class="imageFormat" src=<%=linkImg%> alt="<%=defaultValue %>">
+            <div id = <%=titleRec%>><%=defaultValueTitle%></div>
+            <div id = <%=nbViewsRec%>><%=defaultValueViews%></div>
+            <div id = <%=yearRec%>><%=defaultValueYear%></div>
+
+            <%
+            }
             %>
         </div>
     </div>
@@ -162,36 +160,37 @@
         <h4>Morceaux Populaires :</h4>
         <div id = "gridyPopularVideos">
             <%
-                for(int i = 6;i<11;i++){
-                    if(listMus.get(i).getMorceauPopulaire()){
-                        linkImg= baseLink + Integer.toString(i)+".jpg";
-                        videoRec = "vidRec" + Integer.toString(i);
-                        temp = (Musique) listMus.get(i);
-                        tptitle = temp.getTitre();
-                        tpNbViewsRec = temp.getNbLectureTotal();
-                        tpannee = temp.getAnneeCreation();
-                        out.println("<div class=\"musiques\" id="+temp.getId()+">");
-                        out.println("<img id ="+videoRec+" class=\"imageFormat\" src="+
-                                linkImg+" alt=\""+defaultValue+">");
-                        out.println(" <div id ="+tptitle+">"+tptitle+"</div>");
-                        out.println(" <div id ="+tpNbViewsRec+">"+tpNbViewsRec+" vues</div>");
-                        out.println(" <div id = "+tpannee+">"+tpannee+"</div></div>");
-                    }
+                String videoPop = "";
+                String titlePop = "";
+                String nbViewsPop = "";
+                String yearPop = "";
+                String playPop = "";
+
+                String linkImgP = "";
+                String baseLinkP = "pictures/musicImg";
+                for(int j = 1; j<6; j++){
+                    videoPop = "vidPop" + Integer.toString(j);
+                    linkImgP = baseLinkP + Integer.toString(j+5)+".jpg";
+                    titlePop = "titlePop" + Integer.toString(j);
+                    nbViewsPop = "nbViewsPop" + Integer.toString(j);
+                    yearPop = "yearPop" + Integer.toString(j);
+                    playPop = "playPop" + Integer.toString(j);
+            %>
+
+            <img id = <%=videoPop%> class="imageFormat" src=<%=linkImgP%> alt="<%=defaultValue %>">
+            <div id = <%=titlePop%>><%=defaultValueTitle%></div>
+            <div id = <%=nbViewsPop%>><%=defaultValueViews%></div>
+            <div id = <%=yearPop%>><%=defaultValueYear%></div>
+            <div id = <%=playPop%>>BoutonPlay</div>
+            <%
                 }
             %>
         </div>
     </div>
 
-        <div id = "catalogue">
+    <div id = "catalogue">
 
-        </div>
-
-        <script language="JavaScript">
-
-            document.getElementsByClassName("musques").addEventListener("click",EcouterMus,false);
-            function EcouterMus(){}
-
-        </script>
+    </div>
 </body>
 
 <footer class="footer">© Copyright 2021 All Rights Reserved.</footer>

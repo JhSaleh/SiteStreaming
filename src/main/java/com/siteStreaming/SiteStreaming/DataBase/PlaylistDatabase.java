@@ -4,8 +4,6 @@ import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
-import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast;
-import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio;
 import com.siteStreaming.SiteStreaming.Catalogue.Playlist;
 
 import java.sql.*;
@@ -284,7 +282,6 @@ public class PlaylistDatabase {
         }
     }
 
-
     /**
      * Récupère l'id du client à partir de son mail
      * @param mail du client dont on veut l'id
@@ -347,7 +344,7 @@ public class PlaylistDatabase {
                 /* On récupère les musiques des playlists récupérée */
                 List<Musique> tempMus = new ArrayList<>();
                 for (int i = 0; i < playlists.size(); i++) {
-                    playlists.get(i).setMusique(getListMusique(playlists.get(i).getIdPlaylist()));
+                    playlists.get(i).setMusique(getListMusique(playlists.get(i)));
                 }
 
                 /* On renvoie le résultat */
@@ -360,20 +357,20 @@ public class PlaylistDatabase {
     }
     /**
      * Récupère la liste des musiques de la playlist
-     * @param id de la playlist dont on récupère les musiques
+     * @param playlist dont on récupère les musiques
      * @return la liste de musique
      */
-    public List<Musique> getListMusique(int id) {
+    public List<Musique> getListMusique(Playlist playlist) {
         PreparedStatement preparedStatement =null;
         try {
-            if (id== -1) {
+            if (playlist.getIdPlaylist()== -1) {
                 System.out.println("la playlist n'a pas d'identifiant");
                 return null;
             } else {
                /* On récupère les musiques de la playlist */
                 List<Musique> tempMus = new ArrayList<>();
                 preparedStatement =this.connection.prepareStatement("SELECT * FROM info_team07_schema.ContenuPlaylist where idPlaylist='" +
-                        id + "';");
+                        playlist.getIdPlaylist() + "';");
                 int pos;
                 ResultSet res2 = preparedStatement.executeQuery();
                 while (res2.next()) {
@@ -390,18 +387,18 @@ public class PlaylistDatabase {
     }
     /**
      * Récupère la playlist associée à l'identifiant donné
-     * @param id de la playlist dont on récupère l'identifiant
+     * @param playlist dont on récupère l'identifiant
      * @param mail du client
      * @return la playlist voulue
      */
-    public Playlist getPlaylistById(int id, String mail) {
+    public Playlist getPlaylistById(Playlist playlist, String mail) {
         try {
-            if (id== -1) {
+            if (playlist.getIdPlaylist()== -1) {
                 System.out.println("la playlist n'a pas d'identifiant");
                 return null;
             } else {
                 /* On récupère les infos des playlists du client */
-                String query = "SELECT * FROM Playlist where idPlaylist='" + id + "' LIMIT 1;";
+                String query = "SELECT * FROM Playlist where idPlaylist='" + playlist.getIdPlaylist() + "' LIMIT 1;";
                 ResultSet res = this.statement.executeQuery(query);
 
                 Playlist temp = null;
@@ -413,7 +410,7 @@ public class PlaylistDatabase {
                 res.close();
 
                 /* On récupère les musiques de la playlist */
-                temp.setMusique(getListMusique(id));
+                temp.setMusique(getListMusique(playlist));
 
                 /* On renvoie le résultat */
                 return temp;

@@ -1,10 +1,13 @@
 /**
  * @author: Jean-Hanna SALEH
  */
-package com.siteStreaming.SiteStreaming.ProfilUser;
+package com.siteStreaming.SiteStreaming.PageWebAdmin;
 
+import com.siteStreaming.SiteStreaming.Access.AdminFilter;
 import com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter;
+import com.siteStreaming.SiteStreaming.Acceuil.CompteAdmin;
 import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
+import com.siteStreaming.SiteStreaming.DataBase.AdministratorDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
 
 import javax.servlet.RequestDispatcher;
@@ -14,8 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class Profil extends HttpServlet {
+public class adminPageProfil extends HttpServlet {
+    public static String mailUtilisateurSelectionne = "mailUtilisateurSelectionne";
+    public static String groupeUtilisateurEnvoye = "groupeUtilisateurEnvoye";
+
 
     public Boolean hasChangedInformation(CompteClient compteClient, String[] infosClient){
 
@@ -44,8 +51,62 @@ public class Profil extends HttpServlet {
         }
     }
 
+
     private void doProcess(HttpServletRequest request, HttpServletResponse response){
-        HttpSession session = request.getSession(); //Création d'une session utilisateur s'il n'a pas été créé avant
+        //Cas où le formulaire a été envoyé
+
+        /*
+        CompteClient compteClientChoosen = null;
+        request.setAttribute(utilisateurEnvoye, compteClientChoosen);
+        */
+        ArrayList<CompteClient> matchingClients = new ArrayList<>();
+
+        //Redirige vers la page d'acceuil
+        String pageNameModification = "/WEB-INF/administrationProfilClient.jsp";
+        String pageNameResearch = "/WEB-INF/adminResearchClient.jsp";
+        String page = "";
+
+        String mail = request.getParameter("email");
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
+        String emailSelected = request.getParameter("emailSelected");
+
+        if(emailSelected == null) {
+            if (mail != null || nom != null || prenom != null) {
+                System.out.println(mail + " " + nom + " " + prenom);
+                System.out.println("Passage dans la research");
+                ClientDatabase clientDatabase = new ClientDatabase();
+                ArrayList<CompteClient> result = clientDatabase.searchClient(nom, prenom, mail);
+                request.setAttribute(groupeUtilisateurEnvoye, result);
+                page = pageNameResearch;
+            } else {
+                page = pageNameResearch;
+            }
+        } else {
+            HttpSession session = request.getSession();
+            request.setAttribute("emailSelected", emailSelected); //Transfert de la valeur sur la seconde page
+            String sentModification = request.getParameter("sentModification");
+            if (sentModification != null){ //L'admin a appuyé sur le bouton
+                processingData(emailSelected, request, response);
+                request.setAttribute("successModification", true); //Déclenche le div
+            }
+
+            page = pageNameModification;
+        }
+
+
+        RequestDispatcher rd = getServletContext().getRequestDispatcher(page);
+
+        try {
+            rd.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void processingData(String mail, HttpServletRequest request, HttpServletResponse response){
         String infosClient[] = {request.getParameter("nomUser"),
                 request.getParameter("prenomUser"),
                 request.getParameter("civiliteUser"),
@@ -57,13 +118,12 @@ public class Profil extends HttpServlet {
         System.out.println("nom :"+infosClient[0] +" prenom :"+ infosClient[1] + "mail :"+ infosClient[3]);
 
         //Redirige vers la page d'acceuil
-        CompteClient currentCompteClient = (CompteClient) session.getAttribute(ConnectedUserFilter.sessionUtilisateur);
-        //CompteClient lastStateCompteClient = (CompteClient) session.getAttribute(ConnectedUserFilter.lastStateSessionUtilisateur);
+        ClientDatabase clientDatabase = new ClientDatabase();
+        CompteClient currentCompteClient = clientDatabase.getCompteClient(mail);
         System.out.println("Passage dans Profil");
 
-       if(hasChangedInformation(currentCompteClient, infosClient)) {
-           System.out.println("Succes");
-            ClientDatabase clientDatabase = new ClientDatabase();
+        if(hasChangedInformation(currentCompteClient, infosClient)) {
+            System.out.println("Succes");
             CompteClient compteToModify = new CompteClient(infosClient[0],
                     infosClient[1],
                     infosClient[2],
@@ -73,15 +133,13 @@ public class Profil extends HttpServlet {
                     infosClient[6],
                     infosClient[7]); //Provient du formulaire
             clientDatabase.modifyClientAccount(compteToModify);
-
-            session.setAttribute(ConnectedUserFilter.sessionUtilisateur, compteToModify); //MAJ de l'objet de session
+            clientDatabase.closeConnection();
             request.setAttribute("successModification", true); //Déclenche le div
         }
-
+        /*
         //Redirige vers la page
-        String pageName = "/WEB-INF/profil.jsp";
+        String pageName = "${pageContext.request.contextPath}/Administration/AdminProfilClient?emailSelected="+mail;
         RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-
 
         try {
             rd.forward(request, response);
@@ -90,6 +148,8 @@ public class Profil extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+         */
     }
 
     @Override

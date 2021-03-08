@@ -48,15 +48,28 @@
         <url-pattern>/LogOut</url-pattern>
     </servlet-mapping>
 
+    <!--Gestionnaire musical-->
     <servlet>
         <display-name>Administration</display-name>
-        <servlet-name>Administration</servlet-name>
+        <servlet-name>PageWebAdministration</servlet-name>
         <servlet-class>com.siteStreaming.SiteStreaming.PageWebAdmin.PageWebAdministration</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>Administration</servlet-name>
-        <url-pattern>/Administration</url-pattern>
+        <servlet-name>PageWebAdministration</servlet-name>
+        <url-pattern>/Administration/AdminGestionnaireMusical</url-pattern>
+    </servlet-mapping>
+
+    <!--Profil Client-->
+    <servlet>
+        <display-name>AdminProfilClient</display-name>
+        <servlet-name>AdminProfilClient</servlet-name>
+        <servlet-class>com.siteStreaming.SiteStreaming.PageWebAdmin.adminPageProfil</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AdminProfilClient</servlet-name>
+        <url-pattern>/Administration/AdminProfilClient</url-pattern>
     </servlet-mapping>
 
 
@@ -82,6 +95,12 @@
     <filter-mapping>
         <filter-name>ConnectedUser</filter-name>
         <servlet-name>Inscription</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>ConnectedUser</filter-name>
+        <servlet-name>AdminProfilClient</servlet-name>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 

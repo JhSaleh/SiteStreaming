@@ -89,8 +89,12 @@ body{
 
 /*sections*/
 .section{
+    padding-left: 3%;
+    padding-right: 4%;
+    padding-bottom: 3%;
     border-radius: 5px;
     background-color: dimgrey;
+    border: 5px solid gray;
     margin-bottom: 150px;
     min-width: min-content;
     z-index: auto;
@@ -360,6 +364,7 @@ body{
 
 .footer{
     border-radius: 30px;
+    margin-top: 10%;
     padding: 10px;
     left: 10vw; :/*décalage gauche de 30% de la taille de l'écran*/
     right: 5vw;
@@ -368,7 +373,7 @@ body{
     line-height: 60px;
     border: 5px solid mediumslateblue;
     background: darkslateblue;
-    width: 80%;
+    width: 100%;
     height: 50px;
     bottom: 0; /*bloque le footer vers le bas*/
     z-index: -1;
