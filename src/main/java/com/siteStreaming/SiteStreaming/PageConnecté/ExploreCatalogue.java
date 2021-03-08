@@ -1,16 +1,13 @@
 package com.siteStreaming.SiteStreaming.PageConnecté;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio;
 import com.siteStreaming.SiteStreaming.Catalogue.Playlist;
 import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
-import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
-import com.siteStreaming.SiteStreaming.DataBase.DBManager;
+
 import com.siteStreaming.SiteStreaming.DataBase.PlaylistDatabase;
 
 import javax.servlet.RequestDispatcher;
@@ -18,69 +15,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.ws.rs.client.Client;
+
 import java.io.IOException;
 import java.util.List;
 
 public class ExploreCatalogue extends HttpServlet {
-    private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            //Cas où le formulaire a été envoyé
-            //request.getParameter("mailAddress")
-            String mail = "aarobase@mail";
-            String genre = "pop";
-            if (mail != null) {
 
-                //donne les playlist de l'usager à la page
-                PlaylistDatabase playlistDatabase = new PlaylistDatabase();
-                List<Playlist> mesplaylists = playlistDatabase.getAllPlaylist(mail);
-                String playlists;
-                ObjectMapper mapper = new ObjectMapper();
-                playlists = mapper.writeValueAsString(mesplaylists);
-                request.setAttribute("mesplaylists", playlists);
-                playlistDatabase.close();
-
-                CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
-                List<ContenuSonore> res;
-                Boolean recherche;
-                //Si une recherche pour un contenu sonore a été faite
-                if (request.getParameter("searchText") != null) {
-
-                    String search = request.getParameter("searchText");
-                    recherche = true;
-                    System.out.println("recherche : " + search);
-                    request.setAttribute("search", search);
-                    res = catalogueDatabase.searchAllByTitle(search);
-                    res.addAll(catalogueDatabase.searchByAutor(search));
-                    res.addAll(catalogueDatabase.searchByCategorie(search));
-                    res.addAll(catalogueDatabase.searchByGenreMusical(search));
-                } else {
-                    recherche = false;
-                    res = catalogueDatabase.searchByGenreMusical(genre);
-                }
-                catalogueDatabase.close();
-
-                // renvoie les musiques sous forme Json
-                String resJson = mapper.writeValueAsString(res);
-                System.out.println(resJson);
-                if (recherche) {
-                    request.setAttribute("musiques", resJson);
-                } else {
-                    request.setAttribute("musiquesDefault", resJson);
-                }
-            }
-
-            //Redirige vers la page d'acceuil
-            String pageName = "/WEB-INF/exploreCat.jsp";
-            RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-            rd.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -89,6 +29,7 @@ public class ExploreCatalogue extends HttpServlet {
             //request.getParameter("mailAddress")
             String mail = "aarobase@mail";
             String genre = "pop";
+            System.out.println("dopost");
             if (mail != null) {
                 CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
                 PlaylistDatabase playlistDatabase = new PlaylistDatabase();
@@ -99,6 +40,7 @@ public class ExploreCatalogue extends HttpServlet {
                         request.getParameter("hiddenChamp2")!=null
                 && !request.getParameter("hiddenChamp").equals("") &&
                         !request.getParameter("hiddenChamp2").equals("")) {
+                    System.out.println("ecouter");
                     //on récupère les paramètres
                     idMus = Integer.parseInt(request.getParameter("hiddenChamp"));
                     idPlay = Integer.parseInt(request.getParameter("hiddenChamp2"));
@@ -125,11 +67,24 @@ public class ExploreCatalogue extends HttpServlet {
                         request.setAttribute("idPlaylist", idPlay);
                     } else {
                         //si on n'est pas dans une playlist, on cherche le type de contenu
+                        List<ContenuSonore> contenutemp = null;
+                        Podcast p =null;
+                        Radio r = null;
                         Musique m = playlistDatabase.getMusique(idMus);
-                        Podcast p = (Podcast) catalogueDatabase.readResultset("podcast",
-                                catalogueDatabase.getAllBy("podcast", " and idPodcast=? limit 1", String.valueOf(idMus))).get(0);
-                        Radio r = (Radio) catalogueDatabase.readResultset("radio",
-                                catalogueDatabase.getAllBy("radio", " and idRadio=? limit 1", String.valueOf(idMus))).get(0);
+                        if(m==null){
+                            contenutemp=catalogueDatabase.readResultset("podcast",
+                                    catalogueDatabase.getAllBy("podcast", " and idPodcast=? limit 1", String.valueOf(idMus)));
+                            if(contenutemp!=null || !contenutemp.isEmpty()){
+                                p = (Podcast) contenutemp.get(0);
+                            }else{
+                                contenutemp = catalogueDatabase.readResultset("radio",
+                                        catalogueDatabase.getAllBy("radio", " and idRadio=? limit 1", String.valueOf(idMus)));
+                                if(contenutemp!=null || !contenutemp.isEmpty()){
+                                    r = (Radio) contenutemp.get(0);
+                                }
+                            }
+                        }
+
 
                         //On met à jour le nombre de lecture, l'enregistre et le
                         // converti en Json
@@ -220,7 +175,7 @@ public class ExploreCatalogue extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        doProcess(request, response);
+        doPost(request, response);
     }
 }
 
