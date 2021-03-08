@@ -14,10 +14,8 @@
 <html>
 <head>
     <title>Modification Catalogue</title>
-    <link rel="stylesheet" type="text/css" href="../css/administration.css">
-    <link rel="stylesheet" type="text/css" href="../css/acceuil.css">
-
-    <script src="../js/adminModifCatalogueGridy.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/acceuil.css">
+    <script src="js/adminModifCatalogueGridy.js"></script>
     <script>
         function initMain() {
 
@@ -46,7 +44,7 @@
 </head>
 <body onload="initMain()">
     <div id = "gridyHeaderInscriptionID" class = "gridyHeaderInscription">
-        <div id ="title"><a href="/SiteStreaming_war/Acceuil">UsTube</a></div>
+        <div id ="title"><a href="/SiteStreaming_war/Acceuil">Acceuil</a></div>
         <div id = "inscriptionTitle">Modification Catalogue :</div>
     </div>
 

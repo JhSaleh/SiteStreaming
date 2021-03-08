@@ -50,13 +50,13 @@
 
     <!--Gestionnaire musical-->
     <servlet>
-        <display-name>ModificationCatalogue</display-name>
-        <servlet-name>ModificationCatalogue</servlet-name>
+        <display-name>Administration</display-name>
+        <servlet-name>PageWebAdministration</servlet-name>
         <servlet-class>com.siteStreaming.SiteStreaming.PageWebAdmin.PageWebAdministration</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>ModificationCatalogue</servlet-name>
+        <servlet-name>PageWebAdministration</servlet-name>
         <url-pattern>/Administration/AdminGestionnaireMusical</url-pattern>
     </servlet-mapping>
 
