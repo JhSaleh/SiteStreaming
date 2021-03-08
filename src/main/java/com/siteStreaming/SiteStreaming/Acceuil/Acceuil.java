@@ -15,6 +15,9 @@ import java.io.IOException;
 
 public class Acceuil extends HttpServlet {
     private void doProcess(HttpServletRequest request, HttpServletResponse response){
+        Boolean notRedirected = true;
+        String pageName = "";
+
         //Cas où le formulaire a été envoyé
         System.out.println("passageServletAcceuil");
         //Récupération des données du formulaire
@@ -49,38 +52,60 @@ public class Acceuil extends HttpServlet {
                     request.setAttribute("mailAddressUsed", mail);
                     request.setAttribute("passwordUsed", password);
                 }
+                pageName = "/WEB-INF/index.jsp";
+
             }else if(compteAdmin != null){
                 if(compteAdmin.isPassWord(password)){
                     System.out.println("Administrateur trouvé !");
                     HttpSession session = request.getSession(); //Création d'une session utilisateur s'il n'a pas été créé avant
                     session.setAttribute(AdminFilter.sessionAdmin, compteAdmin); //Création de la session administrateur
+                    RequestDispatcher rdAdmin;
+                    if(compteAdmin.getIsProfilManagerClient().equals("true")){
+                        pageName = "Administration/AdminProfilClient";
+                        System.out.println("ManageProfil");
+                        try {
+                            response.sendRedirect(pageName);
+                            notRedirected = false;
+                        } catch (IOException  e){
+                            e.printStackTrace();
+                        }
+                    } else {
+                        rdAdmin = request.getRequestDispatcher("..."); //METTRE LE LIEN VERS LE PROFIL GESTION MUSICAL
+                        System.out.println("ManageLibrary");
+                    }
+
 
                     //Ajouté la redirection vers la bonne page admin
                 } else {
                     System.out.println("Coté serveur : Echec de connection renvoit des données.");
                     request.setAttribute("mailAddressUsed", mail);
                     request.setAttribute("passwordUsed", password);
+                    pageName = "/WEB-INF/index.jsp";
                 }
             }else {
                 System.out.println("Coté serveur : Echec de connection renvoit des données.");
                 request.setAttribute("mailAddressUsed", mail);
                 request.setAttribute("passwordUsed", password);
+                //pageName = "/WEB-INF/index.jsp";
+                pageName = "/WEB-INF/index.jsp";
             }
+        } else {
+            pageName = "/WEB-INF/index.jsp";
         }
 
 
 
-
         //Redirige vers la page d'acceuil
-        String pageName = "/WEB-INF/index.jsp";
-        RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
+        if(notRedirected) { //parce qu'on peut pas forward et redirect en même temps
+            RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
-        try {
-            rd.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                rd.forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
