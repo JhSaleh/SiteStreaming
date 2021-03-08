@@ -98,6 +98,12 @@
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
+    <filter-mapping>
+        <filter-name>ConnectedUser</filter-name>
+        <servlet-name>AdminProfilClient</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
     <servlet>
         <display-name>ExploreCatalogue</display-name>
         <servlet-name>ExploreCat</servlet-name>
