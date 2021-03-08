@@ -233,7 +233,7 @@
                 </a>
             </div>
 </br>
-            <div class="audio">
+            <div class="audio"  style="bottom: 0; position: sticky;">
                 <div class="player">
                     <audio id="audioid" controls>
                         <source src="https://dl5.webmfiles.org/big-buck-bunny_trailer.webm" type="audio/webm" id="srceId">

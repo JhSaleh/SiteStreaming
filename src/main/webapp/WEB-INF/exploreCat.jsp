@@ -15,15 +15,15 @@
     <link rel="stylesheet" type="text/css" href="css/connexion.css">
     <link rel="stylesheet" type="text/css" href="css/profil.css">
     <link rel="stylesheet" type="text/css" href="css/catalogue.css">
-    <link rel="stylesheet" type="text/css" href="css/exploreur.css">
-    <link rel="stylesheet" type="text/css" href="css/lecteur.css">
-    <link rel="stylesheet" type="text/css" href="css/imageFormat.css">
-    <script src="js/client.js"></script>
-    <script src="js/storeObject.js"></script>
-    <script src="js/titleBarCreation.js"></script>
-    <script src="js/modal.js"></script>
-    <script src="js/waitForHTMLElementToLoad.js"></script>
-    <script src="js/acceuil.js"></script>
+      <link rel="stylesheet" type="text/css" href="css/exploreur.css">
+         <link rel="stylesheet" type="text/css" href="css/lecteur.css">
+       <link rel="stylesheet" type="text/css" href="css/imageFormat.css">
+       <script src="js/client.js"></script>
+       <script src="js/storeObject.js"></script>
+       <script src="js/titleBarCreation.js"></script>
+       <script src="js/modal.js"></script>
+       <script src="js/waitForHTMLElementToLoad.js"></script>
+       <script src="js/acceuil.js"></script>
 
 </head>
 <body>
@@ -336,7 +336,7 @@
 
     console.log("herehere");
     //----------------LECTURE MUSIQUE-------------------------------------------------------
-    var idPlaylist = -1;
+   var idPlaylist = -1;
     var lect = <%=lect%>;
 
     console.log(lect);
@@ -367,6 +367,8 @@
 
 
     media.removeAttribute('controls');
+    controls.style.visibility = 'hidden';
+
 
     var dureeMus;
     var numMusique;
@@ -442,6 +444,7 @@
 
 
     play.addEventListener('click', playPauseMedia);
+    play.style.backgroundImage = "url( pictures/playButton.svg )";
 
     rwd.id = "avance";
     fwd.id = "recule";
@@ -456,9 +459,11 @@
     function playPauseMedia() {
         if (media.paused) {
             play.id = "play";
+            play.style.backgroundImage = "url( pictures/pauseButton.svg )";
             media.play();
         } else {
             play.id = "pause";
+            play.style.backgroundImage = "url( pictures/playButton.svg )";
             media.pause();
         }
     }
@@ -470,6 +475,7 @@
         media.pause();
         media.currentTime = 0;
         play.id = "pause";
+        play.style.backgroundImage = "url( pictures/playButton.svg )";
         raz = 0;
     }
 
@@ -493,12 +499,16 @@
             media.currentTime = 0;
             play.id = "pause";
             raz = 0;
+            play.style.backgroundImage = "url( pictures/playButton.svg )";
         }
     }
 
     rwd.addEventListener('click', musAvant);
     fwd.addEventListener('click', musSuivant);
 
+
+    rwd.style.backgroundImage = "url( pictures/playButton.svg )";
+    fwd.style.backgroundImage = "url( pictures/playButton.svg )";
 
 
     function musAvant() {
