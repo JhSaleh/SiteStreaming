@@ -13,6 +13,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique" %>
 
+
 <%
     //Récupération des données transmises depuis le servlet en cas de connection
     //En cas d'erreur de tentative de connection
@@ -25,14 +26,9 @@
 
     List<ContenuSonore> listMus = (List<ContenuSonore>) request.getAttribute("listMus");
 
-    Musique m = (Musique) request.getAttribute("musique");
-    int duree = -1;
-    String titreMus = "0";
+
+    String m = (String) request.getAttribute("musique");
     Boolean lect = (m!=null);
-    if(lect){
-        titreMus = m.getTitre();
-        duree = m.getDuree();
-    }
 %>
 
 <!DOCTYPE html>
@@ -130,7 +126,7 @@
                 <div id="formlecture" class="modal modalNotHidden">
                     <div class="modal-content"> <!--Contenu du modal-->
                         <div class="close" style="float:right">&times;</div> <!--syntaxe pour le bouton x-->
-                        <h3 id="TitreMus" style="float:left; padding-left: 3%; padding-right: 3%;"></h3>
+                        <h3 id="TitreMusoc" style="float:left; padding-left: 3%; padding-right: 3%;"></h3>
                         </br>
                         <div class="forms">
                             <form action="${pageContext.request.contextPath}/Acceuil" method=POST">
@@ -181,7 +177,7 @@
                                 tpannee = defaultValueYear;
                                 tpNbViewsRec = Integer.parseInt(defaultValueViews);
                             }
-                            out.println("<div class=\"musiques\" id=" + id + ">\n");
+                            out.println("<div class=\"musiques\" id=" + id + "  name=\""+tptitle+"\">\n");
                             out.println("<img id =" + videoRec + " class=\"imageFormat\" src=" +
                                     linkImg + " alt=\"" + defaultValue + "\">\n");
                             out.println(" <div id =" + tptitle + ">" + tptitle + "</div>\n");
@@ -234,13 +230,13 @@
                     <audio id="audioid" controls>
                         <source src="https://dl5.webmfiles.org/big-buck-bunny_trailer.webm" type="audio/webm" id="srceId">
                     </audio>
-                    <div id="info"></div>
                     <div class="controls">
                         <button class="play"  aria-label="bascule lecture pause"></button>
                         <button class="stop"  aria-label="stop"></button>
                         <div class="timer">
                             <div></div>
                             <span aria-label="timer">00:00</span>
+                            <span aria-label="timer2" id="montitremus" style="padding-left: 5%;"></span>
                         </div>
                         <button class="rwd"  aria-label="retour prec"></button>
                         <button class="fwd" aria-label="avance suivante"></button>
@@ -266,16 +262,13 @@
         function AffMod(e){
             modal.style.display = "block";
             document.getElementById("hiddenChamp").setAttribute("value",e.currentTarget.id);
-            document.getElementById("TitreMus").textContent = e.currentTarget.;
+            document.getElementById("TitreMusoc").textContent = e.currentTarget.getAttribute("name");
 
         }
 
         var lect = <%=lect%>;
-
-        if(lect){
-            EcouterMus();
-        }
-
+        var dureeMus = -1;
+        var titreMus = "0";
         var media = document.getElementById("audioid");
         var controls = document.querySelector('.controls');
 
@@ -290,26 +283,23 @@
 
         media.removeAttribute('controls');
 
-        var dureeMus = <%=duree%>;
-        var titreMus = <%=titreMus%>;
+
         var raz = 0;
-        var info = document.getElementById("info");
-
-        function setInfoMus() {
-            var title = document.createElement("p");
-            //title.className ="in-button";
-            info.textContent = "Musique";
-            title.textContent = titreMus + " -- " + dureeMus;
-
-            info.appendChild(title);
+        if(lect){
+            EcouterMus();
+            const m = <%=m%>;
+            dureeMus = m.duree;
+            titreMus = m.titre;
+            console.log("mes elements mus lue : "+m.duree + m.titre);
+            document.getElementById("montitremus").textContent = m.titre;
         }
+
 
 
         function EcouterMus(){
             raz = 0;
             controls.style.visibility = 'visible';
             media.currentTime = 0;
-            setInfoMus();
         }
 
         play.addEventListener('click', playPauseMedia);

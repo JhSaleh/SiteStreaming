@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="css/catalogue.css">
     <link rel="stylesheet" type="text/css" href="css/exploreur.css">
     <link rel="stylesheet" type="text/css" href="css/lecteur.css">
+    <link rel="stylesheet" type="text/css" href="css/imageFormat.css">
     <script src="js/client.js"></script>
     <script src="js/storeObject.js"></script>
     <script src="js/titleBarCreation.js"></script>
@@ -31,7 +32,11 @@
     if(mesplaylists==null){mesplaylists="";}
     CompteClient compteClient = (CompteClient) session.getAttribute("sessionUtilisateur");
     String prenom;
-    if(compteClient!=null){ prenom = compteClient.getPrenom();}else{ prenom = "intrus";}
+    String nom;
+    if(compteClient!=null){
+        prenom = compteClient.getPrenom();
+        nom = compteClient.getNom();
+    }else{ prenom = "intrus"; nom= "inconnu";}
     String resp = "";
     String search = "";
     if(request.getAttribute("musiques")!=null) {
@@ -73,7 +78,7 @@
                 </form>
                 <form name="ajoutPlaylist" id="ajoutPlaylist" action="./ExploreCat" method="POST">
                     <input type="hidden" name="hiddenChampBis" id="hiddenChampBis">
-                    <label syle="padding-left: 3%" for="playList">Choisir une playlist :</label>
+                    <label style="padding-left: 3%" for="playList">Choisir une playlist :</label>
                     <select name="playList" id="playList" required="true">
                     </select>
                     <input id="validate" type="submit" value="Valider">
@@ -87,7 +92,7 @@
 <div id="gridyHeader">
     <div id="gridyHeaderBeforeSignIn">
         <div id="title"><a href="Acceuil">UsTube</a></div>
-        <a href="Profil"><div id="nomPrenomUser" class="profilButtonLayout changeButtonProfilColor"><%=prenom%></div></a>
+        <a href="Profil"><div id="nomPrenomUser" class="profilButtonLayout changeButtonProfilColor"><%=prenom%> <%=nom%></div></a>
         <div id="SignOut" class="buttonLayout changeButtonColor">Se déconnecter</div>
     </div>
 </div>
@@ -120,16 +125,16 @@
 </div>
 <div class="audio">
     <div class="player">
-        <audio id="audioid" controls autoplay>
+        <audio id="audioid" controls>
             <source src="https://dl5.webmfiles.org/big-buck-bunny_trailer.webm" type="audio/webm" id="srceId">
         </audio>
-        <div id="info"></div>
         <div class="controls">
             <button class="play"  aria-label="bascule lecture pause"></button>
             <button class="stop"  aria-label="stop"></button>
             <div class="timer">
                 <div></div>
                 <span aria-label="timer">00:00</span>
+                <span aria-label="timer2" id="montitremus" style="padding-left: 5%;"></span>
             </div>
             <button class="rwd"  aria-label="retour prec"></button>
             <button class="fwd" aria-label="avance suivante"></button>
@@ -145,7 +150,7 @@
     var j;
     for(j=0;j<playlistArray.length;j++){
         let div = document.createElement("div");
-        div.id = playlistArray[j].idPlaylist;
+        div.id = "d"+playlistArray[j].idPlaylist;
         div.setAttribute("num",j);
 
         let but = document.createElement("button");
@@ -224,48 +229,52 @@
         }
 
 
-        let but = document.createElement("button");
+        let but = document.createElement("div");
         but.id =videoArray[j].id;
         but.setAttribute("num",j);
         but.addEventListener("click", chooseAction, false);
 
+        var img = document.createElement("img");
+        var title = document.createElement("div");
+        var nbLect = document.createElement("div");
+        var more = document.createElement("div");
+        var annee = document.createElement("div");
 
-        var title = document.createElement("p");
-        var nbLect = document.createElement("p");
-        var more = document.createElement("p");
-        var genre = document.createElement("p");
+        img.className = "imageFormat";
+        var tp = (j%10)+1;
+        img.id = "videRec"+tp;
+        img.setAttribute("src","pictures/musicImg"+tp+".jpg");
+        img.setAttribute("alt","VideoImage");
+        but.appendChild(img);
+
         title.className ="in-button";
         nbLect.className ="in-button";
         more.className ="in-button";
-        genre.className ="in-button";
+        annee.className = "in-button";
         if(videoArray[j].titre!=null && videoArray[j].anneeCreation!=null) {
-            but.textContent = "Musique";
+            //musique
             title.textContent = titre;
             nbLect.textContent = videoArray[j].nbLectureTotal+" vues" ;
-            more.textContent = videoArray[j].interprete + " -- " + videoArray[j].anneeCreation ;
-            genre.textContent =  videoArray[j].genreMusical;
+            more.textContent = videoArray[j].interprete;
+            annee.textContent =videoArray[j].anneeCreation;
             but.appendChild(title);
             but.appendChild(nbLect);
             but.appendChild(more);
-            but.appendChild(genre);
+            but.appendChild(annee);
         }else if(videoArray[j].titre!=null){
-            but.textContent = "Podcast";
+            //podcast
             title.textContent = titre;
             nbLect.textContent = videoArray[j].nbLectureTotal+" vues" ;
             more.textContent = videoArray[j].auteur;
-            genre.textContent = videoArray[j].categorie ;
             but.appendChild(title);
             but.appendChild(nbLect);
             but.appendChild(more);
-            but.appendChild(genre);
         }else{
-            but.textContent = "Radio";
+            //radio
             title.textContent = titre;
             nbLect.textContent = videoArray[j].nbLectureTotal+" vues" ;
-            genre.textContent = videoArray[j].genreMusical ;
             but.appendChild(title);
             but.appendChild(nbLect);
-            but.appendChild(genre);
 
         }
         div.appendChild(but);
@@ -298,7 +307,7 @@
         console.log(TidMusi+numMusi);
         var numPlaylist=-1;
         if(bool2){
-            TidPlaylist = parseInt(e.currentTarget.parentElement.id);
+            TidPlaylist = parseInt(e.currentTarget.parentElement.id.slice(1,10));
             numPlaylist = e.currentTarget.parentElement.getAttribute("num");
         }
         document.getElementById("hiddenChamp2").setAttribute("value",TidPlaylist);
@@ -360,49 +369,36 @@
     media.removeAttribute('controls');
 
     var dureeMus;
-    const isPlaylist = (idPlaylist!==-1);
-    var info = document.getElementById("info");
-
-        if (paraMus !== "0") {
-            if (paraPlaylist !== -1) {
-                idPlaylist = getNumPlaylist(paraPlaylist);
-                console.log(idPlaylist);
-                playPlaylist();
-            } else {
-                playMusique();
-            }
+    var numMusique;
+    var idPlaylist =-1;
+    if (paraMus !== "0") {
+        if (paraPlaylist !== -1) {
+            idPlaylist = document.getElementById("d"+paraPlaylist).getAttribute("num");
+            console.log(idPlaylist);
+            playPlaylist();
+        } else {
+            playMusique();
         }
-
-
-    function getNumPlaylist(idPlaylist){
-        playlistEl = document.getElementById(idPlaylist);
-        return playlistEl.num;
     }
+
+
+
 
     function setInfoMus(j) {
-        var title = document.createElement("p");
         //title.className ="in-button";
+        var tt;
         if (paraMus.titre != null && paraMus.anneeCreation != null) {
-            info.textContent = "Musique";
-            title.textContent = paraMus.titre + " -- " + paraMus.duree;
+            tt= "Musique : "+paraMus.titre;
         } else if (paraMus.titre != null) {
-            info.textContent = "Podcast";
-            title.textContent = paraMus.titre + " -- " + paraMus.duree;
+            tt = "Podcast : "+paraMus.titre;
         } else {
-            info.textContent = "Radio";
-            title.textContent = paraMus.nom;
+            tt="Radio : " +paraMus.nom;
         }
-        info.appendChild(title);
+        document.getElementById("montitremus").textContent = tt;
     }
 
-    function setInfoPlaylist(j,i) {
-        var title = document.createElement("p");
-        //title.className ="in-button";
-        if (paraMus.titre != null && paraMus.anneeCreation != null) {
-            info.textContent = "Musique";
-            title.textContent = paraMus.titre + " -- " + paraMus.duree;
-        }
-        info.appendChild(title);
+    function setInfoPlaylist(num) {
+        document.getElementById("montitremus").textContent = playlistArray[idPlaylist].musique[num].titre;
     }
 
       function playMusique() {
@@ -418,27 +414,30 @@
     function playPlaylist() {
         raz = 0;
         idMusique = paraMus.id;
-        numMusique = document.getElementById("p"+idMusique).num;
+        numMusique = parseInt(document.getElementById("p" + idMusique).getAttribute("num"));
         controls.style.visibility = 'visible';
         media.currentTime = 0;
-        setInfoPlaylist(idMusique);
+        setInfoPlaylist(numMusique);
         dureeMus = paraMus.duree;
     }
 
 
-    function playMusiqueFunction(idMus) {
+    function playMusiqueFunction(numMus) {
         raz = 0;
-        idMusique = idMus;
-        if (isPlaylist === false) {
+        numMusique =numMus;
+        if (idPlaylist === -1) {
             //setInfoMus(idMusique);
              //dureeMus = videoArray[idMusique].duree;
 
         } else {
-            setInfoPlaylist(idMusique);
-            dureeMus = playlistArray[idPlaylist].musique[idMusique].duree;
+            console.log("inplayfunc");
+            setInfoPlaylist(numMusique);
+            dureeMus = playlistArray[idPlaylist].musique[numMusique].duree;
+            play.id = "play";
+            media.currentTime = 0;
+            media.play();
         }
         controls.style.visibility = 'visible';
-        media.currentTime = 0;
     }
 
 
@@ -485,7 +484,7 @@
             raz = raz + media.duration;
             media.currentTime = 0;
             media.play();
-        } else if (isPlaylist === true) {
+        } else if (idPlaylist !=-1) {
             // si on est dans un playlist et pas dans les cas précédents on pass à la musique suivante
             musAvant();
         } else {
@@ -497,25 +496,25 @@
         }
     }
 
-    rwd.addEventListener('click', musSuivant);
-    fwd.addEventListener('click', musAvant);
+    rwd.addEventListener('click', musAvant);
+    fwd.addEventListener('click', musSuivant);
 
-    var intervalFwd;
-    var intervalRwd;
 
 
     function musAvant() {
         //on ne peut naviguer que dans une playlist
-        if (isPlaylist === true && playlistArray[idPlaylist].musique[idMusique - 1].id != null) {
-            playMusiqueFunction(idMusique - 1);
+        if (idPlaylist!=-1 && (numMusique - 1)>=0) {
+            console.log("musAv2");
+            playMusiqueFunction(numMusique - 1);
         }
     }
 
 
     function musSuivant() {
         //on ne peut naviguer que dans une playlist
-        if (isPlaylist === true && playlistArray[idPlaylist].musique[idMusique + 1].id != null) {
-            playMusiqueFunction(idMusique + 1);
+        if (idPlaylist!=-1 && playlistArray[idPlaylist].musique.length > (numMusique + 1)){
+            console.log("musSuiv2");
+            playMusiqueFunction(numMusique + 1);
         }
     }
 

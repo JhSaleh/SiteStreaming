@@ -1,4 +1,16 @@
+#gridyResultatRecherche,#gridyRecommendedVideos{
+    padding-left: 25%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 30px;
+    grid-template-areas: "vidRec1 vidRec2 vidRec3"
+                         "titleRec1 titleRec2 titleRec3"
+                         "nbViewsRec1 nbViewsRec2 nbViewsRec3"
+                         "yearRec1 yearRec2 yearRec3";
+    z-index: auto;
 
+}
 .aside {
     min-width: 23%;
     float: left;
@@ -46,6 +58,5 @@
 
     border-top: 1px solid #696969
 }
-
 
 

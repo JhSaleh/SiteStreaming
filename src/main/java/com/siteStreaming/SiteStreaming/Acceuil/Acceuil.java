@@ -115,7 +115,7 @@ public class Acceuil extends HttpServlet {
             m.setNbLectureMois(m.getNbLectureMois() + 1);
             cataloqueDatabase.infoStatMAJContenuSonore(m);
             //renvoie la musique à écouter
-            request.setAttribute("musique", m);
+            request.setAttribute("musique", m.musToJson());
         }
         playlistDatabase.close();
         cataloqueDatabase.close();
