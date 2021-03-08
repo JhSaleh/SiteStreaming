@@ -81,19 +81,19 @@ window.addEventListener("load", function (){
         deconnectionDiv.textContent = "Se déconnecter";
 
         var deconnectionDivLink = document.createElement("a");
-        deconnectionDivLink.href = "/SiteStreaming_war_exploded/LogOut";
+        deconnectionDivLink.href = "./LogOut";
 
 
         //Bouton catalogue
         var catalogueMainDiv = document.getElementById("catalogue");
         var catalogueButtonDiv = document.createElement('div');
-        catalogueButtonDiv.textContent = "Parcourir le catalogue";
+        catalogueButtonDiv.textContent = "voir plus";
         catalogueButtonDiv.className = "buttonLayout changeButtonColor";
         catalogueButtonDiv.id = "buttonCatalogue";
 
 
         var catalogueButtonDivLink = document.createElement('a');
-        catalogueButtonDivLink.href = "Acceuil/Catalogue";
+        catalogueButtonDivLink.href = "/ExploreCat";
         catalogueButtonDivLink.id = "buttonCatalogueLink";
 
 

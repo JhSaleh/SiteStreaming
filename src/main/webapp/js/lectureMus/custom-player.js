@@ -31,6 +31,7 @@ window.addEventListener("load", function () {
     var timerBar = document.querySelector('.timer div');
 
     media.removeAttribute('controls');
+    controls.style.visibility = 'hidden';
 
 
     var raz = 0;
