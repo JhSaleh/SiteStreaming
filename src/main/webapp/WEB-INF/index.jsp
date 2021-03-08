@@ -9,6 +9,9 @@
 <%@page import="com.siteStreaming.SiteStreaming.DataBase.S" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Acceuil.MetaErrorHandler" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique" %>
 
 <%
     //Récupération des données transmises depuis le servlet en cas de connection
@@ -19,6 +22,10 @@
 
     //Création de la sessions
     CompteClient client = (CompteClient) session.getAttribute("sessionUtilisateur");
+
+    List<ContenuSonore> listMus = (List<ContenuSonore>) request.getAttribute("listMus");
+
+    Musique m = (Musique) request.getAttribute("musique");
 %>
 
 <!DOCTYPE html>
@@ -42,12 +49,12 @@
 
     <%//les appels window.addEventListener stack de base%>
     <%if(client == null){%>
-        <script>
-            window.addEventListener("load", function (){
-                waitForElement("connexion", createModal); //Va attendre la creation du bouton SignIn avant d'executé le script du modal
-                logedOut(); //Cas utilisateur non connecté
-            })
-        </script>
+    <script>
+        window.addEventListener("load", function (){
+            waitForElement("connexion", createModal); //Va attendre la creation du bouton SignIn avant d'executé le script du modal
+            logedOut(); //Cas utilisateur non connecté
+        })
+    </script>
     <%} else {%>
     <script>
         window.addEventListener("load", function () {
@@ -76,20 +83,16 @@
 
 <%
     String defaultValue = "VideoImage";
-    String defaultValueTitle = "VideoTitle";
-    String defaultValueViews = "-9999";
-    String defaultValueYear = "01/02/2021";
-
 %>
 
 
 <body>
-    <!--Modal : ou page superposée-->
-    <%if(mailAddressUsed == null){%>
-        <div id="connexion" class="modal modalHidden">
-    <%}else{ //En cas d'erreur de connection, réaffichage automatique du modal%>
-        <div id="connexion" class="modal modalNotHidden">
-    <%}%>
+<!--Modal : ou page superposée-->
+<%if(mailAddressUsed == null){%>
+<div id="connexion" class="modal modalHidden">
+        <%}else{ //En cas d'erreur de connection, réaffichage automatique du modal%>
+    <div id="connexion" class="modal modalNotHidden">
+        <%}%>
         <div class="modal-content gridyModal"> <!--Contenu du modal-->
             <div id="SignUpModal">Se connecter</div>
             <div class="close">&times;</div> <!--syntaxe pour le bouton x-->
@@ -106,16 +109,16 @@
                 </div>
             </form>
             <%if(mailAddressUsed == null){%>
-                <div id="statusMsg" class="statusMsgLayoutHidden"></div>
+            <div id="statusMsg" class="statusMsgLayoutHidden"></div>
             <%}else{%>
-                <div id="statusMsg" class="statusMsgLayout">Email ou mot de passe incorrect.</div>
+            <div id="statusMsg" class="statusMsgLayout">Email ou mot de passe incorrect.</div>
             <%}%>
         </div>
     </div>
     <!--Fin du modal-->
 
 
-<!--Partie visible du site-->
+    <!--Partie visible du site-->
     <div id="gridyHeader"> <!--Construit dans titleBarCreation.js-->
 
     </div>
@@ -128,28 +131,28 @@
         <div id="gridyRecommendedVideos">
             <%
                 String videoRec = "";
-                String titleRec = "";
-                String nbViewsRec = "";
-                String yearRec = "";
                 String linkImg = "";
                 String baseLink = "pictures/musicImg";
-                for(int i = 1; i<6; i++){
-                videoRec = "vidRec" + Integer.toString(i);
-                linkImg = baseLink +Integer.toString(i)+".jpg"; //génère le lien de l'image
-
-                titleRec = "titleRec" + Integer.toString(i);
-                nbViewsRec = "nbViewsRec" + Integer.toString(i);
-                yearRec = "yearRec" + Integer.toString(i);
-
-            %>
-
-            <img id = <%=videoRec%> class="imageFormat" src=<%=linkImg%> alt="<%=defaultValue %>">
-            <div id = <%=titleRec%>><%=defaultValueTitle%></div>
-            <div id = <%=nbViewsRec%>><%=defaultValueViews%></div>
-            <div id = <%=yearRec%>><%=defaultValueYear%></div>
-
-            <%
-            }
+                Musique temp;
+                String tptitle;
+                int tpNbViewsRec;
+                String tpannee;
+                for(int i = 1;i<6;i++){
+                    if(listMus.get(i).getRecommendationMoment()){
+                        linkImg = baseLink +Integer.toString(i)+".jpg"; //génère le lien de l'image
+                        videoRec = "vidRec" + Integer.toString(i);
+                        temp = (Musique) listMus.get(i);
+                        tptitle = temp.getTitre();
+                        tpNbViewsRec = temp.getNbLectureTotal();
+                        tpannee = temp.getAnneeCreation();
+                        out.println("<div class=\"musiques\" id="+temp.getId()+">");
+                        out.println("<img id ="+videoRec+" class=\"imageFormat\" src="+
+                                linkImg+" alt=\""+defaultValue+">");
+                        out.println(" <div id ="+tptitle+">"+tptitle+"</div>");
+                        out.println(" <div id ="+tpNbViewsRec+">"+tpNbViewsRec+" vues</div>");
+                        out.println(" <div id = "+tpannee+">"+tpannee+"</div></div>");
+                    }
+                }
             %>
         </div>
     </div>
@@ -160,29 +163,21 @@
         <h4>Morceaux Populaires :</h4>
         <div id = "gridyPopularVideos">
             <%
-                String videoPop = "";
-                String titlePop = "";
-                String nbViewsPop = "";
-                String yearPop = "";
-                String playPop = "";
-
-                String linkImgP = "";
-                String baseLinkP = "pictures/musicImg";
-                for(int j = 1; j<6; j++){
-                    videoPop = "vidPop" + Integer.toString(j);
-                    linkImgP = baseLinkP + Integer.toString(j+5)+".jpg";
-                    titlePop = "titlePop" + Integer.toString(j);
-                    nbViewsPop = "nbViewsPop" + Integer.toString(j);
-                    yearPop = "yearPop" + Integer.toString(j);
-                    playPop = "playPop" + Integer.toString(j);
-            %>
-
-            <img id = <%=videoPop%> class="imageFormat" src=<%=linkImgP%> alt="<%=defaultValue %>">
-            <div id = <%=titlePop%>><%=defaultValueTitle%></div>
-            <div id = <%=nbViewsPop%>><%=defaultValueViews%></div>
-            <div id = <%=yearPop%>><%=defaultValueYear%></div>
-            <div id = <%=playPop%>>BoutonPlay</div>
-            <%
+                for(int i = 6;i<11;i++){
+                    if(listMus.get(i).getMorceauPopulaire()){
+                        linkImg= baseLink + Integer.toString(i)+".jpg";
+                        videoRec = "vidRec" + Integer.toString(i);
+                        temp = (Musique) listMus.get(i);
+                        tptitle = temp.getTitre();
+                        tpNbViewsRec = temp.getNbLectureTotal();
+                        tpannee = temp.getAnneeCreation();
+                        out.println("<div class=\"musiques\" id="+temp.getId()+">");
+                        out.println("<img id ="+videoRec+" class=\"imageFormat\" src="+
+                                linkImg+" alt=\""+defaultValue+">");
+                        out.println(" <div id ="+tptitle+">"+tptitle+"</div>");
+                        out.println(" <div id ="+tpNbViewsRec+">"+tpNbViewsRec+" vues</div>");
+                        out.println(" <div id = "+tpannee+">"+tpannee+"</div></div>");
+                    }
                 }
             %>
         </div>
@@ -191,6 +186,13 @@
     <div id = "catalogue">
 
     </div>
+
+    <script language="JavaScript">
+
+        document.getElementsByClassName("musques").addEventListener("click",EcouterMus,false);
+        function EcouterMus(){}
+
+    </script>
 </body>
 
 <footer class="footer">© Copyright 2021 All Rights Reserved.</footer>

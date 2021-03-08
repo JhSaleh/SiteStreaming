@@ -1,5 +1,11 @@
 package com.siteStreaming.SiteStreaming.Acceuil;
 
+import com.siteStreaming.SiteStreaming.Access.AdminFilter;
+import com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter;
+import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
+import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
+import com.siteStreaming.SiteStreaming.DataBase.AdministratorDatabase;
+import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.PlaylistDatabase;
 
@@ -101,20 +107,23 @@ public class Acceuil extends HttpServlet {
 
         //Regarde si une musique est écoutée
         PlaylistDatabase playlistDatabase = new PlaylistDatabase();
-        int idMusique = Integer.parseInt(request.getParameter("idMusique"));
-        Musique m = playlistDatabase.getMusique(idMusique);
-        m.setNbLectureTotal(m.getNbLectureTotal()+1);
-        m.setNbLectureMois(m.getNbLectureMois()+1);
-        cataloqueDatabase.infoStatMAJContenuSonore(m);
-        //renvoie la musique à écouter
-        request.setAttribute("musique",m);
+        if(request.getParameter("idMusique")!=null) {
+            int idMusique = Integer.parseInt(request.getParameter("idMusique"));
+            Musique m = playlistDatabase.getMusique(idMusique);
+            m.setNbLectureTotal(m.getNbLectureTotal() + 1);
+            m.setNbLectureMois(m.getNbLectureMois() + 1);
+            cataloqueDatabase.infoStatMAJContenuSonore(m);
+            //renvoie la musique à écouter
+            request.setAttribute("musique", m);
 
-
+        }
+        playlistDatabase.close();
+        cataloqueDatabase.close();
         //Redirige vers la page d'acceuil
-        String pageName = "/WEB-INF/index.jsp";
+        pageName = "/WEB-INF/index.jsp";
         RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
         if(notRedirected) { //parce qu'on peut pas forward et redirect en même temps
-            RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
+            rd = getServletContext().getRequestDispatcher(pageName);
 
             try {
                 rd.forward(request, response);
