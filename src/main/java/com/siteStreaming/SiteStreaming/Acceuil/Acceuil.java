@@ -2,8 +2,12 @@ package com.siteStreaming.SiteStreaming.Acceuil;
 
 import com.siteStreaming.SiteStreaming.Access.AdminFilter;
 import com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter;
+import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
+import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
 import com.siteStreaming.SiteStreaming.DataBase.AdministratorDatabase;
+import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
+import com.siteStreaming.SiteStreaming.DataBase.PlaylistDatabase;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 public class Acceuil extends HttpServlet {
     private void doProcess(HttpServletRequest request, HttpServletResponse response){
@@ -94,10 +99,31 @@ public class Acceuil extends HttpServlet {
         }
 
 
+        //Va chercher les musiques
+        CatalogueDatabase cataloqueDatabase = new CatalogueDatabase();
+        List<ContenuSonore> listMus = cataloqueDatabase.getRecommendationMoment();
+        listMus.addAll(cataloqueDatabase.getMorceauxPopulaires());
+        request.setAttribute("listMus",listMus);
+        System.out.println("mise des musiques en attribut");
 
+        //Regarde si une musique est écoutée
+        PlaylistDatabase playlistDatabase = new PlaylistDatabase();
+        if(request.getParameter("hiddenChamp")!=null) {
+            int idMusique = Integer.parseInt(request.getParameter("hiddenChamp"));
+            Musique m = playlistDatabase.getMusique(idMusique);
+            m.setNbLectureTotal(m.getNbLectureTotal() + 1);
+            m.setNbLectureMois(m.getNbLectureMois() + 1);
+            cataloqueDatabase.infoStatMAJContenuSonore(m);
+            //renvoie la musique à écouter
+            request.setAttribute("musique", m.musToJson());
+        }
+        playlistDatabase.close();
+        cataloqueDatabase.close();
         //Redirige vers la page d'acceuil
+        pageName = "/WEB-INF/index.jsp";
+        RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
         if(notRedirected) { //parce qu'on peut pas forward et redirect en même temps
-            RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
+            rd = getServletContext().getRequestDispatcher(pageName);
 
             try {
                 rd.forward(request, response);
