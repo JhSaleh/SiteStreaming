@@ -31,6 +31,7 @@ window.addEventListener("load", function () {
     var timerBar = document.querySelector('.timer div');
 
     media.removeAttribute('controls');
+    controls.style.visibility = 'hidden';
 
 
     var raz = 0;
@@ -51,6 +52,8 @@ window.addEventListener("load", function () {
     }
 
     play.addEventListener('click', playPauseMedia);
+    play.style.backgroundImage = "url( pictures/playButton.svg )";
+
 
     rwd.id = "avance";
     fwd.id = "recule";
@@ -65,9 +68,11 @@ window.addEventListener("load", function () {
     function playPauseMedia() {
         if (media.paused) {
             play.id = "play";
+            play.style.backgroundImage = "url( pictures/pauseButton.svg )";
             media.play();
         } else {
             play.id = "pause";
+            play.style.backgroundImage = "url( pictures/playButton.svg )";
             media.pause();
         }
     }
@@ -79,6 +84,7 @@ window.addEventListener("load", function () {
         media.pause();
         media.currentTime = 0;
         play.id = "pause";
+        play.style.backgroundImage = "url( pictures/playButton.svg )";
         raz = 0;
     }
     function stopMedia1() {
@@ -98,11 +104,16 @@ window.addEventListener("load", function () {
             media.currentTime = 0;
             play.id = "pause";
             raz = 0;
+            play.style.backgroundImage = "url( pictures/playButton.svg )";
         }
     }
 
     media.addEventListener('timeupdate', setTime);
 
+    var rwd = document.querySelector('.rwd');
+    var fwd = document.querySelector('.fwd');
+    rwd.style.backgroundImage = "url( pictures/playButton.svg )";
+    fwd.style.backgroundImage = "url( pictures/playButton.svg )";
 
     function setTime() {
         if ((media.duration > dureeMus && media.currentTime >= dureeMus) || raz > dureeMus) {

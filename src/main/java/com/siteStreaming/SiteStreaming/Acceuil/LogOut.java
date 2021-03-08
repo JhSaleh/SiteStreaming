@@ -18,7 +18,7 @@ public class LogOut extends HttpServlet {
 
         //Redirection vers la page d'acceuil
         try{
-            response.sendRedirect("http://localhost:8080/SiteStreaming_war_exploded/Acceuil");
+            response.sendRedirect("/Acceuil");
         }catch(IOException e) {
             e.printStackTrace();
         }
