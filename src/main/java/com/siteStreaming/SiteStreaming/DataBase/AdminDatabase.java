@@ -202,8 +202,6 @@ public class AdminDatabase {
      * Afficher les n utlisateurs les plus actifs en fonction de la période
      */
 
-    /**
-     * Modifier Infos Client
-     */
+
 
 }

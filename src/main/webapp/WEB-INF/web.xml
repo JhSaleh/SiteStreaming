@@ -52,7 +52,7 @@
     <servlet>
         <display-name>ModificationCatalogue</display-name>
         <servlet-name>ModificationCatalogue</servlet-name>
-        <servlet-class>com.siteStreaming.SiteStreaming.PageWebAdmin.PageWebAdministration</servlet-class>
+        <servlet-class>com.siteStreaming.SiteStreaming.PageWebAdmin.ModificationCatalogue</servlet-class>
     </servlet>
 
     <servlet-mapping>

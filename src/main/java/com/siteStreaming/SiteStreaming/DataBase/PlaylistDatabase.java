@@ -61,7 +61,7 @@ public class PlaylistDatabase {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = this.connection.prepareStatement(
-                    "INSERT INTO `info_team07_schema`.`Playlist` (`idCompteClient`, `titre`, `dureeTotale`, `anneeCreation`) VALUES (?,?,?,CURRENT_DATE)");
+                    "INSERT INTO `Playlist` (`idCompteClient`, `titre`, `dureeTotale`, `anneeCreation`) VALUES (?,?,?,CURRENT_DATE)");
             preparedStatement.setInt(1, playlist.getIdCompteClient());
             preparedStatement.setString(2, playlist.getTitre());
             preparedStatement.setInt(3, playlist.getDureeTotale());
@@ -91,7 +91,7 @@ public class PlaylistDatabase {
                 System.out.print("pas d'id pour cette playlist !");
                 return false;
             }else {
-                preparedStatement = this.connection.prepareStatement("UPDATE `info_team07_schema`.`Playlist` SET `titre`=? " +
+                preparedStatement = this.connection.prepareStatement("UPDATE `Playlist` SET `titre`=? " +
                                 "where idPlaylist = ?;");
                 preparedStatement.setString(1,playlist.getTitre());
                 preparedStatement.setInt(2,playlist.getIdPlaylist());
@@ -124,7 +124,7 @@ public class PlaylistDatabase {
                 System.out.print("pas d'id pour cette playlist !");
                 return false;
             }else {
-                preparedStatement = this.connection.prepareStatement("UPDATE `info_team07_schema`.`Playlist` SET `dureeTotale`=? " +
+                preparedStatement = this.connection.prepareStatement("UPDATE `Playlist` SET `dureeTotale`=? " +
                                 "where idPlaylist=?;");
                 preparedStatement.setInt(1,playlist.getDureeTotale());
                 preparedStatement.setInt(2,playlist.getIdPlaylist());
@@ -155,7 +155,7 @@ public class PlaylistDatabase {
                 System.out.print("pas d'id pour cette playlist !");
                 return false;
             }else {
-                String query = "DELETE FROM `info_team07_schema`.`Playlist`" +
+                String query = "DELETE FROM `Playlist`" +
                         "WHERE idPlaylist='" + playlist.getIdPlaylist() + "';";
 
                 this.statement.executeUpdate(query);
@@ -195,7 +195,7 @@ public class PlaylistDatabase {
                     }
                     res.close();
 
-                   preparedStatement = this.connection.prepareStatement("INSERT INTO `info_team07_schema`.`ContenuPlaylist` " +
+                   preparedStatement = this.connection.prepareStatement("INSERT INTO `ContenuPlaylist` " +
                            "(`idMusique`, `idPlaylist`, `position`) VALUES (?,?,?);");
                    preparedStatement.setInt(1,musique.getId());
                     preparedStatement.setInt(2,playlist.getIdPlaylist());
@@ -234,7 +234,7 @@ public class PlaylistDatabase {
                 return false;
             }else {
                 /* On supprime la playlist de la liste pour la réenregistrer totalement */
-                String query = "DELETE FROM `info_team07_schema`.`ContenuPlaylist`  WHERE idPlaylist = '" + playlist.getIdPlaylist() + "';";
+                String query = "DELETE FROM `ContenuPlaylist`  WHERE idPlaylist = '" + playlist.getIdPlaylist() + "';";
                 this.statement.executeUpdate(query);
 
 
@@ -344,7 +344,7 @@ public class PlaylistDatabase {
                 /* On récupère les musiques des playlists récupérée */
                 List<Musique> tempMus = new ArrayList<>();
                 for (int i = 0; i < playlists.size(); i++) {
-                    playlists.get(i).setMusique(getListMusique(playlists.get(i)));
+                    playlists.get(i).setMusique(getListMusique(playlists.get(i).getIdPlaylist()));
                 }
 
                 /* On renvoie le résultat */
@@ -357,20 +357,20 @@ public class PlaylistDatabase {
     }
     /**
      * Récupère la liste des musiques de la playlist
-     * @param playlist dont on récupère les musiques
+     * @param idPlaylist dont on récupère les musiques
      * @return la liste de musique
      */
-    public List<Musique> getListMusique(Playlist playlist) {
+    public List<Musique> getListMusique(int idPlaylist) {
         PreparedStatement preparedStatement =null;
         try {
-            if (playlist.getIdPlaylist()== -1) {
+            if (idPlaylist== -1) {
                 System.out.println("la playlist n'a pas d'identifiant");
                 return null;
             } else {
                /* On récupère les musiques de la playlist */
                 List<Musique> tempMus = new ArrayList<>();
-                preparedStatement =this.connection.prepareStatement("SELECT * FROM info_team07_schema.ContenuPlaylist where idPlaylist='" +
-                        playlist.getIdPlaylist() + "';");
+                preparedStatement =this.connection.prepareStatement("SELECT * FROM ContenuPlaylist where idPlaylist='" +
+                        idPlaylist + "';");
                 int pos;
                 ResultSet res2 = preparedStatement.executeQuery();
                 while (res2.next()) {
@@ -387,18 +387,17 @@ public class PlaylistDatabase {
     }
     /**
      * Récupère la playlist associée à l'identifiant donné
-     * @param playlist dont on récupère l'identifiant
-     * @param mail du client
+     * @param idPlaylist de la playlist recherchée
      * @return la playlist voulue
      */
-    public Playlist getPlaylistById(Playlist playlist, String mail) {
+    public Playlist getPlaylistById(int idPlaylist, String mail) {
         try {
-            if (playlist.getIdPlaylist()== -1) {
+            if (idPlaylist== -1) {
                 System.out.println("la playlist n'a pas d'identifiant");
                 return null;
             } else {
                 /* On récupère les infos des playlists du client */
-                String query = "SELECT * FROM Playlist where idPlaylist='" + playlist.getIdPlaylist() + "' LIMIT 1;";
+                String query = "SELECT * FROM Playlist where idPlaylist='" + idPlaylist + "' LIMIT 1;";
                 ResultSet res = this.statement.executeQuery(query);
 
                 Playlist temp = null;
@@ -410,7 +409,7 @@ public class PlaylistDatabase {
                 res.close();
 
                 /* On récupère les musiques de la playlist */
-                temp.setMusique(getListMusique(playlist));
+                temp.setMusique(getListMusique(idPlaylist));
 
                 /* On renvoie le résultat */
                 return temp;

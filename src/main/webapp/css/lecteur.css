@@ -1,0 +1,95 @@
+.audio{
+    width: 100%;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    bottom: 0;
+}
+.controls {
+    width: 100%;
+    min-height: 2.5em;
+
+    border-radius: 10px;
+
+    left: 50%;
+    margin-left: -200px;
+    background-color: black;
+    box-shadow: 1px 3px 3px 2px #696969;
+    display: flex;
+}
+.player{
+
+
+}
+#info{
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    bottom: 2em;
+
+}
+.player:hover .controls, player:focus .controls {
+    opacity: 1;
+}
+
+
+.timer {
+    line-height: 38px;
+    font-size: 10px;
+    font-family: monospace;
+    text-shadow: 1px 1px 0px black;
+    color: white;
+    flex: 5;
+    position: relative;
+}
+
+.timer div {
+    position: absolute;
+    background-color: rgba(255,255,255,0.2);
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 38px;
+    z-index: 2;
+}
+
+.timer span {
+    position: absolute;
+    z-index: 3;
+    left: 19px;
+}
+#pause{
+    background-image: url(chrome://global/skin/media/playButton.svg);
+    background-size:100% 100%;
+    width: 5%;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+#play{
+    background-image: url(chrome://global/skin/media/pauseButton.svg);
+    background-size:100% 100%;
+    width: 5%;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+#recule{
+    background-image: url(chrome://global/skin/media/playButton.svg);
+    background-size:100% 100%;
+    width: 5%;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+#avance{
+    background-image: url(chrome://global/skin/media/playButton.svg);
+    background-size:100% 100%;
+    width: 5%;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+#stop{
+    background-color: black;
+}
+#stopchild{
+    background-color: #FFFFFF;
+    max-width: 1em;
+}
