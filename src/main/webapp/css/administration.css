@@ -78,3 +78,65 @@
 #validateModifierSupprimer{
     grid-area: validateModifierSupprimer;
 }
+
+/*Rsultat table list de musique*/
+
+.musicListResult{
+    margin-top: 5%;
+    margin-left: 15%;
+    border-radius: 10px;
+    background-color: inherit;
+    border-collapse: collapse;
+    cell-spacing: 10px;
+}
+
+.radioListResult{
+    margin-top: 5%;
+    margin-left: 30%;
+    border-radius: 10px;
+    background-color: inherit;
+    border-collapse: collapse;
+    cell-spacing: 10px;
+}
+
+.podcastListResult{
+    margin-top: 5%;
+    margin-left: 30%;
+    border-radius: 10px;
+    background-color: inherit;
+    border-collapse: collapse;
+    cell-spacing: 10px;
+}
+
+.headColumns{
+    background-color: mediumslateblue;
+    padding-right: 15px;
+}
+
+.rowTableStyle0{
+    background-color: #aaaaaa;
+}
+
+.rowTableStyle1{
+    background-color: dimgrey;
+}
+
+.errorMsgResearchClient{
+    background-color: darkslateblue;
+    font-weight: bold;
+    color: aliceblue;
+    border-radius: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    border: 8px solid mediumslateblue;
+    text-align: center;
+}
+
+.columnResult{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+}

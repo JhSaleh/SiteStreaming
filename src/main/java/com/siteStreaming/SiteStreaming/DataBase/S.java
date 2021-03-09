@@ -22,4 +22,30 @@ public class S {
     public static String cd(String word){
         return "\""+word+"\"";
     }
+
+    /**
+     * Vérifie qu'un objet string n'est pas nul, sans quoi il est remplacé par la chaine vide
+     * @param string
+     * @return
+     */
+    public static String checkNull(String string){
+        if(string == null){
+            return "";
+        } else {
+            return string;
+        }
+    }
+
+    /**
+     * Transforme un string en sa forme de valeur
+     * @param string
+     * @return
+     */
+    public static String value(String string){
+        if (string == null){
+            return "value=\"\"";
+        } else {
+            return "value="+"\'"+string+"\'";
+        }
+    }
 }

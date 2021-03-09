@@ -2,6 +2,9 @@ package com.siteStreaming.SiteStreaming.PageWebAdmin;
 
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
+import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast;
+import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio;
+import com.siteStreaming.SiteStreaming.DataBase.AdminDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModificationCatalogue extends HttpServlet {
@@ -25,50 +29,89 @@ public class ModificationCatalogue extends HttpServlet {
 
     public static String secondStep = "secondStep";
 
+    public static String fieldResearchCompleted = "fieldResearchCompleted";
+    public static String dropDownListSupprimerModifier = "dropDownListModifierSupprimer";
 
     private void doProcess(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        /*
-        String byType = request.getParameter("byType");
-        String byName = request.getParameter("byName");
-        System.out.println("le type recherché est :"+byType+" , le nom recherché est : "+byName);
-        CatalogueDatabase catalogue = new CatalogueDatabase();
+        System.out.println("Passage servlet.");
 
-        List<ContenuSonore> listRes = catalogue.searchAllByTitle(byName);
-        request.setAttribute("listRes",listRes);
-
-        String byID = request.getParameter("ADM_modmusSelectedElem");
-        System.out.println("By ID ="+byID);
-
-        ResultSet res = catalogue.getAllBy("musique","",byID);
-        List<ContenuSonore> listMusique = catalogue.readResultset("musique",res);
-        request.setAttribute("ModMus",listMusique);
-        */
-
+        //Champs envoyés
         String action = request.getParameter("action");
         String choixContenu = request.getParameter("choixContenu");
 
-        String rechercherModifierSupprimer = request.getParameter("rechercherModifierSupprimer");
+        String dropDownListModifierSupprimer = request.getParameter("dropDownListModifierSupprimer");
         String fieldModifierSupprimer = request.getParameter("fieldModifierSupprimer");
 
+        //1ere étape
         if(action != null){
             System.out.println("Premier traitement.");
             request.setAttribute(choixModif, choixContenu);
             request.setAttribute(actionModif, action);
             request.setAttribute(firstStep, true);
+        } else {
+            request.setAttribute(firstStep, false);
+        }
 
-            //Modifier/Supprimer
-            if(fieldModifierSupprimer != null){
-                request.setAttribute(secondStep, true);
+        //2ème étape : Modifier/Supprimer
+        if(fieldModifierSupprimer != null){
+            System.out.println("Second traitement.");
+            //Capture des paramètres du lien, transmission dans sur la seconde réponse
+            action = request.getParameter("actionChoisit");
+            choixContenu = request.getParameter("choixContenuChoisit");
+            request.setAttribute(actionModif, action);
+            request.setAttribute(choixModif, choixContenu);
+
+            request.setAttribute(dropDownListSupprimerModifier, dropDownListModifierSupprimer);
+            request.setAttribute(fieldResearchCompleted, fieldModifierSupprimer);
+            System.out.println(dropDownListModifierSupprimer);
+
+            request.setAttribute(firstStep, true);
+            request.setAttribute(secondStep, true);
+
+            if(choixContenu.equals("Musique")){
+                System.out.println("Passage musique");
+
+                AdminDatabase adminDatabase = new AdminDatabase();
+                ArrayList<Musique> resultatMusique = new ArrayList<>();
+                if(dropDownListModifierSupprimer.equals("Id")){
+                    resultatMusique = (ArrayList<Musique>) adminDatabase.getMusic(Integer.parseInt(fieldModifierSupprimer), null);
+                } else {
+                    resultatMusique = (ArrayList<Musique>) adminDatabase.getMusic(-1, fieldModifierSupprimer);
+                }
+
+                request.setAttribute("resultatListeMusique", resultatMusique);
+            } else if(choixContenu.equals("Radio")){
+                System.out.println("Passage radio");
+
+                AdminDatabase adminDatabase = new AdminDatabase();
+                ArrayList<Radio> resultatRadio = new ArrayList<>();
+                if(dropDownListModifierSupprimer.equals("Id")){
+                    resultatRadio = (ArrayList<Radio>) adminDatabase.getRadio(Integer.parseInt(fieldModifierSupprimer), null);
+                } else {
+                    resultatRadio = (ArrayList<Radio>) adminDatabase.getRadio(-1, fieldModifierSupprimer);
+                }
+
+                request.setAttribute("resultatListeRadio", resultatRadio);
+
+            } else if(choixContenu.equals("Podcast")){
+                System.out.println("Passage podcast");
+
+                AdminDatabase adminDatabase = new AdminDatabase();
+                ArrayList<Podcast> resultatPodcast = new ArrayList<>();
+                if(dropDownListModifierSupprimer.equals("Id")){
+                    resultatPodcast = (ArrayList<Podcast>) adminDatabase.getPodcast(Integer.parseInt(fieldModifierSupprimer), null);
+                } else {
+                    resultatPodcast = (ArrayList<Podcast>) adminDatabase.getPodcast(-1, fieldModifierSupprimer);
+                }
+                request.setAttribute("resultatListePodcast", resultatPodcast);
 
             }
-
-
-        } else {
-            request.setAttribute("firstStep", false);
         }
 
 
-        String pageName = "/WEB-INF/admin/adminModifCatalogue.jsp";
+
+
+        String pageName = "/WEB-INF/adminModifCatalogue.jsp";
         this.getServletContext().getRequestDispatcher(pageName);
         RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
