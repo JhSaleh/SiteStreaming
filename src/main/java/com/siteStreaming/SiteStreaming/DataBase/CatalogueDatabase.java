@@ -16,7 +16,7 @@ import java.util.List;
 public class CatalogueDatabase {
     public Connection connection;
     public Statement statement;
-
+    PreparedStatement preparedStatement = null;
 
     /**
      * Créé une connection avec la base de données
@@ -58,13 +58,12 @@ public class CatalogueDatabase {
      * @return true si réussi false sinon
      */
     public boolean createContenuSonore(ContenuSonore contenu) {
-        PreparedStatement preparedStatement = null;
         try {
             String name = "com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.";
             //Assume a valid connection object conn
             this.connection.setAutoCommit(false);
-            preparedStatement = this.connection.prepareStatement("INSERT INTO `ContenuSonore` " +
-                    "(`fichierAudio`, `recommendationMoment`, `morceauxPopulaire`,`nbLectureMois`, `nbLectureTotal`) VALUES (?,?,?,?,?);");
+            preparedStatement = this.connection.prepareStatement("INSERT INTO ContenuSonore " +
+                    "(fichierAudio, recommendationMoment, morceauxPopulaire,nbLectureMois, nbLectureTotal) VALUES (?,?,?,?,?);");
             preparedStatement.setString(1, contenu.getContenu());
             preparedStatement.setInt(2, boolToInt(contenu.getRecommendationMoment()));
             preparedStatement.setInt(3, boolToInt(contenu.getMorceauPopulaire()));
@@ -73,8 +72,8 @@ public class CatalogueDatabase {
             preparedStatement.executeUpdate();
             if (contenu.getClass().getName().equals(name + "Musique")) {
                 Musique musique = (Musique) contenu;
-                preparedStatement = this.connection.prepareStatement("INSERT INTO `Musique` " +
-                        "(`idMusique`, `titre`, `interprete`, `anneeCreation`, `genreMusical`, `duree`)" +
+                preparedStatement = this.connection.prepareStatement("INSERT INTO Musique " +
+                        "(idMusique, titre, interprete, anneeCreation, genreMusical, duree)" +
                         " VALUES (last_insert_id(),?,?,?,?,?);");
                 preparedStatement.setString(1, musique.getTitre());
                 preparedStatement.setString(2, musique.getInterprete());
@@ -83,13 +82,13 @@ public class CatalogueDatabase {
                 preparedStatement.setInt(5, musique.getDuree());
             } else if (contenu.getClass().getName().equals(name + "Radio")) {
                 Radio radio = (Radio) contenu;
-                preparedStatement = this.connection.prepareStatement("INSERT INTO `Radio` (`idRadio`, `nom`, `genreMusical`) VALUES " +
+                preparedStatement = this.connection.prepareStatement("INSERT INTO Radio (idRadio, nom, genreMusical) VALUES " +
                         "(last_insert_id(),?,?);");
                 preparedStatement.setString(1, radio.getNom());
                 preparedStatement.setString(2, String.valueOf(radio.getGenreMusical()));
             } else if (contenu.getClass().getName().equals(name + "Podcast")) {
                 Podcast podcast = (Podcast) contenu;
-                preparedStatement = this.connection.prepareStatement("INSERT INTO Podcast` (`idPodcast`, `titre`, `duree`, `auteur`, `categorie`) VALUES " +
+                preparedStatement = this.connection.prepareStatement("INSERT INTO Podcast (idPodcast, titre, duree, auteur, categorie) VALUES " +
                         "(last_insert_id(),?,?,?,?);");
                 preparedStatement.setString(1, podcast.getTitre());
                 preparedStatement.setInt(2, podcast.getDuree());
@@ -138,41 +137,47 @@ public class CatalogueDatabase {
                 this.connection.setAutoCommit(false);
                 String name = "com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.";
 
-                preparedStatement = this.connection.prepareStatement("UPDATE ContenuSonore` SET `fichierAudio`=?," +
-                        "`recommendationMoment` =?,`morceauxPopulaire`=?,`nbLectureMois`=?,`nbLectureTotal`=?  WHERE `idContenuSonore`=" + id + ";");
+                preparedStatement = this.connection.prepareStatement("UPDATE ContenuSonore SET fichierAudio=?," +
+                        "recommendationMoment =?,morceauxPopulaire=?,nbLectureMois=?,nbLectureTotal=?  WHERE idContenuSonore=?;");
                 preparedStatement.setString(1, contenu.getContenu());
                 preparedStatement.setInt(2, boolToInt(contenu.getRecommendationMoment()));
                 preparedStatement.setInt(3, boolToInt(contenu.getMorceauPopulaire()));
                 preparedStatement.setInt(4, contenu.getNbLectureMois());
                 preparedStatement.setInt(5, contenu.getNbLectureTotal());
+                preparedStatement.setInt(6, id);
 
 
                 preparedStatement.executeUpdate();
                 if (contenu.getClass().getName().equals(name + "Musique")) {
                     Musique musique = (Musique) contenu;
-                    preparedStatement = this.connection.prepareStatement("UPDATE `Musique` " +
-                            "SET `titre`=?, `interprete`=?, `anneeCreation`=?, `genreMusical`=?, `duree` = ? WHERE idMusique ='" + id + "';");
+                    preparedStatement = this.connection.prepareStatement("UPDATE Musique " +
+                            "SET titre=?, interprete=?, anneeCreation=?, genreMusical=?, duree = ? WHERE idMusique =?;");
                     preparedStatement.setString(1, musique.getTitre());
                     preparedStatement.setString(2, musique.getInterprete());
                     preparedStatement.setString(3, musique.getAnneeCreation());
                     preparedStatement.setString(4, String.valueOf(musique.getGenreMusical()));
                     preparedStatement.setInt(5, musique.getDuree());
+                    preparedStatement.setInt(6, id);
+
 
                 } else if (contenu.getClass().getName().equals(name + "Radio")) {
                     Radio radio = (Radio) contenu;
-                    preparedStatement = this.connection.prepareStatement("UPDATE Radio` SET `nom` =?,`genreMusical`=?" +
-                            "' WHERE idRadio = '" + id + "';");
+                    preparedStatement = this.connection.prepareStatement("UPDATE Radio SET nom =?,genreMusical=?" +
+                            " WHERE idRadio = ?;");
                     preparedStatement.setString(1, radio.getNom());
                     preparedStatement.setString(2, String.valueOf(radio.getGenreMusical()));
+                    preparedStatement.setInt(3, id);
+
 
                 } else if (contenu.getClass().getName().equals(name + "Podcast")) {
                     Podcast podcast = (Podcast) contenu;
-                    preparedStatement = this.connection.prepareStatement("UPDATE `Podcast` SET `titre` =? '" +
-                            "', `duree` =?, `auteur` =?, `categorie` =?  WHERE idPodcast = '" + id + "';");
+                    preparedStatement = this.connection.prepareStatement("UPDATE Podcast SET titre =? " +
+                            ", duree=?, auteur=?, categorie=?  WHERE idPodcast =?;");
                     preparedStatement.setString(1, podcast.getTitre());
                     preparedStatement.setInt(2, podcast.getDuree());
                     preparedStatement.setString(3, podcast.getAuteur());
                     preparedStatement.setString(4, String.valueOf(podcast.getCategorie()));
+                    preparedStatement.setInt(5, id);
 
                 }
                 preparedStatement.executeUpdate();
@@ -214,8 +219,8 @@ public class CatalogueDatabase {
                 return false;
             } else {
                 // Suffisant car on a ON DELETE CASCADE sur tous les autres ids
-                String query = "DELETE FROM `ContenuSonore` " +
-                        "WHERE idContenuSonore='" + id + "';";
+                String query = "DELETE FROM ContenuSonore " +
+                        "WHERE idContenuSonore=" + id + ";";
                 this.statement.executeUpdate(query);
 
                 return true;
@@ -242,20 +247,21 @@ public class CatalogueDatabase {
      * @return true si réussi, false sinon
      */
     public boolean infoStatMAJContenuSonore(ContenuSonore contenu) {
-        PreparedStatement preparedStatement = null;
+
         try {
             int id = contenu.getId();
             if (id == -1) {
                 System.out.println("ce contenu n'a pas d'id !");
                 return false;
             } else {
-                preparedStatement = this.connection.prepareStatement("UPDATE `ContenuSonore` SET `fichierAudio`=?," +
-                        "`recommendationMoment` =?,`morceauxPopulaire`=?,`nbLectureMois`=?,`nbLectureTotal`=?  WHERE `idContenuSonore`=" + id + ";");
+                preparedStatement = this.connection.prepareStatement("UPDATE ContenuSonore SET fichierAudio=?," +
+                        "recommendationMoment =?,morceauxPopulaire=?,nbLectureMois=?,nbLectureTotal=?  WHERE idContenuSonore=?;");
                 preparedStatement.setString(1, contenu.getContenu());
                 preparedStatement.setInt(2, boolToInt(contenu.getRecommendationMoment()));
                 preparedStatement.setInt(3, boolToInt(contenu.getMorceauPopulaire()));
                 preparedStatement.setInt(4, contenu.getNbLectureMois());
                 preparedStatement.setInt(5, contenu.getNbLectureTotal());
+                preparedStatement.setInt(6, id);
                 preparedStatement.executeUpdate();
                 return true;
             }
@@ -303,13 +309,7 @@ public class CatalogueDatabase {
             e.printStackTrace();
             return null;
         }
-        /*finally {
-            try {
-                preparedStatement.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }*/
+
     }
 
 
@@ -331,6 +331,9 @@ public class CatalogueDatabase {
                             res.getString("titre"), res.getString("interprete"), res.getString("anneeCreation"),
                             genreMusical.valueOf(res.getString("genreMusical")), res.getInt("duree"));
                     temp.setId(res.getInt("idContenuSonore"));
+                    temp.setNbLectureTotal(res.getInt("nbLectureTotal"));
+                    temp.setNbLectureMois(res.getInt("nbLectureMois"));
+                    temp.setRecommendationMoment(res.getBoolean("recommendationMoment"));
                     catalogue.add(temp);
                 }
             } else if (choix.equals("radio")) {
@@ -338,6 +341,9 @@ public class CatalogueDatabase {
                     temp = new Radio(res.getString("fichierAudio"), res.getBoolean("recommendationMoment"),
                             res.getString("nom"), genreMusical.valueOf(res.getString("genreMusical")));
                     temp.setId(res.getInt("idContenuSonore"));
+                    temp.setNbLectureTotal(res.getInt("nbLectureTotal"));
+                    temp.setNbLectureMois(res.getInt("nbLectureMois"));
+                    temp.setRecommendationMoment(res.getBoolean("recommendationMoment"));
                     catalogue.add(temp);
                 }
             } else if (choix.equals("podcast")) {
@@ -346,6 +352,9 @@ public class CatalogueDatabase {
                             res.getString("titre"), res.getInt("duree"), res.getString("auteur"),
                             categorie.valueOf(res.getString("categorie")));
                     temp.setId(res.getInt("idContenuSonore"));
+                    temp.setNbLectureTotal(res.getInt("nbLectureTotal"));
+                    temp.setNbLectureMois(res.getInt("nbLectureMois"));
+                    temp.setRecommendationMoment(res.getBoolean("recommendationMoment"));
                     catalogue.add(temp);
                 }
             } else {
@@ -459,9 +468,9 @@ public class CatalogueDatabase {
     }
 
     /**
-     * Renvoie les éléments du catalogue qui sont les recommendations du moment
+     * Renvoie les éléments du catalogue qui sont les morceaux populaires
      *
-     * @return liste des éléments du catalogue qui sont les recommendations du moment
+     * @return liste des éléments du catalogue qui sont populaires
      */
     public List<ContenuSonore> getMorceauxPopulaires() {
         List<ContenuSonore> resultat = this.readResultset("musique", this.getAllBy("musique",
@@ -503,15 +512,21 @@ public class CatalogueDatabase {
 */
 
 
-     List<ContenuSonore> liste = catDatabase.getAllCatalogue();
+    // List<ContenuSonore> liste = catDatabase.getAllCatalogue();
 
-        liste.get(1).setContenu("new content");
-        catDatabase.updateContenuSonore(liste.get(1));
+     /*System.out.print("nb lect : "+liste.get(1).getNbLectureTotal());
+        liste.get(1).setNbLectureTotal(liste.get(1).getNbLectureTotal()+1);
+        System.out.print("nb lect : "+liste.get(1).getNbLectureTotal());
 
-        catDatabase.deleteContenuSonore(liste.get(0));
+        Boolean y =catDatabase.updateContenuSonore(liste.get(1));
+        liste = catDatabase.getAllCatalogue();
+        System.out.print(" bool : "
+                +y+"nb lect apres : "+liste.get(1).getNbLectureTotal());*/
+
+       // catDatabase.deleteContenuSonore(liste.get(0));
 
 
-        for (ContenuSonore contenuSonore : liste) {
+     /*   for (ContenuSonore contenuSonore : liste) {
             System.out.print(contenuSonore.getContenu() + "--");
         }
         System.out.println("recommendation");
@@ -519,13 +534,21 @@ public class CatalogueDatabase {
         liste = catDatabase.getRecommendationMoment();
         for (ContenuSonore contenuSonore : liste) {
             System.out.print(contenuSonore.getContenu() + "--");
-        }
+        }*/
         System.out.println("morc pop");
-        liste = catDatabase.getMorceauxPopulaires();
-        for (ContenuSonore contenuSonore : liste) {
-            System.out.print(contenuSonore.getContenu() + "--");
+       List<ContenuSonore> liste = catDatabase.getMorceauxPopulaires();
+        for(int i=0;i<liste.size();i++){
+            System.out.print(liste.get(i).getContenu() + "--");
         }
-        System.out.println("title");
+        /*liste = catDatabase.searchByGenreMusical("po");
+        for(int i=0;i<liste.size();i++){
+            System.out.print(liste.get(i).getContenu() + "--");
+        }*/
+
+
+catDatabase.close();
+
+       /* System.out.println("title");
         liste = catDatabase.searchAllByTitle("les");
         for(int i=0;i<liste.size();i++){
             System.out.print(liste.get(i).getContenu() + "--");
@@ -538,10 +561,7 @@ public class CatalogueDatabase {
         }
         System.out.println("genremus");
 
-        liste = catDatabase.searchByGenreMusical("po");
-        for(int i=0;i<liste.size();i++){
-            System.out.print(liste.get(i).getContenu() + "--");
-        }
+
         System.out.println("categorie");
 
         liste = catDatabase.searchByCategorie("histoi");
@@ -549,7 +569,7 @@ public class CatalogueDatabase {
         for(int i=0;i<liste.size();i++){
             System.out.print(liste.get(i).getContenu() + "--");
         }
-        System.out.println("");
+        System.out.println("");*/
 
 
 

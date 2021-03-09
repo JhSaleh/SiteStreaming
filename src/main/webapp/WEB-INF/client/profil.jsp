@@ -9,25 +9,22 @@
 <%@page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient"%>
 <%@ page import="com.siteStreaming.SiteStreaming.Acceuil.MetaCompteClient" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter" %>
-<%@ page import="com.siteStreaming.SiteStreaming.DataBase.ClientDatabase" %>
 <%
     //CompteClient compteInscription = (CompteClient) request.getAttribute("compteInscription"); //Récupération du compte qu'on a essayé d'inscrire
-    String mailClient = (String) request.getParameter("emailSelected"); //Récupération du mail sélectionné par l'administrateur
-    ClientDatabase clientDatabase = new ClientDatabase();
-    CompteClient client = clientDatabase.getCompteClient(mailClient);
-    MetaCompteClient compte = new MetaCompteClient(client);
     Boolean successModification = (Boolean) request.getAttribute("successModification");
+    CompteClient client = (CompteClient) session.getAttribute(ConnectedUserFilter.sessionUtilisateur);
+    MetaCompteClient compte = new MetaCompteClient(client);
 %>
 
 
 <html>
 <head>
     <link rel="shortcut icon" href="#"> <!--favicon error-->
-    <link rel="stylesheet" type="text/css" href="../css/acceuil.css"> <!--Attention on est dans le répertoire Accueil, il faut donc remonter un cran-->
-    <link rel="stylesheet" type="text/css" href="../css/inscription.css">
-    <script src="../js/inscription.js"></script>
-    <script src="../js/waitForHTMLElementToLoad.js"></script>
-    <title>Administration Profil Client</title>
+    <link rel="stylesheet" type="text/css" href="css/acceuil.css"> <!--Attention on est dans le répertoire Accueil, il faut donc remonter un cran-->
+    <link rel="stylesheet" type="text/css" href="css/inscription.css">
+    <script src="js/inscription.js"></script>
+    <script src="js/waitForHTMLElementToLoad.js"></script>
+    <title>Profil</title>
 
     <script>
         window.addEventListener("load", function () {
@@ -48,14 +45,16 @@
 
 <body>
 <div class = "gridyProfilTitle">
-    <div id ="title"><a href="/SiteStreaming_war_exploded/Acceuil">UsTube</a></div>
-    <a href="${pageContext.request.contextPath}/Administration/AdminProfilClient"><div id = "inscriptionTitle">Modification Profil Client</div></a>
-    <a href="/SiteStreaming_war_exploded/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
+    <div id ="title"><a href="${pageContext.request.contextPath}/Acceuil">UsTube</a></div>
+    <div id = "inscriptionTitle">Profil</div>
+     <a href="${pageContext.request.contextPath}/ModifierPlaylist" id="buttonCatalogueLink">
+        <div class="buttonLayout changeButtonColor" id="buttonCatalogue">Gérer playlist</div>
+    </a>
+    <a href="${pageContext.request.contextPath}/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
 </div>
 
-
 <div class="gridyBody">
-    <form id="inscription" action="${pageContext.request.contextPath}/Administration/AdminProfilClient?emailSelected=<%=mailClient+"&sentModification=true"%>" method="POST">
+    <form id="inscription" action="${pageContext.request.contextPath}/Profil" method="POST">
         <div class="gridyInscriptionForm">
 
             <label id="nomL" for="nom">Nom :</label>
@@ -116,7 +115,7 @@
     </div>
 
     <%if(successModification != null && successModification == true){%>
-    <div id = successSignUp>Modification réussit !</div>
+    <div id = successSignUp>Modification réussie !</div>
     <%}%>
 </div>
 

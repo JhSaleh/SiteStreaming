@@ -79,7 +79,7 @@ public class Profil extends HttpServlet {
         }
 
         //Redirige vers la page
-        String pageName = "/WEB-INF/profil.jsp";
+        String pageName = "/WEB-INF/client/profil.jsp";
         RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
 

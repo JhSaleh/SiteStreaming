@@ -38,10 +38,10 @@
 <html>
 <head>
     <title>Modification Catalogue</title>
-    <link rel="stylesheet" type="text/css" href="../css/administration.css">
-    <link rel="stylesheet" type="text/css" href="../css/acceuil.css">
+    <link rel="stylesheet" type="text/css" href="../../css/administration.css">
+    <link rel="stylesheet" type="text/css" href="../../css/acceuil.css">
 
-    <script src="../js/adminModifCatalogueGridy.js"></script>
+    <script src="../../js/adminModifCatalogueGridy.js"></script>
 
 <body>
     <div class = "gridyHeaderInscription">
