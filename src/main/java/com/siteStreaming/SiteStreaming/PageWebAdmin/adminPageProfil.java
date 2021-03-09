@@ -62,8 +62,8 @@ public class adminPageProfil extends HttpServlet {
         ArrayList<CompteClient> matchingClients = new ArrayList<>();
 
         //Redirige vers la page d'acceuil
-        String pageNameModification = "/WEB-INF/administrationProfilClient.jsp";
-        String pageNameResearch = "/WEB-INF/adminResearchClient.jsp";
+        String pageNameModification = "/WEB-INF/admin/administrationProfilClient.jsp";
+        String pageNameResearch = "/WEB-INF/admin/adminResearchClient.jsp";
         String page = "";
 
         String mail = request.getParameter("email");

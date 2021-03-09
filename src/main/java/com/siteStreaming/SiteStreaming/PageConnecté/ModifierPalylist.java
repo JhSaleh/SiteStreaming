@@ -7,7 +7,6 @@ import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio;
 import com.siteStreaming.SiteStreaming.Catalogue.Playlist;
 import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
-
 import com.siteStreaming.SiteStreaming.DataBase.PlaylistDatabase;
 
 import javax.servlet.RequestDispatcher;
@@ -15,13 +14,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-public class ExploreCatalogue extends HttpServlet {
+public class ModifierPalylist  extends HttpServlet {
 
 
     @Override
@@ -40,7 +36,7 @@ public class ExploreCatalogue extends HttpServlet {
                 //lecture de contenu sonore
                 if(request.getParameter("hiddenChamp")!=null &&
                         request.getParameter("hiddenChamp2")!=null
-                && !request.getParameter("hiddenChamp").equals("") &&
+                        && !request.getParameter("hiddenChamp").equals("") &&
                         !request.getParameter("hiddenChamp2").equals("")) {
                     System.out.println("ecouter");
                     //on récupère les paramètres
@@ -120,15 +116,15 @@ public class ExploreCatalogue extends HttpServlet {
 
                 //Ajouter une musique à une playlist
                 if(request.getParameter("hiddenChampBis")!=null &&request.getParameter("playList")!=null
-               && !request.getParameter("hiddenChampBis").equals("") &&
-                !request.getParameter("playList").equals("")) {
+                        && !request.getParameter("hiddenChampBis").equals("") &&
+                        !request.getParameter("playList").equals("")) {
                     String sidMus = request.getParameter("hiddenChampBis");
                     String sidPlay = request.getParameter("playList");
 
                     idMus = Integer.parseInt(sidMus);
                     idPlay = Integer.parseInt(sidPlay);
                     playlistDatabase.addMusiquetoPlaylist(playlistDatabase.getPlaylistById(idPlay, mail),
-                           playlistDatabase.getMusique(idMus));
+                            playlistDatabase.getMusique(idMus));
                 }
                 //donne les playlists à la page
                 List<Playlist> mesplaylists = playlistDatabase.getAllPlaylist(mail);
@@ -170,7 +166,7 @@ public class ExploreCatalogue extends HttpServlet {
             }
 
             //Redirige vers la page d'acceuil
-            String pageName = "/WEB-INF/client/exploreCat.jsp";
+            String pageName = "/WEB-INF/exploreCat.jsp";
             RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
             rd.forward(request, response);
@@ -187,6 +183,3 @@ public class ExploreCatalogue extends HttpServlet {
         response.setContentType("text/html");
         doPost(request, response);
     }
-}
-
-

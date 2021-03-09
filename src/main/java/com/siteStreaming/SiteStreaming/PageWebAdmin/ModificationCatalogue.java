@@ -68,7 +68,7 @@ public class ModificationCatalogue extends HttpServlet {
         }
 
 
-        String pageName = "/WEB-INF/adminModifCatalogue.jsp";
+        String pageName = "/WEB-INF/admin/adminModifCatalogue.jsp";
         this.getServletContext().getRequestDispatcher(pageName);
         RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 

@@ -72,6 +72,16 @@
         <url-pattern>/Administration/AdminProfilClient</url-pattern>
     </servlet-mapping>
 
+<!-- Parcourir le catalogue -->
+    <servlet>
+        <display-name>ExploreCatalogue</display-name>
+        <servlet-name>ExploreCat</servlet-name>
+        <servlet-class>com.siteStreaming.SiteStreaming.PageConnecté.ExploreCatalogue</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ExploreCat</servlet-name>
+        <url-pattern>/ExploreCat</url-pattern>
+    </servlet-mapping>
 
     <!--FILTER-->
     <!--Filtre utilisateur non connecté-->
@@ -104,13 +114,4 @@
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
-    <servlet>
-        <display-name>ExploreCatalogue</display-name>
-        <servlet-name>ExploreCat</servlet-name>
-        <servlet-class>com.siteStreaming.SiteStreaming.PageConnecté.ExploreCatalogue</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ExploreCat</servlet-name>
-        <url-pattern>/ExploreCat</url-pattern>
-    </servlet-mapping>
 </web-app>
