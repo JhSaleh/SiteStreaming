@@ -18,24 +18,10 @@ public class LogOut extends HttpServlet {
 
         //Redirection vers la page d'acceuil
         try{
-            response.sendRedirect("/Acceuil");
+            response.sendRedirect("./Acceuil");
         }catch(IOException e) {
             e.printStackTrace();
         }
-
-        /*
-        String pageName = "/Acceuil";
-        RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-
-        try {
-
-            rd.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
     }
 
 

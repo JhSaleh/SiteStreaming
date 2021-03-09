@@ -32,22 +32,20 @@
     ArrayList<Musique> resultatListeMusique = (ArrayList<Musique>) request.getAttribute("resultatListeMusique");
     ArrayList<Radio> resultatListeRadio = (ArrayList<Radio>) request.getAttribute("resultatListeRadio");
     ArrayList<Podcast> resultatListePodcast = (ArrayList<Podcast>) request.getAttribute("resultatListePodcast");
-
-
 %>
+
 <html>
 <head>
     <title>Modification Catalogue</title>
-    <link rel="stylesheet" type="text/css" href="../../css/administration.css">
-    <link rel="stylesheet" type="text/css" href="../../css/acceuil.css">
-
-    <script src="../../js/adminModifCatalogueGridy.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/administration.css">
+    <link rel="stylesheet" type="text/css" href="../css/acceuil.css">
+</head>
 
 <body>
     <div class = "gridyHeaderInscription">
-        <div id ="title"><a href="/SiteStreaming_war_exploded/Acceuil">UsTube</a></div>
-        <div id = "inscriptionTitle">Profil</div>
-        <a href="${pageContext.request.contextPath}/SiteStreaming_war_exploded/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
+        <div id ="title"><a href="${pageContext.request.contextPath}/Acceuil">UsTube</a></div>
+        <div id = "inscriptionTitle">Gestionnaire Catalogue</div>
+        <a href="${pageContext.request.contextPath}/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
     </div>
 
 
@@ -100,7 +98,7 @@
                     <%}%>
                 </select>
             </div>
-            <input id="validateInscription" type="submit" value="Valider">
+            <input id="validateInscription" class="buttonLayoutCatalogue" type="submit" value="Valider">
             </div>
         </form>
 
@@ -124,7 +122,7 @@
                 </select>
 
                 <input id="fieldModifierSupprimer" class="labelStyle" type="text" value="<%=champsRechercheCompleter%>" required name="fieldModifierSupprimer">
-                <input id="validateModifierSupprimer" type="submit" value="Valider">
+                <input id="validateModifierSupprimer" class="buttonLayoutCatalogue" type="submit" value="Valider">
             </div>
         </form>
     <%}%>
@@ -156,7 +154,7 @@
             <td class="columnResult"><%=musique.getAnneeCreation()%></td>
             <td class="columnResult"><%=musique.getGenreMusical()%></td>
             <td class="columnResult"><%=musique.getDuree()%></td>
-            <td class="columnResult"><a href="${pageContext.request.contextPath}/Administration/AdminGestionnaireMusical?actionChoisit=<%=action%>&choixContenuChoisit=<%=choix%>&idMusique=<%=musique.getId()%>"><div style="height: 100%; width: 100%">Select</div></a></td>
+            <td class="columnResult"><a href="${pageContext.request.contextPath}/Administration/AdminGestionnaireMusicalTraitement?actionChoisit=<%=action%>&choixContenuChoisit=<%=choix%>&idMusique=<%=musique.getId()%>"><div style="height: 100%; width: 100%">Select</div></a></td>
         </tr>
         <%}%>
     </table>
@@ -176,7 +174,7 @@
             <td class="columnResult"><%=radio.getId()%></td>
             <td class="columnResult"><%=radio.getNom()%></td>
             <td class="columnResult"><%=radio.getGenreMusical()%></td>
-            <td class="columnResult"><a href="${pageContext.request.contextPath}/Administration/AdminGestionnaireMusical?actionChoisit=<%=action%>&choixContenuChoisit=<%=choix%>&idMusique=<%=radio.getId()%>"><div style="height: 100%; width: 100%">Select</div></a></td>
+            <td class="columnResult"><a href="${pageContext.request.contextPath}/Administration/AdminGestionnaireMusicalTraitement?actionChoisit=<%=action%>&choixContenuChoisit=<%=choix%>&idRadio=<%=radio.getId()%>"><div style="height: 100%; width: 100%">Select</div></a></td>
         </tr>
         <%}%>
     </table>
@@ -201,7 +199,7 @@
             <td class="columnResult"><%=podcast.getDuree()%></td>
             <td class="columnResult"><%=podcast.getAuteur()%></td>
             <td class="columnResult"><%=podcast.getCategorie()%></td>
-            <td class="columnResult"><a href="${pageContext.request.contextPath}/Administration/AdminGestionnaireMusical?actionChoisit=<%=action%>&choixContenuChoisit=<%=choix%>&idMusique=<%=podcast.getId()%>"><div style="height: 100%; width: 100%">Select</div></a></td>
+            <td class="columnResult"><a href="${pageContext.request.contextPath}/Administration/AdminGestionnaireMusicalTraitement?actionChoisit=<%=action%>&choixContenuChoisit=<%=choix%>&idPodcast=<%=podcast.getId()%>"><div style="height: 100%; width: 100%">Select</div></a></td>
         </tr>
         <%}%>
     </table>
@@ -214,5 +212,5 @@
 }
 %>
 </body>
-
+<footer class="footer">© Copyright 2021 All Rights Reserved.</footer>
 </html>

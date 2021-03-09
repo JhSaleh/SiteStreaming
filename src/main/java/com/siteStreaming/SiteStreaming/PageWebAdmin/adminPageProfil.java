@@ -136,20 +136,6 @@ public class adminPageProfil extends HttpServlet {
             clientDatabase.closeConnection();
             request.setAttribute("successModification", true); //Déclenche le div
         }
-        /*
-        //Redirige vers la page
-        String pageName = "${pageContext.request.contextPath}/Administration/AdminProfilClient?emailSelected="+mail;
-        RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-
-        try {
-            rd.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-         */
     }
 
     @Override

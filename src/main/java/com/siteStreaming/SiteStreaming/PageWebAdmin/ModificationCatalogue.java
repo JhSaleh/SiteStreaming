@@ -32,7 +32,10 @@ public class ModificationCatalogue extends HttpServlet {
     public static String fieldResearchCompleted = "fieldResearchCompleted";
     public static String dropDownListSupprimerModifier = "dropDownListModifierSupprimer";
 
+    public boolean redirect;
+
     private void doProcess(HttpServletRequest request, HttpServletResponse response) throws SQLException {
+        redirect = false;
         System.out.println("Passage servlet.");
 
         //Champs envoyés
@@ -48,6 +51,18 @@ public class ModificationCatalogue extends HttpServlet {
             request.setAttribute(choixModif, choixContenu);
             request.setAttribute(actionModif, action);
             request.setAttribute(firstStep, true);
+            if(action.equals("Ajouter")){
+
+                String page = request.getContextPath() + "/Administration/AdminGestionnaireMusicalTraitement?actionChoisit="+action+"&choixContenuChoisit="+choixContenu;
+                this.getServletContext().getRequestDispatcher(page);
+                redirect = true;
+                try {
+                    response.sendRedirect(page);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         } else {
             request.setAttribute(firstStep, false);
         }
@@ -108,21 +123,19 @@ public class ModificationCatalogue extends HttpServlet {
             }
         }
 
+        if(!redirect) {
+            String pageName = "/WEB-INF/admin/adminModifCatalogue.jsp";
+            this.getServletContext().getRequestDispatcher(pageName);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 
-
-
-        String pageName = "/WEB-INF/adminModifCatalogue.jsp";
-        this.getServletContext().getRequestDispatcher(pageName);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
-
-        try {
-            rd.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                rd.forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
     @Override

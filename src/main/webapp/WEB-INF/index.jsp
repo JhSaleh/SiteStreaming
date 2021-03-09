@@ -139,6 +139,7 @@
                     </div>
                 </div>
             </div>
+    </div>
     <!--Fin du modal-->
 
 

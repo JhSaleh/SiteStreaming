@@ -60,6 +60,18 @@
         <url-pattern>/Administration/AdminGestionnaireMusical</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <display-name>TraitementModificationCatalogue</display-name>
+        <servlet-name>TraitementModificationCatalogue</servlet-name>
+        <servlet-class>com.siteStreaming.SiteStreaming.PageWebAdmin.TraitementModificationCatalogue</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>TraitementModificationCatalogue</servlet-name>
+        <url-pattern>/Administration/AdminGestionnaireMusicalTraitement</url-pattern>
+    </servlet-mapping>
+
+
     <!--Profil Client-->
     <servlet>
         <display-name>AdminProfilClient</display-name>

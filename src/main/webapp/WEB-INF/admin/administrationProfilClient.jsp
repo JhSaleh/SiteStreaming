@@ -23,10 +23,10 @@
 <html>
 <head>
     <link rel="shortcut icon" href="#"> <!--favicon error-->
-    <link rel="stylesheet" type="text/css" href="../../css/acceuil.css"> <!--Attention on est dans le répertoire Accueil, il faut donc remonter un cran-->
-    <link rel="stylesheet" type="text/css" href="../../css/inscription.css">
-    <script src="../../js/inscription.js"></script>
-    <script src="../../js/waitForHTMLElementToLoad.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/acceuil.css"> <!--Attention on est dans le répertoire Accueil, il faut donc remonter un cran-->
+    <link rel="stylesheet" type="text/css" href="../css/inscription.css">
+    <script src="../js/inscription.js"></script>
+    <script src="../js/waitForHTMLElementToLoad.js"></script>
     <title>Administration Profil Client</title>
 
     <script>

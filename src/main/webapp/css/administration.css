@@ -15,6 +15,7 @@
 }
 
 #inscriptionTitle{
+    text-align: center;
     grid-area: inscriptionTitle;
     font-size: 30px;
 }
@@ -27,7 +28,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
-            " action choixContenu validateModificationHeader";
+            "action choixContenu validateModificationHeader";
     grid-column-gap: 5px;
 }
 
@@ -136,7 +137,192 @@
 }
 
 .columnResult{
+    text-align: center;
     padding-top: 15px;
     padding-bottom: 15px;
     padding-right: 15px;
+}
+
+/*Partie traitement des contenus sonores*/
+
+/*MUSIQUE*/
+#greedyMusicField{
+    background-color: darkslateblue;
+    border: mediumslateblue;
+    border-radius: 15px;
+    margin-top: 35px;
+    width: 12cm;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+    grid-template-row: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 5px;
+    grid-row-gap: 10px;
+    grid-template-areas:
+            ". . actionMusic . ."
+            ". idMusicL idMusic . ."
+            ". recommendationMomentL recommendationMoment . ."
+            ". titreMusicL titreMusic . ."
+            ". interMusicL interMusic . ."
+            ". yearMusicL yearMusic . ."
+            ". genreMusicL genreMusic . ."
+            ". lengthMusicL lengthMusic . ."
+            ". . validateMusic . .";
+}
+
+#actionMusic{
+    grid-area: actionMusic;
+}
+
+#idMusicL{
+    grid-area: idMusicL;
+}
+
+#idMusic{
+    text-align: center;
+    grid-area: idMusic;
+}
+
+#titreMusicL{
+    grid-area: titreMusicL;
+}
+
+#titreMusic{
+    grid-area: titreMusic;
+}
+
+#interMusicL{
+    grid-area: interMusicL;
+}
+
+#interMusic{
+    grid-area: interMusic;
+}
+
+#yearMusicL{
+    grid-area: yearMusicL;
+}
+
+#yearMusic{
+    grid-area: yearMusic;
+}
+
+#genreMusicL{
+    grid-area: genreMusicL;
+}
+
+#genreMusic{
+    grid-area: genreMusic;
+}
+
+#lengthMusicL{
+    grid-area: lengthMusicL;
+}
+
+#lengthMusic{
+    grid-area: lengthMusic;
+}
+
+#recommendationMomentL{
+    grid-area: recommendationMomentL;
+}
+
+#recommendationMoment{
+    grid-area: recommendationMoment;
+}
+
+#validateMusic{
+    border: 2px solid slateblue;
+    border-radius: 15px;
+    background-color: darkslateblue;
+    color: aliceblue;
+    height: 1cm;
+    margin-bottom: 15px;
+    grid-area: validateMusic;
+}
+
+.buttonLayoutCatalogue{
+    border: 2px solid slateblue;
+    border-radius: 15px;
+    background-color: darkslateblue;
+    color: aliceblue;
+    height: 1cm;
+    margin-bottom: 15px;
+}
+
+/*meta greedy traitement*/
+
+#MetaDiv{
+    margin-left: 10%;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-areas: ". formPage .";
+}
+
+#formPage{
+    grid-area: formPage;
+}
+
+/*RADIO*/
+
+#greedyRadioField{
+    background-color: darkslateblue;
+    border: mediumslateblue;
+    border-radius: 15px;
+    margin-top: 35px;
+    width: 12cm;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+    grid-template-row: 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 5px;
+    grid-row-gap: 10px;
+    grid-template-areas:
+            ". . actionRadio . ."
+            ". idRadioL idRadio . ."
+            ". recommendationMomentRadioL recommendationMomentRadio . ."
+            ". nomRadioL nomRadio . ."
+            ". genreRadioL genreRadio . ."
+            ". . validateRadio . .";
+
+}
+
+#actionRadio{
+    grid-area: actionRadio;
+}
+
+#idRadioL{
+    grid-area: idRadioL;
+}
+
+#idRadio{
+    grid-area: idRadio;
+}
+
+#recommendationMomentRadio{
+    grid-area: recommendationMomentRadio;
+}
+
+#recommendationMomentRadioL{
+    grid-area: recommendationMomentRadioL;
+}
+
+#nomRadioL{
+    grid-area: nomRadioL;
+}
+
+#nomRadio{
+    grid-area: nomRadio;
+}
+
+#genreRadio{
+    grid-area: genreRadio;
+}
+
+#genreRadioL{
+    grid-area: genreRadioL;
+}
+
+#validateRadio{
+    grid-area: validateRadio;
 }
