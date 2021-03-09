@@ -221,11 +221,13 @@ public class AdminDatabase {
 
         if (ID == -1) {
 
-            java.sql.ResultSet CategorieTest = statement2.executeQuery("select * from Musique where titre = '" + nom + "'");
+            java.sql.ResultSet CategorieTest = statement2.executeQuery("select * from Musique where titre LIKE '%" + nom + "%'");
             while (CategorieTest.next()) {
 
                 idMusique = CategorieTest.getInt("idMusique");
+                System.out.println(idMusique);
                 java.sql.ResultSet rs = statement.executeQuery("select * from ContenuSonore where idContenuSonore = '" + idMusique + "'");
+                rs.next();
                 contenu = rs.getString("fichierAudio");
                 titre = CategorieTest.getString("titre");
                 interprete = CategorieTest.getString("interprete");
@@ -233,6 +235,7 @@ public class AdminDatabase {
                 duree = CategorieTest.getInt("duree");
                 annee = CategorieTest.getString("anneeCreation");
                 Musique musicObj = new Musique(contenu, false, titre, interprete, annee, genreMusical, duree);
+                musicObj.setId(idMusique);
 
                 music.add(musicObj);
             }
@@ -242,6 +245,7 @@ public class AdminDatabase {
             java.sql.ResultSet CategorieTest = statement2.executeQuery("select * from Musique where idMusique = '" + idMusique + "'");
             java.sql.ResultSet rs = statement.executeQuery("select * from ContenuSonore where idContenuSonore = '" + idMusique + "'");
             if (CategorieTest.next()) {
+                rs.next();
                 contenu = rs.getString("fichierAudio");
                 titre = CategorieTest.getString("titre");
                 interprete = CategorieTest.getString("interprete");
@@ -249,7 +253,7 @@ public class AdminDatabase {
                 duree = CategorieTest.getInt("duree");
                 annee = CategorieTest.getString("anneeCreation");
                 Musique musicObj = new Musique(contenu, false, titre, interprete, annee, genreMusical, duree);
-
+                musicObj.setId(idMusique);
                 music.add(musicObj);
             }
         }
@@ -279,18 +283,19 @@ public class AdminDatabase {
 
         if (ID == -1) {
 
-            java.sql.ResultSet CategorieTest = statement2.executeQuery("select * from Podcast where titre = '" + nom + "'");
+            java.sql.ResultSet CategorieTest = statement2.executeQuery("select * from Podcast where titre LIKE '%" + nom + "%'");
             while (CategorieTest.next()) {
 
                 idPodcast = CategorieTest.getInt("idPodcast");
                 java.sql.ResultSet rs = statement.executeQuery("select * from ContenuSonore where idContenuSonore = '" + idPodcast + "'");
+                rs.next();
                 contenu = rs.getString("fichierAudio");
                 titre = CategorieTest.getString("titre");
                 duree = CategorieTest.getInt("duree");
                 auteur = CategorieTest.getString("auteur");
                 categorie = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie.valueOf(CategorieTest.getString("categorie"));
                 Podcast pod = new Podcast(contenu, false, titre, duree, auteur, categorie);
-
+                pod.setId(idPodcast);
                 podcast.add(pod);
             }
         } else {
@@ -299,13 +304,14 @@ public class AdminDatabase {
             java.sql.ResultSet CategorieTest = statement2.executeQuery("select * from Podcast where idPodcast = '" + ID + "'");
             java.sql.ResultSet rs = statement.executeQuery("select * from ContenuSonore where idContenuSonore = '" + ID + "'");
             if (CategorieTest.next()) {
+                rs.next();
                 contenu = rs.getString("fichierAudio");
                 titre = CategorieTest.getString("titre");
                 duree = CategorieTest.getInt("duree");
                 auteur = CategorieTest.getString("auteur");
                 categorie = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie.valueOf(CategorieTest.getString("categorie"));
                 Podcast pod = new Podcast(contenu, false, titre, duree, auteur, categorie);
-
+                pod.setId(idPodcast);
                 podcast.add(pod);
             }
         }
@@ -333,15 +339,16 @@ public class AdminDatabase {
         if (ID == -1) {
 
 
-            java.sql.ResultSet CategorieTest = statement2.executeQuery("select * from Radio where titre = '" + nom + "'");
+            java.sql.ResultSet CategorieTest = statement2.executeQuery("select * from Radio where nom LIKE '%" + nom + "%'");
             while (CategorieTest.next()) {
 
                 idRadio = CategorieTest.getInt("idRadio");
                 java.sql.ResultSet rs = statement.executeQuery("select * from ContenuSonore where idContenuSonore = '" + idRadio + "'");
+                rs.next();
                 contenu = rs.getString("fichierAudio");
                 genreMusical = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical.valueOf(CategorieTest.getString("genreMusical"));
                 Radio rad = new Radio(contenu, false, nom, genreMusical);
-
+                rad.setId(idRadio);
                 radio.add(rad);
             }
         } else {
@@ -350,10 +357,11 @@ public class AdminDatabase {
             java.sql.ResultSet CategorieTest = statement2.executeQuery("select * from Radio where idPodcast = '" + ID + "'");
             java.sql.ResultSet rs = statement.executeQuery("select * from ContenuSonore where idContenuSonore = '" + ID + "'");
             if (CategorieTest.next()) {
+                rs.next();
                 contenu = rs.getString("fichierAudio");
                 genreMusical = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical.valueOf(CategorieTest.getString("genreMusical"));
                 Radio rad = new Radio(contenu, false, nom, genreMusical);
-
+                rad.setId(idRadio);
                 radio.add(rad);
             }
         }
