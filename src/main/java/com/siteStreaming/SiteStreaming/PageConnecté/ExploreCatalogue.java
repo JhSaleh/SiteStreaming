@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,9 +29,9 @@ public class ExploreCatalogue extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             //Cas où le formulaire a été envoyé
-            //request.getParameter("mailAddress")
+            HttpSession session = request.getSession();
             String mail = "aarobase@mail";
-            String genre = "pop";
+            String genre = "classique";
             System.out.println("dopost");
             if (mail != null) {
                 CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
@@ -59,7 +60,7 @@ public class ExploreCatalogue extends HttpServlet {
                             temp = playlistLu.getMusique().get(i);
                             temp.setNbLectureMois(temp.getNbLectureMois() + 1);
                             temp.setNbLectureTotal(temp.getNbLectureTotal() + 1);
-                            catalogueDatabase.infoStatMAJContenuSonore(temp);
+                            catalogueDatabase.updateContenuSonore(temp);
                         }
                         temp = playlistDatabase.getMusique(idMus);
                         //on renvoie la musique sélectionnée en Json
@@ -101,18 +102,20 @@ public class ExploreCatalogue extends HttpServlet {
                         if (m != null) {
                             m.setNbLectureTotal(m.getNbLectureTotal() + 1);
                             m.setNbLectureMois(m.getNbLectureMois() + 1);
+                            System.out.println("a comparer avec database"+m.getNbLectureTotal()+idMus);
                             tpres = mapper.writeValueAsString(m);
-                            catalogueDatabase.infoStatMAJContenuSonore(m);
+                            catalogueDatabase.updateContenuSonore(m);
+
                         } else if (p != null) {
                             p.setNbLectureTotal(p.getNbLectureTotal() + 1);
                             p.setNbLectureMois(p.getNbLectureMois() + 1);
                             tpres = mapper.writeValueAsString(p);
-                            catalogueDatabase.infoStatMAJContenuSonore(p);
+                            catalogueDatabase.updateContenuSonore(p);
                         } else if (r != null) {
                             r.setNbLectureTotal(r.getNbLectureTotal() + 1);
                             r.setNbLectureMois(r.getNbLectureMois() + 1);
                             tpres = mapper.writeValueAsString(r);
-                            catalogueDatabase.infoStatMAJContenuSonore(r);
+                            catalogueDatabase.updateContenuSonore(r);
                         }
                         request.setAttribute("Musique", tpres);
                     }
@@ -147,7 +150,6 @@ public class ExploreCatalogue extends HttpServlet {
 
                     String search = request.getParameter("searchText");
                     recherche = true;
-                    System.out.println("recherche : " + search);
                     request.setAttribute("search", search);
 
                     res = catalogueDatabase.searchAllByTitle(search);

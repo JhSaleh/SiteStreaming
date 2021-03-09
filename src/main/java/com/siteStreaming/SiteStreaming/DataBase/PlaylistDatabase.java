@@ -271,6 +271,9 @@ public class PlaylistDatabase {
                         res.getString("titre"), res.getString("interprete"), res.getString("anneeCreation"),
                         genreMusical.valueOf(res.getString("genreMusical")), res.getInt("duree"));
                 m.setId(res.getInt("idMusique"));
+                m.setNbLectureTotal(res.getInt("nbLectureTotal"));
+                m.setNbLectureMois(res.getInt("nbLectureMois"));
+                m.setRecommendationMoment(res.getBoolean("recommendationMoment"));
                 res.close();
                 return m;
             }

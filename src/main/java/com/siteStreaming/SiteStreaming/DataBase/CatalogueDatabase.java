@@ -16,7 +16,7 @@ import java.util.List;
 public class CatalogueDatabase {
     public Connection connection;
     public Statement statement;
-
+    PreparedStatement preparedStatement = null;
 
     /**
      * Créé une connection avec la base de données
@@ -58,7 +58,6 @@ public class CatalogueDatabase {
      * @return true si réussi false sinon
      */
     public boolean createContenuSonore(ContenuSonore contenu) {
-        PreparedStatement preparedStatement = null;
         try {
             String name = "com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.";
             //Assume a valid connection object conn
@@ -248,7 +247,7 @@ public class CatalogueDatabase {
      * @return true si réussi, false sinon
      */
     public boolean infoStatMAJContenuSonore(ContenuSonore contenu) {
-        PreparedStatement preparedStatement = null;
+
         try {
             int id = contenu.getId();
             if (id == -1) {
@@ -310,13 +309,7 @@ public class CatalogueDatabase {
             e.printStackTrace();
             return null;
         }
-        /*finally {
-            try {
-                preparedStatement.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }*/
+
     }
 
 
@@ -475,9 +468,9 @@ public class CatalogueDatabase {
     }
 
     /**
-     * Renvoie les éléments du catalogue qui sont les recommendations du moment
+     * Renvoie les éléments du catalogue qui sont les morceaux populaires
      *
-     * @return liste des éléments du catalogue qui sont les recommendations du moment
+     * @return liste des éléments du catalogue qui sont populaires
      */
     public List<ContenuSonore> getMorceauxPopulaires() {
         List<ContenuSonore> resultat = this.readResultset("musique", this.getAllBy("musique",
@@ -519,21 +512,21 @@ public class CatalogueDatabase {
 */
 
 
-     List<ContenuSonore> liste = catDatabase.getAllCatalogue();
+    // List<ContenuSonore> liste = catDatabase.getAllCatalogue();
 
-     System.out.print("nb lect : "+liste.get(1).getNbLectureTotal());
+     /*System.out.print("nb lect : "+liste.get(1).getNbLectureTotal());
         liste.get(1).setNbLectureTotal(liste.get(1).getNbLectureTotal()+1);
         System.out.print("nb lect : "+liste.get(1).getNbLectureTotal());
 
         Boolean y =catDatabase.updateContenuSonore(liste.get(1));
         liste = catDatabase.getAllCatalogue();
         System.out.print(" bool : "
-                +y+"nb lect apres : "+liste.get(1).getNbLectureTotal());
+                +y+"nb lect apres : "+liste.get(1).getNbLectureTotal());*/
 
        // catDatabase.deleteContenuSonore(liste.get(0));
 
 
-        for (ContenuSonore contenuSonore : liste) {
+     /*   for (ContenuSonore contenuSonore : liste) {
             System.out.print(contenuSonore.getContenu() + "--");
         }
         System.out.println("recommendation");
@@ -541,16 +534,19 @@ public class CatalogueDatabase {
         liste = catDatabase.getRecommendationMoment();
         for (ContenuSonore contenuSonore : liste) {
             System.out.print(contenuSonore.getContenu() + "--");
-        }
+        }*/
         System.out.println("morc pop");
-        liste = catDatabase.getMorceauxPopulaires();
-        for (ContenuSonore contenuSonore : liste) {
-            System.out.print(contenuSonore.getContenu() + "--");
+       List<ContenuSonore> liste = catDatabase.getMorceauxPopulaires();
+        for(int i=0;i<liste.size();i++){
+            System.out.print(liste.get(i).getContenu() + "--");
         }
+        /*liste = catDatabase.searchByGenreMusical("po");
+        for(int i=0;i<liste.size();i++){
+            System.out.print(liste.get(i).getContenu() + "--");
+        }*/
 
 
-
-
+catDatabase.close();
 
        /* System.out.println("title");
         liste = catDatabase.searchAllByTitle("les");
@@ -565,10 +561,7 @@ public class CatalogueDatabase {
         }
         System.out.println("genremus");
 
-        liste = catDatabase.searchByGenreMusical("po");
-        for(int i=0;i<liste.size();i++){
-            System.out.print(liste.get(i).getContenu() + "--");
-        }
+
         System.out.println("categorie");
 
         liste = catDatabase.searchByCategorie("histoi");
