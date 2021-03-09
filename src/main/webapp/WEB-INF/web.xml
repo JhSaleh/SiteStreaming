@@ -82,6 +82,16 @@
         <servlet-name>ExploreCat</servlet-name>
         <url-pattern>/ExploreCat</url-pattern>
     </servlet-mapping>
+    <!-- Modifier playlist -->
+    <servlet>
+        <display-name>ModifierPlaylist</display-name>
+        <servlet-name>ModifierPlaylist</servlet-name>
+        <servlet-class>com.siteStreaming.SiteStreaming.PageConnecté.ModifierPalylist</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ModifierPlaylist</servlet-name>
+        <url-pattern>/ModifierPlaylist</url-pattern>
+    </servlet-mapping>
 
     <!--FILTER-->
     <!--Filtre utilisateur non connecté-->

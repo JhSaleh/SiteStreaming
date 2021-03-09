@@ -212,13 +212,13 @@ public class PlaylistDatabase {
             e.printStackTrace();
             return false;
         }
-        finally {
+        /*finally {
             try {
                 preparedStatement.close();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
-        }
+        }*/
     }
 
     /**
@@ -438,10 +438,10 @@ public class PlaylistDatabase {
         //playlistDatabase.resetContenuPlaylist();
 
         CompteClient c = new CompteClient("Moulinex","lopmiur","M","aarobase@mail","vgtbhynju","12/12/12","12 prepre LPOP 70345", "Boys");
-       c.addToDatabase(c);
+       //c.addToDatabase(c);
 
-        Playlist p = new Playlist(c.getMail(),"mesmusiquesperso",0,"9090");
-        playlistDatabase.createPlaylist(p);
+       // Playlist p = new Playlist(c.getMail(),"mesmusiquesperso",0,"9090");
+        //playlistDatabase.createPlaylist(p);
 
       /*  Playlist p1 = new Playlist(c,"copie",234,"1252");
 
@@ -462,16 +462,19 @@ public class PlaylistDatabase {
 
 
         List<Playlist> mesplaylists = playlistDatabase.getAllPlaylist(c.getMail());
-        Musique tp= null;
+       /* Musique tp= null;
         for(int i=0;i<resultat.size();i++) {
             tp = (Musique) resultat.get(i);
 
-            mesplaylists.get(0).ajouterElement(tp);
+
         }
-        playlistDatabase.enregistrerContenuPlaylist(mesplaylists.get(0));
+
+*/
+        mesplaylists.get(1).ajouterElement(mesplaylists.get(0).getMusique().get(0));
+        playlistDatabase.enregistrerContenuPlaylist(mesplaylists.get(1));
 
         mesplaylists = playlistDatabase.getAllPlaylist(c.getMail());
-        System.out.println(mesplaylists.get(0).toJson());
+        System.out.println(mesplaylists.get(1).toJson());
 /*
 
 

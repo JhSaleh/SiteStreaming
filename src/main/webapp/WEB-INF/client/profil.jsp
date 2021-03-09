@@ -45,9 +45,12 @@
 
 <body>
 <div class = "gridyProfilTitle">
-    <div id ="title"><a href="/SiteStreaming_war_exploded/Acceuil">UsTube</a></div>
+    <div id ="title"><a href="${pageContext.request.contextPath}/Acceuil">UsTube</a></div>
     <div id = "inscriptionTitle">Profil</div>
-    <a href="/SiteStreaming_war_exploded/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
+     <a href="${pageContext.request.contextPath}/ModifierPlaylist" id="buttonCatalogueLink">
+        <div class="buttonLayout changeButtonColor" id="buttonCatalogue">Gérer playlist</div>
+    </a>
+    <a href="${pageContext.request.contextPath}/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
 </div>
 
 <div class="gridyBody">
@@ -112,7 +115,7 @@
     </div>
 
     <%if(successModification != null && successModification == true){%>
-    <div id = successSignUp>Modification réussit !</div>
+    <div id = successSignUp>Modification réussie !</div>
     <%}%>
 </div>
 

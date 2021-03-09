@@ -37,34 +37,6 @@
         nom = compteClient.getNom();
     }else{ prenom = "intrus"; nom= "inconnu";}
 %>
-
-<!--Modal : ou page superposée-->
-
-<div id="lecture" class="modal modalHidden">
-    <div id="formlecture" class="modal modalNotHidden">
-        <div class="modal-content"> <!--Contenu du modal-->
-            <div class="close" style="float:right">&times;</div> <!--syntaxe pour le bouton x-->
-            <h3 id="TitreMus" style="float:left; padding-left: 3%; padding-right: 3%;"></h3>
-            </br>
-            <div class="forms">
-                <form action="./ExploreCat" method=POST">
-                    <input type="hidden" id="hiddenChamp2" name="hiddenChamp2">
-                    <input type="hidden" id="hiddenChamp" name="hiddenChamp">
-                    <input type="submit" id="Ecouter" value="Ecouter">
-                </form>
-                <form name="ajoutPlaylist" id="ajoutPlaylist" action="./ExploreCat" method="POST">
-                    <input type="hidden" name="hiddenChampBis" id="hiddenChampBis">
-                    <label style="padding-left: 3%" for="playList">Choisir une playlist :</label>
-                    <select name="playList" id="playList" required="true">
-                    </select>
-                    <input id="validate" type="submit" value="Valider">
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--Fin du modal-->
-<!--Partie visible du site-->
 <div id="gridyHeader">
     <div id="gridyHeaderBeforeSignIn">
         <div id="title"><a href="Acceuil">UsTube</a></div>
@@ -74,21 +46,48 @@
 </div>
 
 
-
-<div class="Recherche">
-    <form action="${pageContext.request.contextPath}/ExploreCat" method="GET">
-        <Label for="searchText">Rechercher : </Label>
-        <input id="searchText" type="text" name="searchText" value=>
-        <button type="submit">valider</button>
+<div class="sectionPl">
+    <div class="aside asidePl" id="listplaylist"></div>
+    <div class="aside-right">
+        <button onclick="dispNouv()" id="mynouvplay">Nouvelle playlist</button>
+    <form action="${pageContext.request.contextPath}/ModifierPlaylist" method=POST"  onsubmit="return validateForm()" id="PlaylistNouv">
+        <input type="text" name="NomPlaylist" id="NomPlaylist">
+        <input id="validate" type="submit" value="Valider">
     </form>
+    </br>
+        <h2>Playlist : </h2>
+<h3 id="h2playlist"></h3>
+    <form action="${pageContext.request.contextPath}/ModifierPlaylist" method="Post" onsubmit="return validateForm1()"id="PlaylistRenom">
+        <input type="hidden" name="numPlaylistRenom" id="numPlaylistRenom">
+        <input type="text" name="nouvNom" id="nouvNom">
+        <button class="valider" type="submit">Renommer la playlist</button>
+    </form>
+    </br>
+        <form action="${pageContext.request.contextPath}/ModifierPlaylist" method="Post"  id="PlaylistSupp">
+            <input type="hidden" name="numPlaylistSupp" id="numPlaylistSupp">
+            <button class="validerR" type="submit">Supprimer la playlist</button>
+        </form>
+    </div>
 </div>
 
 
 
 <script>
+    var nouv = document.getElementById("PlaylistNouv");
+    var sup = document.getElementById("PlaylistSupp");
+    var renom = document.getElementById("PlaylistRenom");
+    nouv.style.display = "none";
+    sup.style.display = "none";
+    renom.style.display = "none";
+
+    function dispNouv(){
+        if (nouv.style.display === "none") {
+           nouv.style.display = "block";
+        } else {
+            nouv.style.display = "none";
+        }
+    }
     /* Bar de Playlist sur le côté */
-
-
     const playlistArray = <%=mesplaylists%>;
     console.log(playlistArray);
     var j;
@@ -103,8 +102,6 @@
         but.className = "playlist";
         but.textContent =playlistArray[j].titre;
         but.addEventListener("click", displayPlaylist, false);
-        //but.addEventListener("click", chooseAction, false);
-
         div.appendChild(but);
 
         musiqueArray = playlistArray[j].musique;
@@ -116,17 +113,9 @@
             item.className = "playlist sub-list";
             item.id="p"+musiqueArray[i].id;
             item.setAttribute("num",i);
-            item.addEventListener("click",chooseAction,false);
             div.appendChild(item);
         }
         document.getElementById("listplaylist").appendChild(div);
-
-        //Ajoute au modal
-        opt = document.createElement("option");
-        opt.setAttribute("value",playlistArray[j].idPlaylist);
-        opt.setAttribute("selected","selected");
-        opt.textContent = playlistArray[j].titre;
-        document.getElementById("playList").appendChild(opt);
     }
 
 
@@ -142,17 +131,35 @@
                 childs[i].style.display = "none";
             }
         }
+
+        var idPlay = e.currentTarget.id.slice(1,10);
+        var hidden1 = document.getElementById("numPlaylistRenom");
+        var hidden2 = document.getElementById("numPlaylistSupp");
+        var h2p = document.getElementById("h2playlist");
+
+            sup.style.display = "block";
+            renom.style.display = "block";
+            hidden1.value = idPlay;
+            hidden2.value = idPlay;
+            var x = document.getElementById("nouvNom").value =childs[0].textContent;
+            h2p.textContent = childs[0].textContent;
+
     }
 
-
-    var modal = document.getElementById("lecture");
-    var span = document.getElementsByClassName("close")[0];
-    span.onclick = function () { modal.style.display = "none";}
-
-
-
-
-
+    function validateForm() {
+        var x = document.getElementById("NomPlaylist").value;
+        if (x == "") {
+            alert("Choisir un nom pour la playlist");
+            return false;
+        }
+    }
+    function validateForm1() {
+        var x = document.getElementById("nouvNom").value;
+        if (x == "") {
+            alert("Choisir  nouveau nom pour la playlist");
+            return false;
+        }
+    }
 </script>
 
 </body>

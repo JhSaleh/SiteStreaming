@@ -24,7 +24,7 @@ window.addEventListener("load", function (){
         titleDiv.id = "title";
 
         var linkTitleDiv = document.createElement('a');
-        linkTitleDiv.href = "Acceuil";
+        linkTitleDiv.href = "./Acceuil";
         linkTitleDiv.textContent = "UsTube";
 
         //Bouton sign in
@@ -40,7 +40,7 @@ window.addEventListener("load", function (){
         SignUpDiv.textContent = "S'inscrire";
 
         var SignUpLink = document.createElement('a');
-        SignUpLink.href = "Acceuil/Inscription";
+        SignUpLink.href = "./Acceuil/Inscription";
 
         //Assemblage
         SignUpLink.appendChild(SignUpDiv);
@@ -64,7 +64,7 @@ window.addEventListener("load", function (){
         titleDiv.id = "title";
 
         var linkTitleDiv = document.createElement('a');
-        linkTitleDiv.href = "Acceuil";
+        linkTitleDiv.href = "./Acceuil";
         linkTitleDiv.textContent = "UsTube";
 
         var nomPrenomUserDiv = document.createElement('div');
@@ -73,10 +73,10 @@ window.addEventListener("load", function (){
         nomPrenomUserDiv.textContent = userFirstName+" "+userLastName;
 
         var nomPrenomUserDivLink = document.createElement('a');
-        nomPrenomUserDivLink.href = "Profil";
+        nomPrenomUserDivLink.href = "./Profil";
 
         var deconnectionDiv = document.createElement('div');
-        deconnectionDiv.id = "LogOut";
+        deconnectionDiv.id = "./LogOut";
         deconnectionDiv.className = "buttonLayout changeButtonColor";
         deconnectionDiv.textContent = "Se déconnecter";
 
@@ -93,7 +93,7 @@ window.addEventListener("load", function (){
 
 
         var catalogueButtonDivLink = document.createElement('a');
-        catalogueButtonDivLink.href = "/ExploreCat";
+        catalogueButtonDivLink.href = "./ExploreCat";
         catalogueButtonDivLink.id = "buttonCatalogueLink";
 
 
@@ -104,7 +104,7 @@ window.addEventListener("load", function (){
         titleDiv.id = "title";
 
         var linkTitleDiv = document.createElement('a');
-        linkTitleDiv.href = "Acceuil";
+        linkTitleDiv.href = "./Acceuil";
         linkTitleDiv.textContent = "UsTube";
 
         nomPrenomUserDivLink.appendChild(nomPrenomUserDiv);

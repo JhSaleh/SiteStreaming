@@ -127,8 +127,10 @@ public class ExploreCatalogue extends HttpServlet {
 
                     idMus = Integer.parseInt(sidMus);
                     idPlay = Integer.parseInt(sidPlay);
-                    playlistDatabase.addMusiquetoPlaylist(playlistDatabase.getPlaylistById(idPlay, mail),
-                           playlistDatabase.getMusique(idMus));
+                    System.out.println("Ajout de "+idMus+" dans "+idPlay);
+                    Playlist p =  playlistDatabase.getPlaylistById(idPlay, mail);
+                    p.ajouterElement(playlistDatabase.getMusique(idMus));
+                    playlistDatabase.enregistrerContenuPlaylist(p);
                 }
                 //donne les playlists à la page
                 List<Playlist> mesplaylists = playlistDatabase.getAllPlaylist(mail);

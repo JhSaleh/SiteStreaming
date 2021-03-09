@@ -58,4 +58,46 @@
     border-top: 1px solid #696969
 }
 
+.sectionPl{
+    width: 100%;
+    background: #696969;
+    padding-left: 3%;
+    padding-right: 4%;
+    padding-bottom: 3%;
+    border-radius: 5px;
+    border: 5px solid gray;
+    margin-bottom: 150px;
+    min-width: min-content;
+    display: grid;
+    grid-template-columns: 5fr 2fr;
+    grid-column-gap: 30px;
+}
+.aside-right {
+    width: 100%;
+    border: 5px solid gray;
+    padding-left: 1%;
+    padding-right: 1%;
+    float: right;
 
+}
+.valider{
+    border: darkslateblue;
+    border-radius: 15px;
+    background-color: darkslateblue;
+    color: aliceblue;
+    grid-area: validate;
+    height: 1cm;
+    margin-bottom: 15px;
+}
+.validerR{
+    border: #8B3D3D;
+    border-radius: 15px;
+    background-color: #8B3D3D;
+    color: aliceblue;
+    grid-area: validate;
+    height: 1cm;
+    margin-bottom: 15px;
+}
+#mynouvplay{
+    width: 100%;
+}
