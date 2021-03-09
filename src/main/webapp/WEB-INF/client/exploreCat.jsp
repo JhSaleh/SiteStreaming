@@ -78,7 +78,7 @@
                 </form>
                 <form name="ajoutPlaylist" id="ajoutPlaylist" action="./ExploreCat" method="POST">
                     <input type="hidden" name="hiddenChampBis" id="hiddenChampBis">
-                    <label style="padding-left: 3%" for="playList">Choisir une playlist :</label>
+                    <label style="padding-left: 3%" for="playList">Ajouter à une playlist :</label>
                     <select name="playList" id="playList" required="true">
                     </select>
                     <input id="validate" type="submit" value="Valider">
