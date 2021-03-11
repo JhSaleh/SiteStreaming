@@ -99,8 +99,8 @@
 </div>
 
 <div class="aside" id="listplaylist">
+    <a href="./ModifierPlaylist"><button class="valider centred">Gerer mes playlists</button></a>
 <h3 id="textcenter">Mes playlists :</h3>
-
 </div>
 
 <div class="Recherche">
