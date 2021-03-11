@@ -15,6 +15,8 @@ public class Radio extends ContenuSonore {
      */
     com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical genreMusical;
 
+
+    //Getter et Setter
     public String getNom() {
         return nom;
     }
@@ -33,10 +35,10 @@ public class Radio extends ContenuSonore {
 
     /**
      * Constructeur d'une radio
-     * @param contenu
-     * @param recommendationMoment
-     * @param nom
-     * @param genreMusical
+     * @param contenu lien vers la radio
+     * @param recommendationMoment booléen qui indique si le contenu fait partie des recommendations du moment
+     * @param nom de la radio
+     * @param genreMusical de la radio
      */
     public Radio(String contenu, Boolean recommendationMoment,String nom, genreMusical genreMusical) {
         super(contenu, recommendationMoment);

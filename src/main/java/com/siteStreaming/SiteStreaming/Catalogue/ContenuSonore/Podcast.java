@@ -21,6 +21,7 @@ public class Podcast extends ContenuSonore {
     com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie categorie;
 
 
+    //Getter et Setter
     public String getTitre() {
         return titre;
     }
@@ -55,12 +56,12 @@ public class Podcast extends ContenuSonore {
 
     /**
      * Constructeur d'un podcast
-     * @param contenu
-     * @param recommendationMoment
-     * @param titre
-     * @param duree
-     * @param auteur
-     * @param categorie
+     * @param contenu lien vers le podcast renseignée
+     * @param recommendationMoment booléen qui indique si le contenu fait partie des recommendations du moment
+     * @param titre du podcast
+     * @param duree du podcast
+     * @param auteur du podcast
+     * @param categorie du podcast
      */
     public Podcast(String contenu, Boolean recommendationMoment,String titre,
                    int duree, String auteur, categorie categorie) {

@@ -1,4 +1,5 @@
-<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient" %><%--
+<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient" %>
+<%@ page import="com.siteStreaming.SiteStreaming.LoggerSite" %><%--
   Created by IntelliJ IDEA.
   User: declerck
   Date: 06/03/2021
@@ -41,7 +42,7 @@
     String search = "";
     if(request.getAttribute("musiques")!=null) {
         resp = (String) request.getAttribute("musiques");
-        System.out.println("recherche : true");
+        LoggerSite.logger.debug("recherche : true");
     }else{
         resp = (String) request.getAttribute("musiquesDefault");
     }
@@ -54,7 +55,7 @@
     if(request.getAttribute("Musique")!=null) {
         lect = true;
         paraMus = (String) request.getAttribute("Musique");
-        System.out.println("paraMus"+paraMus);
+        LoggerSite.logger.debug("paraMus"+paraMus);
         if (request.getAttribute("idPlaylist") != null) {
             paraPlaylist = (int) request.getAttribute("idPlaylist");
         }

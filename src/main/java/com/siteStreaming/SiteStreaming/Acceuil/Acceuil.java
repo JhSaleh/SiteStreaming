@@ -1,5 +1,6 @@
 package com.siteStreaming.SiteStreaming.Acceuil;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siteStreaming.SiteStreaming.Access.AdminFilter;
 import com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
@@ -8,6 +9,7 @@ import com.siteStreaming.SiteStreaming.DataBase.AdministratorDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.PlaylistDatabase;
+import com.siteStreaming.SiteStreaming.LoggerSite;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,7 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
+/**
+ * Servlet qui redirige vers la page d'accueil en chargeant les recommendations du moment
+ * et les morceaux populaire et s'occupant de la connection des utilisateurs.
+ * Servlet vers laquelle sont redirigées les erreurs 404.
+ */
 public class Acceuil extends HttpServlet {
     private void doProcess(HttpServletRequest request, HttpServletResponse response){
         Boolean notRedirected = true;
@@ -25,7 +33,8 @@ public class Acceuil extends HttpServlet {
 
 
         //Cas où le formulaire a été envoyé
-        System.out.println("passageServletAcceuil");
+        LoggerSite.logger.info("Passage Servlet d'Acceuil");
+
         //Récupération des données du formulaire
         String mail = request.getParameter("mailAddress");
         String password = request.getParameter("password");
@@ -40,12 +49,11 @@ public class Acceuil extends HttpServlet {
             CompteAdmin compteAdmin = administratorDatabase.getCompteAdmin(mail);
 
             if (compteClient != null) {
-                System.out.println("Mdp entrée   : " + password);
-                System.out.println("Mdp comparé  : " + compteClient.getPassword());
+                LoggerSite.logger.debug("Mdp entrée   : " + password);
+                LoggerSite.logger.debug("Mdp comparé  : " + compteClient.getPassword());
                 if (compteClient.isPassWord(password)) { //Vérification du mdp
-
                     //Essaie
-                    System.out.println("Coté serveur : Connection réussit.");
+                    LoggerSite.logger.info("Coté serveur : Connection réussit.");
                     HttpSession session = request.getSession(); //Création d'une session utilisateur s'il n'a pas été créé avant
                     session.setAttribute(ConnectedUserFilter.sessionUtilisateur, compteClient); //Ajoute à la session la notion de client
 
@@ -54,7 +62,7 @@ public class Acceuil extends HttpServlet {
                     request.setAttribute("signedInSent", true);
                      */
                 } else {
-                    System.out.println("Coté serveur : Echec de connection renvoit des données.");
+                    LoggerSite.logger.info("Coté serveur : Echec de connection renvoit des données.");
                     request.setAttribute("mailAddressUsed", mail);
                     request.setAttribute("passwordUsed", password);
                 }
@@ -62,20 +70,22 @@ public class Acceuil extends HttpServlet {
 
             }else if(compteAdmin != null){
                 if(compteAdmin.isPassWord(password)){
-                    System.out.println("Administrateur trouvé !");
+                    LoggerSite.logger.info("Un administrateur se connecte");
                     HttpSession session = request.getSession(); //Création d'une session utilisateur s'il n'a pas été créé avant
                     session.setAttribute(AdminFilter.sessionAdmin, compteAdmin); //Création de la session administrateur
                     RequestDispatcher rdAdmin;
                     if(compteAdmin.getIsProfilManagerClient().equals("true")){
                         pageName = "Administration/AdminProfilClient";
-                        System.out.println("ManageProfil");
+                        LoggerSite.logger.info("Redirection vers ManageProfil");
                         try {
                             response.sendRedirect(pageName);
                             notRedirected = false;
                         } catch (IOException  e){
-                            e.printStackTrace();
+                            LoggerSite.logger.error(e);
                         }
                     } else {
+                        rdAdmin = request.getRequestDispatcher("..."); //METTRE LE LIEN VERS LE PROFIL GESTION MUSICAL
+                        LoggerSite.logger.info("Redirection vers ManageLibrary");
                         System.out.println("ManageLibrary");
                         pageName = "Administration/AdminGestionnaireMusical";
                         System.out.println("ManageCatalogue");
@@ -90,13 +100,13 @@ public class Acceuil extends HttpServlet {
 
                     //Ajouté la redirection vers la bonne page admin
                 } else {
-                    System.out.println("Coté serveur : Echec de connection renvoit des données.");
+                    LoggerSite.logger.info("Coté serveur : Echec de connection renvoit des données.");
                     request.setAttribute("mailAddressUsed", mail);
                     request.setAttribute("passwordUsed", password);
                     pageName = "/WEB-INF/accueil.jsp";
                 }
             }else {
-                System.out.println("Coté serveur : Echec de connection renvoit des données.");
+                LoggerSite.logger.info("Coté serveur : Echec de connection renvoit des données.");
                 request.setAttribute("mailAddressUsed", mail);
                 request.setAttribute("passwordUsed", password);
                 //pageName = "/WEB-INF/accueil.jsp";
@@ -112,7 +122,7 @@ public class Acceuil extends HttpServlet {
         List<Musique> listMus = cataloqueDatabase.getRecommendationMoment();
         listMus.addAll(cataloqueDatabase.getMorceauxPopulaires());
         request.setAttribute("listMus",listMus);
-        System.out.println("mise des musiques en attribut");
+        LoggerSite.logger.info("Mise des musiques en attribut");
 
         //Regarde si une musique est écoutée
         PlaylistDatabase playlistDatabase = new PlaylistDatabase();
@@ -124,6 +134,8 @@ public class Acceuil extends HttpServlet {
             cataloqueDatabase.infoStatMAJContenuSonore(m);
             //renvoie la musique à écouter
             request.setAttribute("musique", m.musToJson());
+
+            LoggerSite.logger.debug("La musique "+m.musToJson()+" est écoutée");
         }
         playlistDatabase.close();
         cataloqueDatabase.close();
@@ -136,9 +148,9 @@ public class Acceuil extends HttpServlet {
             try {
                 rd.forward(request, response);
             } catch (ServletException e) {
-                e.printStackTrace();
+                LoggerSite.logger.error(e);
             } catch (IOException e) {
-                e.printStackTrace();
+                LoggerSite.logger.error(e);
             }
         }
     }

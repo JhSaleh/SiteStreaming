@@ -10,6 +10,7 @@ import com.siteStreaming.SiteStreaming.Catalogue.Playlist;
 import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
 
 import com.siteStreaming.SiteStreaming.DataBase.PlaylistDatabase;
+import com.siteStreaming.SiteStreaming.LoggerSite;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,9 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ExploreCatalogue extends HttpServlet {
 
@@ -44,10 +43,10 @@ public class ExploreCatalogue extends HttpServlet {
                         request.getParameter("hiddenChamp2")!=null
                 && !request.getParameter("hiddenChamp").equals("") &&
                         !request.getParameter("hiddenChamp2").equals("")) {
-                    System.out.println("ecouter");
                     //on récupère les paramètres
                     idMus = Integer.parseInt(request.getParameter("hiddenChamp"));
                     idPlay = Integer.parseInt(request.getParameter("hiddenChamp2"));
+                    LoggerSite.logger.debug("ecouter "+idMus+" dans la playlist "+idPlay);
 
                     ObjectMapper mapper = new ObjectMapper();
                     String tpres = "";
@@ -66,7 +65,7 @@ public class ExploreCatalogue extends HttpServlet {
                         temp = playlistDatabase.getMusique(idMus);
                         //on renvoie la musique sélectionnée en Json
                         tpres = mapper.writeValueAsString(temp);
-                        System.out.println(idMus+" - "+idPlay+" - "+tpres);
+                        LoggerSite.logger.debug("On renvoie : "+tpres);
                         request.setAttribute("Musique", tpres);
                         request.setAttribute("idPlaylist", idPlay);
                     } else {
@@ -80,20 +79,14 @@ public class ExploreCatalogue extends HttpServlet {
                                     catalogueDatabase.getAllBy("podcast", " and idPodcast=? limit 1", String.valueOf(idMus))));
 
                             if (contenutemp == null || contenutemp.toArray().length == 0) {
-                                System.out.println("podcast  null");
                                 contenutemp = catalogueDatabase.readResultset("radio",
                                         catalogueDatabase.getAllBy("radio", " and idRadio=? limit 1", String.valueOf(idMus)));
 
                                 if (contenutemp == null || contenutemp.toArray().length == 0) {
-                                    System.out.println("radio is null");
                                 } else {
-                                    System.out.println("radio not null");
-                                    System.out.println(contenutemp);
                                     r = (Radio) contenutemp.get(0);
                                 }
                             } else {
-                                System.out.println("podcast not null");
-                                System.out.println(contenutemp);
                                 p = (Podcast) contenutemp.get(0);
                             }
                         }
@@ -103,7 +96,7 @@ public class ExploreCatalogue extends HttpServlet {
                         if (m != null) {
                             m.setNbLectureTotal(m.getNbLectureTotal() + 1);
                             m.setNbLectureMois(m.getNbLectureMois() + 1);
-                            System.out.println("a comparer avec database"+m.getNbLectureTotal()+idMus);
+                            LoggerSite.logger.debug("Nombre de lecture | musique"+m.getNbLectureTotal()+"|"+idMus);
                             tpres = mapper.writeValueAsString(m);
                             catalogueDatabase.updateContenuSonore(m);
 
@@ -131,7 +124,7 @@ public class ExploreCatalogue extends HttpServlet {
 
                     idMus = Integer.parseInt(sidMus);
                     idPlay = Integer.parseInt(sidPlay);
-                    System.out.println("Ajout de "+idMus+" dans "+idPlay);
+                    LoggerSite.logger.info("Ajout de "+idMus+" dans "+idPlay);
                     playlistDatabase.addMusiquetoPlaylist(playlistDatabase.getPlaylistById(idPlay, mail),
                             playlistDatabase.getMusique(idMus));
 
@@ -168,7 +161,7 @@ public class ExploreCatalogue extends HttpServlet {
                 catalogueDatabase.close();
 
                 String resJson = mapper.writeValueAsString(res);
-                System.out.println(resJson);
+                LoggerSite.logger.debug("Musiques envoyées : "+resJson);
 
                 if (recherche) {
                     request.setAttribute("musiques", resJson);
@@ -183,9 +176,9 @@ public class ExploreCatalogue extends HttpServlet {
 
             rd.forward(request, response);
         } catch (ServletException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 

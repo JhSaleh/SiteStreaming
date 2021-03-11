@@ -1,13 +1,18 @@
 package com.siteStreaming.SiteStreaming.DataBase;
 
 import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
+import com.siteStreaming.SiteStreaming.LoggerSite;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+/**
+ * Classe qui sert la gestion des comptes clients dans la base de donnée.
+ */
 public class ClientDatabase {
     public Connection connection;
     public Statement statement;
@@ -21,7 +26,7 @@ public class ClientDatabase {
             this.connection = DBManager.getInstance().getConnection();
             this.statement = this.connection.createStatement();
         } catch (SQLException e){
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -33,7 +38,7 @@ public class ClientDatabase {
             this.statement.executeUpdate("DROP TABLE IF EXISTS `Compte`;");
             //mettre dernière version
         } catch (SQLException e){
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
 
     }
@@ -46,7 +51,7 @@ public class ClientDatabase {
             this.statement.executeUpdate("DROP TABLE IF EXISTS `CompteClient`;");
             //mettre dernière version
         } catch (SQLException e){
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -66,7 +71,7 @@ public class ClientDatabase {
                 return false;
             }
         } catch(SQLException e){
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
         return false;
     }
@@ -91,7 +96,7 @@ public class ClientDatabase {
                 return null;
             }
         } catch (SQLException e){
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
         return null;
     }
@@ -110,7 +115,7 @@ public class ClientDatabase {
                 return null;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
         return null;
     }
@@ -142,7 +147,7 @@ public class ClientDatabase {
                 if (res2.next()){
                     addresseFacturation = res2.getString("adresseFacturation");
                     styleMusique = res2.getString("styleMusique");
-                    System.out.println("Succes finding the client !");
+                    LoggerSite.logger.debug("Succes finding the client !");
                     return new CompteClient(nom, prenom, civilite, email, mdp, dateNaissance, addresseFacturation, styleMusique);
                 }
 
@@ -151,7 +156,7 @@ public class ClientDatabase {
                 return null;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
         return null;
     }
@@ -171,15 +176,15 @@ public class ClientDatabase {
                             compte.getPasswordD()+","+
                             compte.getBirthDateD()+
                             ");";
-            System.out.println(addToCompte);
+            LoggerSite.logger.debug(addToCompte);
             this.statement.executeUpdate(addToCompte);
 
             this.statement.executeUpdate("insert into `CompteClient` values(NULL,"+compte.getMailD()+","+compte.getAddressD()+","+compte.getStyleMusiqueD()+");");
-            System.out.println("Client ajouté à la bdd!");
+            LoggerSite.logger.info("Client ajouté à la bdd!");
             return true;
         } catch (SQLException e){
-            System.out.println("Client non ajouté à la bdd!");
-            e.printStackTrace();
+            LoggerSite.logger.error("Client non ajouté à la bdd!");
+            LoggerSite.logger.error(e);
             return false;
         }
     }
@@ -198,16 +203,16 @@ public class ClientDatabase {
                     ", motDePasse="+compte.getPasswordD()+
                     ", dateNaissance="+compte.getBirthDateD()+
                     " where adresseMail="+compte.getMailD()+
-                ";";
-        System.out.println(modifyToCompte);
-        this.statement.executeUpdate(modifyToCompte);
+                    ";";
+            LoggerSite.logger.debug(modifyToCompte);
+            this.statement.executeUpdate(modifyToCompte);
 
-        this.statement.executeUpdate("update `CompteClient` set adresseFacturation="+compte.getAddressD()+",  styleMusique="+compte.getStyleMusiqueD()+" where adresseMailClient="+compte.getMailD()+";");
-        System.out.println("Informations client modifié dans la bdd!");
-        return true;
+            this.statement.executeUpdate("update `CompteClient` set adresseFacturation="+compte.getAddressD()+",  styleMusique="+compte.getStyleMusiqueD()+" where adresseMailClient="+compte.getMailD()+";");
+            LoggerSite.logger.info("Informations client modifié dans la bdd!");
+            return true;
         } catch (SQLException e){
-            System.out.println("Informations client modifié dans la bdd!");
-            e.printStackTrace();
+            LoggerSite.logger.error("Informations client modifié dans la bdd!");
+            LoggerSite.logger.error(e);
             return false;
         }
     }
@@ -243,7 +248,7 @@ public class ClientDatabase {
                            " WHERE Compte.nom LIKE "+nomSearch+"OR Compte.prenom LIKE"+prenomSearch+"OR Compte.adresseMail LIKE"+emailSearch+";";
 
 
-          System.out.println(query);
+          LoggerSite.logger.debug(query);
           ResultSet res = this.statement.executeQuery(query);
           CompteClient compte;
           resultList = new ArrayList<>();
@@ -257,14 +262,14 @@ public class ClientDatabase {
               addresseFacturation = res.getString("adresseFacturation");
               styleMusique = res.getString("styleMusique");
               compte = new CompteClient(nom, prenom, civilite, email, mdp, dateNaissance, addresseFacturation, styleMusique);
-              System.out.println("-------------");
+              LoggerSite.logger.debug("-------------");
               compte.displayInformation();
               resultList.add(compte);
           }
           return resultList;
 
         } catch (SQLException e){
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
         return null;
     }
@@ -276,7 +281,7 @@ public class ClientDatabase {
         try {
             this.connection.close();
         } catch(SQLException e){
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 

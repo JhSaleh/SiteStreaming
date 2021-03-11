@@ -1,5 +1,6 @@
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.siteStreaming.SiteStreaming.LoggerSite" %><%--
   Created by IntelliJ IDEA.
   User: rkbcht
   Date: 3/6/2021
@@ -76,7 +77,7 @@
         if (listCont != null){
             nbRes = listCont.size();
         }else{
-            System.out.println("listCont is null");
+            LoggerSite.logger.info("listCont is null");
         }
 
     %>

@@ -9,6 +9,7 @@ import com.siteStreaming.SiteStreaming.Acceuil.CompteAdmin;
 import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
 import com.siteStreaming.SiteStreaming.DataBase.AdministratorDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
+import com.siteStreaming.SiteStreaming.LoggerSite;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,9 +27,9 @@ public class adminPageProfil extends HttpServlet {
 
     public Boolean hasChangedInformation(CompteClient compteClient, String[] infosClient){
 
-        System.out.println("Passage avant null");
+        LoggerSite.logger.debug("Passage avant null");
         if(infosClient[0] != null) {
-            System.out.println("Passage après null");
+            LoggerSite.logger.debug("Passage après null");
             if (compteClient.getNom() != infosClient[0]) {
                 return true;
             } else if (compteClient.getPrenom() != infosClient[1]) {
@@ -73,8 +74,8 @@ public class adminPageProfil extends HttpServlet {
 
         if(emailSelected == null) {
             if (mail != null || nom != null || prenom != null) {
-                System.out.println(mail + " " + nom + " " + prenom);
-                System.out.println("Passage dans la research");
+                LoggerSite.logger.debug(mail + " " + nom + " " + prenom);
+                LoggerSite.logger.debug("Passage dans la research");
                 ClientDatabase clientDatabase = new ClientDatabase();
                 ArrayList<CompteClient> result = clientDatabase.searchClient(nom, prenom, mail);
                 request.setAttribute(groupeUtilisateurEnvoye, result);
@@ -100,9 +101,9 @@ public class adminPageProfil extends HttpServlet {
         try {
             rd.forward(request, response);
         } catch (ServletException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -115,15 +116,15 @@ public class adminPageProfil extends HttpServlet {
                 request.getParameter("birthDateUser"),
                 request.getParameter("adresseFacturationUser"),
                 request.getParameter("styleMusiqueUser")};
-        System.out.println("nom :"+infosClient[0] +" prenom :"+ infosClient[1] + "mail :"+ infosClient[3]);
+        LoggerSite.logger.debug("nom :"+infosClient[0] +" prenom :"+ infosClient[1] + "mail :"+ infosClient[3]);
 
         //Redirige vers la page d'acceuil
         ClientDatabase clientDatabase = new ClientDatabase();
         CompteClient currentCompteClient = clientDatabase.getCompteClient(mail);
-        System.out.println("Passage dans Profil");
+        LoggerSite.logger.debug("Passage dans Profil");
 
         if(hasChangedInformation(currentCompteClient, infosClient)) {
-            System.out.println("Succes");
+            LoggerSite.logger.debug("Succès au changement d'information");
             CompteClient compteToModify = new CompteClient(infosClient[0],
                     infosClient[1],
                     infosClient[2],

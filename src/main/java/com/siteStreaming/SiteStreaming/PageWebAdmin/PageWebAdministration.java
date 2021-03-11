@@ -1,6 +1,8 @@
 package com.siteStreaming.SiteStreaming.PageWebAdmin;
 
 import com.siteStreaming.SiteStreaming.DataBase.AdminDatabase;
+import com.siteStreaming.SiteStreaming.LoggerSite;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,16 +25,16 @@ public class PageWebAdministration extends HttpServlet {
 
         String paramAction = request.getParameter( "actionEf" );
         String paramNom = request.getParameter( "nom" );
-        System.out.println("paramAction is : "+paramAction);
+        LoggerSite.logger.info("paramAction is : "+paramAction);
 
         if (paramAction==null|| paramNom==null) {
             actionLine = "Vous voulez : " + defaultActionString + " le client :" + defaultNameString;
-            System.out.println("null null"+actionLine);
+            LoggerSite.logger.debug("null null"+actionLine);
 
         }else{
             actionLine = "Vous voulez : " + paramAction + " le client : " + paramNom;
             ActionLineStatus = true;
-            System.out.println("non null"+actionLine);
+            LoggerSite.logger.debug("non null"+actionLine);
         }
 
         request.setAttribute("showAction",ActionLineStatus);
@@ -50,8 +52,8 @@ public class PageWebAdministration extends HttpServlet {
             paramNbTitres=defaultNbTitresString;
         }
 
-        System.out.println("byPeriode checkbox status = "+byPeriode);
-        System.out.println("byType checkbox status = "+byType);
+        LoggerSite.logger.info("byPeriode checkbox status = "+byPeriode);
+        LoggerSite.logger.info("byType checkbox status = "+byType);
 
 
 
@@ -72,7 +74,7 @@ public class PageWebAdministration extends HttpServlet {
         try {
             rd.forward(request, response);
         } catch (ServletException | IOException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -81,8 +83,8 @@ public class PageWebAdministration extends HttpServlet {
         resp.setContentType("text/html");
         try {
             doProcess(req, resp);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -91,8 +93,8 @@ public class PageWebAdministration extends HttpServlet {
         resp.setContentType("text/html");
         try {
             doProcess(req, resp);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LoggerSite.logger.error(e);
         }
     }
 }

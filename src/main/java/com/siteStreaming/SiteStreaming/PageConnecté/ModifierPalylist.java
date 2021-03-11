@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
 import com.siteStreaming.SiteStreaming.Catalogue.Playlist;
 import com.siteStreaming.SiteStreaming.DataBase.PlaylistDatabase;
+import com.siteStreaming.SiteStreaming.LoggerSite;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -68,9 +70,9 @@ public class ModifierPalylist  extends HttpServlet {
 
             rd.forward(request, response);
         } catch (ServletException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 

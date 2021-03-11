@@ -1,6 +1,7 @@
 package com.siteStreaming.SiteStreaming.Acceuil;
 
 import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
+import com.siteStreaming.SiteStreaming.LoggerSite;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,9 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Servlet servant à déconnecter un utilisateur en supprimant sa session.
+ * Redirige vers la page d'accueil.
+ */
 public class LogOut extends HttpServlet {
     private void doProcess(HttpServletRequest request, HttpServletResponse response){
-        System.out.println("Deconnection.");
+        LoggerSite.logger.info("Deconnection.");
         HttpSession session = request.getSession(); //Création d'une session utilisateur s'il n'a pas été créé avant
         session.invalidate(); //fermeture de la session
 
@@ -20,7 +25,7 @@ public class LogOut extends HttpServlet {
         try{
             response.sendRedirect("./Acceuil");
         }catch(IOException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 

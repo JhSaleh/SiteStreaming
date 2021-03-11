@@ -4,6 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical;
 
+/**
+ * Classe correspondant à une musique, contient des champs equivalents à ceux de la base de donnée,
+ * hérite de contenu sonore.
+ */
 public class Musique extends ContenuSonore {
     /**
      * Titre de la musique
@@ -26,6 +30,7 @@ public class Musique extends ContenuSonore {
      */
     int duree;
 
+    //Getter et Setter
     public String getTitre() {
         return titre;
     }
@@ -68,13 +73,13 @@ public class Musique extends ContenuSonore {
 
     /**
      * Constructeur d'une musique
-     * @param contenu
-     * @param recommendationMoment
-     * @param titre
-     * @param interprete
-     * @param anneeCreation
-     * @param genreMusical
-     * @param duree
+     * @param contenu lien vers la musique renseignée
+     * @param recommendationMoment booléen qui indique si le contenu fait partie des recommendations du moment
+     * @param titre de la musique
+     * @param interprete de la musique
+     * @param anneeCreation de la musique
+     * @param genreMusical de la musique
+     * @param duree de la musique
      */
     public Musique(String contenu, Boolean recommendationMoment, String titre,
                    String interprete, String anneeCreation, genreMusical genreMusical,

@@ -1,15 +1,19 @@
 package com.siteStreaming.SiteStreaming.DataBase;
 
 import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
-import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
 import com.siteStreaming.SiteStreaming.Catalogue.Playlist;
+import com.siteStreaming.SiteStreaming.LoggerSite;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe qui sert à la gestion des playlists dans la base de donnée, et à la récupération
+ * d'informations qui en viennent.
+ */
 public class PlaylistDatabase {
     public Connection connection;
     public Statement statement;
@@ -22,7 +26,7 @@ public class PlaylistDatabase {
             this.connection = DBManager.getInstance().getConnection();
             this.statement = this.connection.createStatement();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -34,7 +38,7 @@ public class PlaylistDatabase {
             this.statement.executeUpdate("DELETE FROM Playlist;");
             //mettre dernière version
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
 
     }
@@ -47,7 +51,7 @@ public class PlaylistDatabase {
             this.statement.executeUpdate("DELETE FROM ContenuPlaylist;");
             //mettre dernière version
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -69,14 +73,14 @@ public class PlaylistDatabase {
             preparedStatement.executeUpdate();
 
             return true;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LoggerSite.logger.error(e);
             return false;
         } finally {
             try {
                 preparedStatement.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                LoggerSite.logger.error(e);
             }
         }
     }
@@ -91,7 +95,7 @@ public class PlaylistDatabase {
         PreparedStatement preparedStatement = null;
         try {
             if (playlist.getIdPlaylist() < 0) {
-                System.out.print("pas d'id pour cette playlist !");
+                LoggerSite.logger.error("pas d'id pour cette playlist !");
                 return false;
             } else {
                 preparedStatement = this.connection.prepareStatement("UPDATE Playlist SET titre=? " +
@@ -103,13 +107,13 @@ public class PlaylistDatabase {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             return false;
         } finally {
             try {
                 preparedStatement.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                LoggerSite.logger.error(e);
             }
         }
     }
@@ -124,7 +128,7 @@ public class PlaylistDatabase {
         PreparedStatement preparedStatement = null;
         try {
             if (playlist.getIdPlaylist() < 0) {
-                System.out.print("pas d'id pour cette playlist !");
+                LoggerSite.logger.error("pas d'id pour cette playlist !");
                 return false;
             } else {
                 preparedStatement = this.connection.prepareStatement("UPDATE Playlist SET dureeTotale=? " +
@@ -135,13 +139,13 @@ public class PlaylistDatabase {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             return false;
         } finally {
             try {
                 preparedStatement.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                LoggerSite.logger.error(e);
             }
         }
     }
@@ -155,7 +159,7 @@ public class PlaylistDatabase {
     public boolean deletePlaylist(Playlist playlist) {
         try {
             if (playlist.getIdPlaylist() < 0) {
-                System.out.print("pas d'id pour cette playlist !");
+                LoggerSite.logger.error("pas d'id pour cette playlist !");
                 return false;
             } else {
                 String query = "DELETE FROM Playlist" +
@@ -165,7 +169,7 @@ public class PlaylistDatabase {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             return false;
         }
     }
@@ -182,7 +186,7 @@ public class PlaylistDatabase {
         PreparedStatement preparedStatement = null;
         try {
             if (playlist.getIdPlaylist() < 0 || musique.getId()<0) {
-                System.out.print("pas d'id pour cette playlist ou cette musique!");
+                LoggerSite.logger.error("pas d'id pour cette playlist ou cette musique!");
                 return false;
             } else {
                 if (playlist.ajouterElement(musique)) {
@@ -194,7 +198,7 @@ public class PlaylistDatabase {
                     if (res.next()) {
                         position = res.getInt("max(position)") + 1;
                     }
-                    System.out.println("add mus-- "+musique.getId()+"to :"+playlist.getIdPlaylist()+" at :"+position);
+                    LoggerSite.logger.debug("ajout de mus "+musique.getId()+" dans :"+playlist.getIdPlaylist()+" à la position:"+position);
 
                     res.close();
 
@@ -212,16 +216,9 @@ public class PlaylistDatabase {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             return false;
         }
-        /*finally {
-            try {
-                preparedStatement.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }*/
     }
 
     /**
@@ -234,7 +231,7 @@ public class PlaylistDatabase {
     public boolean enregistrerContenuPlaylist(Playlist playlist) {
         try {
             if (playlist.getIdPlaylist() < 0) {
-                System.out.print("pas d'id pour cette playlist !");
+                LoggerSite.logger.error("pas d'id pour cette playlist !");
                 return false;
             } else {
                 /* On supprime la playlist de la liste pour la réenregistrer totalement */
@@ -243,7 +240,6 @@ public class PlaylistDatabase {
 
 
                 boolean res = true;
-                // System.out.println("lignes supprimées : "+nb);
                 /* On réajoute une à une toutes les musiques de la playlist */
                 for (int i = 0; i < playlist.getMusique().size(); i++) {
                     res = this.addMusiquetoPlaylist(playlist, playlist.getMusique().get(i));
@@ -255,7 +251,7 @@ public class PlaylistDatabase {
                 return true;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             return false;
         }
     }
@@ -284,7 +280,7 @@ public class PlaylistDatabase {
             }
             return null;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             return null;
         }
     }
@@ -308,13 +304,14 @@ public class PlaylistDatabase {
             res.close();
             return -1;
         } catch (SQLException e) {
+            LoggerSite.logger.error(e);
             return -1;
         } finally {
             try {
                 preparedStatement.close();
                 res.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                LoggerSite.logger.error(e);
             }
         }
     }
@@ -352,8 +349,8 @@ public class PlaylistDatabase {
 
                 /* On récupère les musiques des playlists récupérée */
                 List<Musique> tempMus = new ArrayList<>();
-                System.out.println("nombre de playlist : " + playlists.size());
-                System.out.println(playlists);
+                LoggerSite.logger.debug("nombre de playlist : " + playlists.size());
+                LoggerSite.logger.debug(playlists);
                 for (int i = 0; i < playlists.size(); i++) {
                     playlists.get(i).setMusique(getListMusique(playlists.get(i).getIdPlaylist()));
                 }
@@ -362,7 +359,7 @@ public class PlaylistDatabase {
                 return playlists;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             return null;
         }
     }
@@ -377,7 +374,7 @@ public class PlaylistDatabase {
         PreparedStatement preparedStatement = null;
         try {
             if (idPlaylist == -1) {
-                System.out.println("la playlist n'a pas d'identifiant");
+                LoggerSite.logger.error("la playlist n'a pas d'identifiant");
                 return null;
             } else {
                 /* On récupère les musiques de la playlist */
@@ -396,7 +393,7 @@ public class PlaylistDatabase {
                 return trieMusiques(tempMus,positions);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             return null;
         }
     }
@@ -441,7 +438,7 @@ public class PlaylistDatabase {
     public Playlist getPlaylistById(int idPlaylist, String mail) {
         try {
             if (idPlaylist == -1) {
-                System.out.println("la playlist n'a pas d'identifiant");
+                LoggerSite.logger.error("la playlist n'a pas d'identifiant");
                 return null;
             } else {
                 /* On récupère les infos des playlists du client */
@@ -463,7 +460,7 @@ public class PlaylistDatabase {
                 return temp;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             return null;
         }
     }
@@ -472,8 +469,8 @@ public class PlaylistDatabase {
         try {
             this.statement.close();
             this.connection.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LoggerSite.logger.error(e);
         }
     }
 

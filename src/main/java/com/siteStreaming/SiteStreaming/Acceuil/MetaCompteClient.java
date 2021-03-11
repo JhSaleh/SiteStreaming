@@ -3,7 +3,7 @@ package com.siteStreaming.SiteStreaming.Acceuil;
 import com.siteStreaming.SiteStreaming.DataBase.S;
 
 /**
- * Classe utilisé exclusivement dans les jsp
+ * Classe utilisé exclusivement dans les jsp pour récupérer des informations sur un compte utilisateur.
  */
 public class MetaCompteClient {
     private CompteClient compte;
