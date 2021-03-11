@@ -115,7 +115,7 @@
         </div>
 
         <%if(successSignUp != null && successSignUp == true){%>
-            <div id = successSignUp>Inscription réussit !</div>
+            <div id = successSignUp>Inscription réussie !</div>
         <%}%>
     </div>
 

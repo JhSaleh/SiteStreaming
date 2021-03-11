@@ -18,12 +18,12 @@
 
 }
 .Recherche{
-    padding-left: 25%;
+    padding-left: 30%;
 
 }
 
 .section {
-    width: 73%;
+    width: 67%;
     padding-left: 1%;
     padding-right: 1%;
     float: right;
@@ -100,4 +100,7 @@
 }
 #mynouvplay{
     width: 100%;
+}
+#textcenter{
+    text-align: center;
 }

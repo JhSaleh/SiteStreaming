@@ -40,7 +40,9 @@ window.addEventListener("load", function () {
         dureeMus = m.duree;
         titreMus = m.titre;
         console.log("mes elements mus lue : "+m.duree + m.titre);
-        document.getElementById("montitremus").textContent = m.titre;
+        var minutes = Math.floor(dureeMus / 60);
+        var seconds = Math.floor(dureeMus - minutes * 60);
+        document.getElementById("montitremus").textContent = "/"+convert(minutes,seconds)+" "+titreMus;
     }
 
 
@@ -115,14 +117,7 @@ window.addEventListener("load", function () {
     rwd.style.backgroundImage = "url( pictures/playButton.svg )";
     fwd.style.backgroundImage = "url( pictures/playButton.svg )";
 
-    function setTime() {
-        if ((media.duration > dureeMus && media.currentTime >= dureeMus) || raz > dureeMus) {
-            // arrete la musique si on a dépassé le temps de la musique
-            stopMedia();
-        }
-
-        var minutes = Math.floor((media.currentTime + raz) / 60);
-        var seconds = Math.floor((media.currentTime + raz) - minutes * 60);
+    function convert(minutes,seconds){
         var minuteValue;
         var secondValue;
 
@@ -131,15 +126,24 @@ window.addEventListener("load", function () {
         } else {
             minuteValue = minutes;
         }
-
         if (seconds < 10) {
             secondValue = '0' + seconds;
         } else {
             secondValue = seconds;
         }
+        return minuteValue + ':' + secondValue;
+    }
 
-        var mediaTime = minuteValue + ':' + secondValue;
-        timer.textContent = mediaTime;
+    function setTime() {
+        if ((media.currentTime +raz) >= dureeMus) {
+            // arrete la musique si on a dépassé le temps de la musqieu
+            stopMedia();
+        }
+
+        var minutes = Math.floor((media.currentTime + raz) / 60);
+        var seconds = Math.floor((media.currentTime + raz) - minutes * 60);
+
+        timer.textContent = convert(minutes,seconds);
 
         if(dureeMus!=null) {
             var barLength = timerWrapper.clientWidth * ((media.currentTime+raz) / dureeMus);

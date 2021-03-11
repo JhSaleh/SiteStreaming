@@ -387,11 +387,11 @@ public class CatalogueDatabase {
      */
     public List<ContenuSonore> getTypeCatalogue(String choix) {
         if (choix.equals("musique")) {
-            return this.readResultset("musique", this.getAllBy("musique", "", null));
+            return this.readResultset("musique", this.getAllBy("musique", "  limit 30", null));
         } else if (choix.equals("radio")) {
-            return this.readResultset("radio", this.getAllBy("radio", "", null));
+            return this.readResultset("radio", this.getAllBy("radio", "  limit 30", null));
         } else if (choix.equals("podcast")) {
-            return this.readResultset("podcast", this.getAllBy("podcast", "", null));
+            return this.readResultset("podcast", this.getAllBy("podcast", "  limit 30", null));
         } else {
             System.out.println("Choix du type de contenu sonore incorrect");
             return null;
@@ -407,11 +407,11 @@ public class CatalogueDatabase {
      */
     public List<ContenuSonore> searchAllByTitle(String title) {
         List<ContenuSonore> resultat = this.readResultset("musique", this.getAllBy("musique",
-                " and titre like concat('%',?,'%')", title));
+                " and titre like concat('%',?,'%') limit 30", title));
         resultat.addAll(this.readResultset("radio", this.getAllBy("radio",
-                " and nom like concat('%',?,'%')", title)));
+                " and nom like concat('%',?,'%') limit 30", title)));
         resultat.addAll(this.readResultset("podcast", this.getAllBy("podcast",
-                " and titre like concat('%',?,'%')", title)));
+                " and titre like concat('%',?,'%')  limit 30", title)));
         return resultat;
     }
 
@@ -423,9 +423,9 @@ public class CatalogueDatabase {
      */
     public List<ContenuSonore> searchByAutor(String auteur) {
         List<ContenuSonore> resultat = this.readResultset("musique", this.getAllBy("musique",
-                " and interprete like concat('%',?,'%')", auteur));
+                " and interprete like concat('%',?,'%')  limit 30", auteur));
         resultat.addAll(this.readResultset("podcast", this.getAllBy("podcast",
-                " and auteur like concat('%',?,'%')", auteur)));
+                " and auteur like concat('%',?,'%')  limit 30", auteur)));
         return resultat;
     }
 
@@ -438,9 +438,9 @@ public class CatalogueDatabase {
      */
     public List<ContenuSonore> searchByGenreMusical(String genre) {
         List<ContenuSonore> resultat = this.readResultset("musique", this.getAllBy("musique",
-                " and genreMusical like concat('%',?,'%')", genre));
+                " and genreMusical like concat('%',?,'%')  limit 30", genre));
         resultat.addAll(this.readResultset("radio", this.getAllBy("radio",
-                " and genreMusical like concat('%',?,'%')", genre)));
+                " and genreMusical like concat('%',?,'%')  limit 30", genre)));
         return resultat;
     }
 
@@ -453,29 +453,36 @@ public class CatalogueDatabase {
      */
     public List<ContenuSonore> searchByCategorie(String categorie) {
         return this.readResultset("podcast", this.getAllBy("podcast",
-                " and categorie like concat('%',?,'%')", categorie));
+                " and categorie like concat('%',?,'%')  limit 30", categorie));
     }
 
     /**
-     * Renvoie les éléments du catalogue qui sont les recommendations du moment
+     * Renvoie les musiques qui sont les recommendations du moment
      *
-     * @return liste des éléments du catalogue qui sont les recommendations du moment
+     * @return musiques du catalogue qui sont les recommendations du moment
      */
-    public List<ContenuSonore> getRecommendationMoment() {
-        List<ContenuSonore> resultat = this.readResultset("musique", this.getAllBy("musique",
+    public List<Musique> getRecommendationMoment() {
+        List<Musique> resultat = new ArrayList<>();
+        List<ContenuSonore> resContenu  = this.readResultset("musique", this.getAllBy("musique",
                 " and ContenuSonore.recommendationMoment=1 limit 5", null));
+        for(int i =0;i<resContenu.size();i++){
+            resultat.add((Musique) resContenu.get(i));
+        }
         return resultat;
     }
 
     /**
-     * Renvoie les éléments du catalogue qui sont les morceaux populaires
+     * Renvoie les musiques qui sont les morceaux populaires
      *
-     * @return liste des éléments du catalogue qui sont populaires
+     * @return musiques du catalogue qui sont populaires
      */
-    public List<ContenuSonore> getMorceauxPopulaires() {
-        List<ContenuSonore> resultat = this.readResultset("musique", this.getAllBy("musique",
+    public List<Musique> getMorceauxPopulaires() {
+        List<Musique> resultat = new ArrayList<>();
+        List<ContenuSonore> resContenu  = this.readResultset("musique", this.getAllBy("musique",
                 " and ContenuSonore.morceauxPopulaire=1 limit 5", null));
-
+        for(int i =0;i<resContenu.size();i++){
+            resultat.add((Musique) resContenu.get(i));
+        }
         return resultat;
     }
 
@@ -512,9 +519,9 @@ public class CatalogueDatabase {
 */
 
 
-    // List<ContenuSonore> liste = catDatabase.getAllCatalogue();
+     List<ContenuSonore> liste = catDatabase.getAllCatalogue();
 
-     /*System.out.print("nb lect : "+liste.get(1).getNbLectureTotal());
+    /* System.out.print("nb lect : "+liste.get(1).getNbLectureTotal());
         liste.get(1).setNbLectureTotal(liste.get(1).getNbLectureTotal()+1);
         System.out.print("nb lect : "+liste.get(1).getNbLectureTotal());
 
@@ -526,29 +533,33 @@ public class CatalogueDatabase {
        // catDatabase.deleteContenuSonore(liste.get(0));
 
 
-     /*   for (ContenuSonore contenuSonore : liste) {
+        for (ContenuSonore contenuSonore : liste) {
             System.out.print(contenuSonore.getContenu() + "--");
         }
         System.out.println("recommendation");
 
-        liste = catDatabase.getRecommendationMoment();
+       /* liste = catDatabase.getRecommendationMoment();
         for (ContenuSonore contenuSonore : liste) {
             System.out.print(contenuSonore.getContenu() + "--");
-        }*/
+        }
         System.out.println("morc pop");
        List<ContenuSonore> liste = catDatabase.getMorceauxPopulaires();
         for(int i=0;i<liste.size();i++){
             System.out.print(liste.get(i).getContenu() + "--");
-        }
-        /*liste = catDatabase.searchByGenreMusical("po");
+        }*/
+        liste = catDatabase.searchByGenreMusical("po");
         for(int i=0;i<liste.size();i++){
             System.out.print(liste.get(i).getContenu() + "--");
-        }*/
+        }
+       /*   List<Musique> listMus = catDatabase.getRecommendationMoment();
+        listMus.addAll(catDatabase.getMorceauxPopulaires());
+        System.out.println(listMus.size());
+        for(int i =0;i<listMus.size();i++){
+            System.out.println(listMus.get(i).musToJson());
+        }
+catDatabase.close();*/
 
-
-catDatabase.close();
-
-       /* System.out.println("title");
+      System.out.println("title");
         liste = catDatabase.searchAllByTitle("les");
         for(int i=0;i<liste.size();i++){
             System.out.print(liste.get(i).getContenu() + "--");
@@ -569,7 +580,7 @@ catDatabase.close();
         for(int i=0;i<liste.size();i++){
             System.out.print(liste.get(i).getContenu() + "--");
         }
-        System.out.println("");*/
+        System.out.println("");
 
 
 
