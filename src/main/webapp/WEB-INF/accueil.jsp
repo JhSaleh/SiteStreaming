@@ -134,7 +134,7 @@
                         <div class="forms">
                             <form action="${pageContext.request.contextPath}/Acceuil" method=POST">
                                 <input type="hidden" id="hiddenChamp" name="hiddenChamp">
-                                <input type="submit" id="Ecouter" value="Ecouter">
+                                <input type="submit" class="labelStyle" id="Ecouter" value="Ecouter">
                             </form>
                         </div>
                     </div>
@@ -168,6 +168,7 @@
                     if(listMus!=null && i<listMus.size() && listMus.get(i)!=null) {
                             linkImg = baseLink + Integer.toString(i) + ".jpg"; //génère le lien de l'image
                             videoRec = "vidRec" + Integer.toString(i);
+
                             try {
                                 temp = (Musique) listMus.get(i);
                                 tptitle = temp.getTitre();

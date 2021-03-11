@@ -87,7 +87,7 @@ window.addEventListener("load", function (){
         //Bouton catalogue
         var catalogueMainDiv = document.getElementById("catalogue");
         var catalogueButtonDiv = document.createElement('div');
-        catalogueButtonDiv.textContent = "voir plus";
+        catalogueButtonDiv.textContent = "Voir plus";
         catalogueButtonDiv.className = "buttonLayout changeButtonColor";
         catalogueButtonDiv.id = "buttonCatalogue";
 

@@ -12,3 +12,12 @@
     width: 9cm;
     z-index: -1;
 }
+
+.buttonLayoutC{
+    border: 2px solid slateblue;
+    border-radius: 15px;
+    background-color: darkslateblue;
+    color: aliceblue;
+    height: 0.7cm;
+    margin-bottom: 15px;
+}

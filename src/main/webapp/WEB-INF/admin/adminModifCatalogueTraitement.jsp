@@ -2,6 +2,11 @@
 <%@ page import="com.siteStreaming.SiteStreaming.DataBase.AdminDatabase" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie" %>
+<%@ page import="com.siteStreaming.SiteStreaming.PageWebAdmin.TraitementModificationCatalogue" %>
+<%@ page import="com.siteStreaming.SiteStreaming.LoggerSite" %><%--
+<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio" %>
 <%@ page import="com.siteStreaming.SiteStreaming.LoggerSite" %><%--
   Created by IntelliJ IDEA.
   User: jeanhanna
@@ -11,14 +16,18 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-
+    //Récupération des données issue de la page initiale
     String action = request.getParameter("actionChoisit");
     String choixContenu = request.getParameter("choixContenuChoisit");
-
 
     String idMusique = request.getParameter("idMusique");
     String idRadio = request.getParameter("idRadio");
     String idPodcast = request.getParameter("idPodcast");
+
+    //Results
+    Boolean addSuccess = (Boolean) request.getAttribute(TraitementModificationCatalogue.addSuccess);
+    Boolean modifySuccess = (Boolean) request.getAttribute(TraitementModificationCatalogue.modifySuccess);
+    Boolean deleteSuccess = (Boolean) request.getAttribute(TraitementModificationCatalogue.deleteSuccess);
 
     LoggerSite.logger.debug("-----Sur le jsp\nAction : "+action+"\nchoixContenu : "+choixContenu+"\nidMusique : "+idMusique);
 %>
@@ -121,6 +130,7 @@
                     radio = new Radio("",false,"",genreMusical.salsa);
                 } else if(action.equals("Modifier") || action.equals("Supprimer")) {
                     AdminDatabase adminDatabase = new AdminDatabase();
+                   LoggerSite.logger.debug(idRadio);
                     radio = adminDatabase.getRadio(Integer.parseInt(idRadio), null).get(0);
                 }
         %>
@@ -167,14 +177,87 @@
         </form>
         <%}%>
 
+        <%
+            Podcast podcast = null;
+            if(choixContenu != null && choixContenu.equals("Podcast")) {
 
+                System.out.println("Passage dans la création du formulaire");
+                System.out.println("action :" + action);
+
+                if(idPodcast == null){
+                    podcast = new Podcast("",false,"",0,"", categorie.divers);
+                } else if(action.equals("Modifier") || action.equals("Supprimer")) {
+                    AdminDatabase adminDatabase = new AdminDatabase();
+                    podcast = adminDatabase.getPodcast(Integer.parseInt(idPodcast), null).get(0);
+                }
+        %>
+
+        <form id="formPage" action="${pageContext.request.contextPath}/Administration/AdminGestionnaireMusicalTraitement?idSent=<%=idPodcast%>" method="POST">
+            <div id="greedyPodcastField">
+                <label id="actionPodcast"><%=action+" "+choixContenu%></label>
+
+                <%if(!action.equals("Ajouter")){%>
+                <label id="idPodcastL" for="idPodcast">Id Podcast :</label>
+                <input id="idPodcast" class="labelStyle" type="text" value="<%=podcast.getId()%>" disabled name="idPodcast">
+                <%} else {%>
+                <label id="idPodcastL" for="idPodcast">Id Podcast :</label>
+                <input id="idPodcast" class="labelStyle" type="text" value="Automatiquement choisit." disabled name="idPodcast">
+                <%}%>
+
+                <label id="recommendationMomentPodcastL" for="recommendationMomentPodcast">Recommendation du moment :</label>
+                <select id="recommendationMomentPodcast" class="labelStyle" name="recommendationMomentPodcast">
+                    <%if(podcast.getRecommendationMoment()){%>
+                    <option selected="selected">Vrai</option>
+                    <option>Faux</option>
+                    <%}else{%>
+                    <option>Vrai</option>
+                    <option selected="selected">Faux</option>
+                    <%}%>
+                </select>
+
+                <label id="titrePodcastL" for="titrePodcast">Titre :</label>
+                <input id="titrePodcast" class="labelStyle" type="text" value="<%=podcast.getTitre()%>" name="titrePodcast">
+
+                <label id="dureePodcastL" for="dureePodcast">Durée :</label>
+                <input id="dureePodcast" class="labelStyle" type="text" value="<%=podcast.getDuree()%>" name="dureePodcast">
+
+                <label id="yearPodcastL" for="yearPodcast">Année de création :</label>
+                <input id="yearPodcast" class="labelStyle" type="text" value="<%=podcast.getAuteur()%>" name="auteurPodcast">
+
+                <label id="categoriePodcastL" for="categoriePodcast">Catégorie :</label>
+                <select id="categoriePodcast" class="labelStyle" type="text" name="categoriePodcast"> <!--Construit dynamiquement les énumérés-->
+                    <%for(categorie categoriePodcast : categorie.values()){%>
+                    <%if(categoriePodcast.equals(podcast.getCategorie())){%>
+                    <option selected="selected"><%=categoriePodcast%></option>
+                    <%}else{%>
+                    <option><%=categoriePodcast%></option>
+                    <%}%>
+                    <%}%>
+                </select>
+
+                <input id="validatePodcast" class="buttonLayoutCatalogue" type="submit" value="Valider" name="<%=action+"Podcast"+"Button"%>">
+            </div>
+        </form>
+        <%}%>
     </div>
 
-
-<div>
-
+<%if(addSuccess != null){%>
+<div class="successMsg">
+    Ajout réussie !
 </div>
+<%}%>
 
+<%if(modifySuccess != null){%>
+<div class="successMsg">
+    Modification réussie !
+</div>
+<%}%>
+
+<%if(deleteSuccess != null){%>
+<div class="successMsg">
+    Suppression réussie !
+</div>
+<%}%>
 </body>
 
 <footer class="footer">© Copyright 2021 All Rights Reserved.</footer>

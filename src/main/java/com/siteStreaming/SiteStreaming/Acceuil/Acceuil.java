@@ -31,6 +31,7 @@ public class Acceuil extends HttpServlet {
         Boolean notRedirected = true;
         String pageName = "";
 
+
         //Cas où le formulaire a été envoyé
         LoggerSite.logger.info("Passage Servlet d'Acceuil");
 
@@ -85,6 +86,15 @@ public class Acceuil extends HttpServlet {
                     } else {
                         rdAdmin = request.getRequestDispatcher("..."); //METTRE LE LIEN VERS LE PROFIL GESTION MUSICAL
                         LoggerSite.logger.info("Redirection vers ManageLibrary");
+                        System.out.println("ManageLibrary");
+                        pageName = "Administration/AdminGestionnaireMusical";
+                        System.out.println("ManageCatalogue");
+                        try {
+                            response.sendRedirect(pageName);
+                            notRedirected = false;
+                        } catch (IOException  e){
+                            e.printStackTrace();
+                        }
                     }
 
 

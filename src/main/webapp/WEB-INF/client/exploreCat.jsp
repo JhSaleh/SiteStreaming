@@ -75,14 +75,14 @@
                 <form action="./ExploreCat" method=POST">
                     <input type="hidden" id="hiddenChamp2" name="hiddenChamp2">
                     <input type="hidden" id="hiddenChamp" name="hiddenChamp">
-                    <input type="submit" id="Ecouter" value="Ecouter">
+                    <input type="submit" id="Ecouter" class="buttonLayoutC" value="Ecouter">
                 </form>
                 <form name="ajoutPlaylist" id="ajoutPlaylist" action="./ExploreCat" method="POST">
                     <input type="hidden" name="hiddenChampBis" id="hiddenChampBis">
                     <label style="padding-left: 3%" for="playList">Ajouter à une playlist :</label>
                     <select name="playList" id="playList" required="true">
                     </select>
-                    <input id="validate" type="submit" value="Valider">
+                    <input id="validate" type="submit" class="buttonLayoutC" value="Valider">
                 </form>
             </div>
         </div>
@@ -106,8 +106,8 @@
 <div class="Recherche">
     <form action="${pageContext.request.contextPath}/ExploreCat" method="GET">
         <Label for="searchText">Rechercher : </Label>
-        <input id="searchText" type="text" name="searchText" value="<%=search%>">
-        <button type="submit">valider</button>
+        <input id="searchText" type="text" class="labelStyle" name="searchText" value="<%=search%>">
+        <button type="submit" class="buttonLayoutC">valider</button>
     </form>
 </div>
 

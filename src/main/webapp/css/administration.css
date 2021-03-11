@@ -2,7 +2,7 @@
 .gridyHeaderInscription{
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
-    grid-template-areas: "title inscriptionTitle .";
+    grid-template-areas: "title modifTitle LogOut";
     grid-row-gap: 50px;
 }
 
@@ -14,10 +14,14 @@
     grid-area: title;
 }
 
-#inscriptionTitle{
+#modifTitle{
     text-align: center;
-    grid-area: inscriptionTitle;
-    font-size: 30px;
+    grid-area: modifTitle;
+    font-size: 50px;
+}
+
+#LogOut{
+    grid-area: LogOut;
 }
 
 
@@ -325,4 +329,97 @@
 
 #validateRadio{
     grid-area: validateRadio;
+}
+
+/*PODCAST*/
+
+#greedyPodcastField{
+    background-color: darkslateblue;
+    border: mediumslateblue;
+    border-radius: 15px;
+    margin-top: 35px;
+    width: 12cm;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+    grid-template-row: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-column-gap: 5px;
+    grid-row-gap: 10px;
+    grid-template-areas:
+            ". . actionPodcast . ."
+            ". idPodcastL idPodcast . ."
+            ". recommendationMomentPodcastL recommendationMomentPodcast . ."
+            ". titrePodcastL titrePodcast . ."
+            ". dureePodcastL dureePodcast . ."
+            ". yearPodcastL yearPodcast . ."
+            ". categoriePodcastL categoriePodcast . ."
+            ". . validatePodcast . .";
+}
+
+#actionPodcast{
+    grid-area: actionPodcast;
+}
+
+#idPodcastL{
+    grid-area: idPodcastL;
+}
+
+#idPodcast{
+    grid-area: idPodcast;
+}
+
+#recommendationMomentPodcastL{
+    grid-area: recommendationMomentPodcastL;
+}
+
+#recommendationMomentPodcast{
+    grid-area: recommendationMomentPodcast;
+}
+
+#titrePodcastL{
+    grid-area: titrePodcastL;
+}
+
+#titrePodcast{
+    grid-area: titrePodcast;
+}
+
+#dureePodcastL{
+    grid-area: dureePodcastL;
+}
+
+#dureePodcast{
+    grid-area: dureePodcast;
+}
+
+#yearPodcastL{
+    grid-area: yearPodcastL;
+}
+
+#yearPodcast{
+    grid-area: yearPodcast;
+}
+
+#categoriePodcastL{
+    grid-area: categoriePodcastL;
+}
+
+#categoriePodcast{
+    grid-area: categoriePodcast;
+}
+
+#validatePodcast{
+    grid-area: validatePodcast;
+}
+
+.successMsg{
+    margin-top: 10%;
+    background-color: darkslateblue;
+    font-size: 30px;
+    font-weight: bold;
+    color: aliceblue;
+    border-radius: 50px;
+    text-align: center;
+    grid-area: successSignUp;
+    line-height: 50px;
 }
