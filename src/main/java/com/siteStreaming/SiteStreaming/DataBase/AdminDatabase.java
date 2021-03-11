@@ -345,6 +345,7 @@ public class AdminDatabase {
                 idRadio = CategorieTest.getInt("idRadio");
                 java.sql.ResultSet rs = statement.executeQuery("select * from ContenuSonore where idContenuSonore = '" + idRadio + "'");
                 rs.next();
+                nom = CategorieTest.getString("nom");
                 contenu = rs.getString("fichierAudio");
                 genreMusical = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical.valueOf(CategorieTest.getString("genreMusical"));
                 Radio rad = new Radio(contenu, false, nom, genreMusical);
@@ -354,10 +355,12 @@ public class AdminDatabase {
         } else {
 
             idRadio = ID;
-            java.sql.ResultSet CategorieTest = statement2.executeQuery("select * from Radio where idPodcast = '" + ID + "'");
+            java.sql.ResultSet CategorieTest = statement2.executeQuery("select * from Radio where idRadio = " + ID + "");
             java.sql.ResultSet rs = statement.executeQuery("select * from ContenuSonore where idContenuSonore = '" + ID + "'");
             if (CategorieTest.next()) {
                 rs.next();
+                nom = CategorieTest.getString("nom");
+
                 contenu = rs.getString("fichierAudio");
                 genreMusical = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical.valueOf(CategorieTest.getString("genreMusical"));
                 Radio rad = new Radio(contenu, false, nom, genreMusical);
@@ -368,4 +371,9 @@ public class AdminDatabase {
         return radio;
     }
 
+    public static void main(String[] args) throws SQLException{
+        AdminDatabase  adminDatabase = new AdminDatabase();
+        Radio radio = adminDatabase.getRadio(67, null).get(0);
+        System.out.println("Radio :"+radio.getNom());
+    }
 }

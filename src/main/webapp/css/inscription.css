@@ -16,8 +16,9 @@
 }
 
 #inscriptionTitle{
+    text-align: center;
     grid-area: inscriptionTitle;
-    font-size: 40px;
+    font-size: 50px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
@@ -309,7 +310,9 @@
     display: grid;
     grid-template-columns: 2fr 3fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    grid-template-areas: "title inscriptionTitle a LogOut" "title . .inherit";
+    grid-template-areas:
+            "title inscriptionTitle a LogOut"
+            "title . .inherit";
     grid-column-gap: 15px;
     z-index: auto;
 }

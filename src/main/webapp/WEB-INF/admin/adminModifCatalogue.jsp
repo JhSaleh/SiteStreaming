@@ -44,7 +44,7 @@
 <body>
     <div class = "gridyHeaderInscription">
         <div id ="title"><a href="${pageContext.request.contextPath}/Acceuil">UsTube</a></div>
-        <div id = "inscriptionTitle">Gestionnaire Catalogue</div>
+        <div id = "modifTitle">Gestionnaire Catalogue</div>
         <a href="${pageContext.request.contextPath}/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
     </div>
 
@@ -161,7 +161,7 @@
     <%}else if(resultatListeRadio != null && resultatListeRadio.size() > 0){%>
         <table class="radioListResult">
         <thead class="headColumns">
-        <td>Id Musique</td>
+        <td>Id Radio</td>
         <td>Nom</td>
         <td>Genre musical</td>
         <td>Valider</td>

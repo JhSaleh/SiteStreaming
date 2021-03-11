@@ -1,7 +1,9 @@
 package com.siteStreaming.SiteStreaming.PageWebAdmin;
 
+import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
+import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio;
 import com.siteStreaming.SiteStreaming.DataBase.AdminDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
@@ -16,8 +18,8 @@ import java.sql.SQLException;
 
 public class TraitementModificationCatalogue extends HttpServlet {
     public static String addSuccess = "addSuccess";
-    public static String modifySuccess = "addSuccess";
-    public static String deleteSuccess = "addSuccess";
+    public static String modifySuccess = "modifySuccess";
+    public static String deleteSuccess = "deleteSuccess";
 
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -39,6 +41,7 @@ public class TraitementModificationCatalogue extends HttpServlet {
 
         System.out.println("-------Dans le servlet\n Action : "+action+"\nchoixContenu : "+choixContenu+"\nidMusique : "+idMusique);
 
+        //Deuxième passage dans le servlet
         //Envoit du form de la page
         String idSent = request.getParameter("idSent"); //Valable pour un podcast, une radio et une musique
         //Récupération des boutons
@@ -74,16 +77,19 @@ public class TraitementModificationCatalogue extends HttpServlet {
             CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
             catalogueDatabase.createContenuSonore(musique);
             System.out.println("Musique créée !");
+            request.setAttribute(addSuccess, true);
 
         } else if(ModifierMusiqueButton != null){
             CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
             catalogueDatabase.updateContenuSonore(musique);
             System.out.println("Musique modifiée !");
+            request.setAttribute(modifySuccess, true);
 
         } else if(SupprimerMusiqueButton != null){
             CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
             catalogueDatabase.deleteContenuSonore(musique);
             System.out.println("Musique supprimée !");
+            request.setAttribute(deleteSuccess, true);
         }
 
         //Radio
@@ -95,7 +101,7 @@ public class TraitementModificationCatalogue extends HttpServlet {
 
         if(genreRadio != null) {
             radio = new Radio("Du contenu audio.", Boolean.parseBoolean(recommendationMomentRadio), nomRadio, genreMusical.valueOf(genreRadio));
-            if(AjouterMusiqueButton == null) {
+            if(AjouterRadioButton == null) {
                 radio.setId(Integer.parseInt(idSent));
             }
         }
@@ -103,20 +109,53 @@ public class TraitementModificationCatalogue extends HttpServlet {
             CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
             catalogueDatabase.createContenuSonore(radio);
             System.out.println("Radio créée !");
+            request.setAttribute(addSuccess, true);
 
         } else if(ModifierRadioButton != null){
             CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
             catalogueDatabase.updateContenuSonore(radio);
             System.out.println("Radio modifiée !");
+            request.setAttribute(modifySuccess, true);
 
         } else if(SupprimerRadioButton != null){
             CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
             catalogueDatabase.deleteContenuSonore(radio);
             System.out.println("Radio supprimée !");
+            request.setAttribute(deleteSuccess, true);
         }
 
         //Podcast
+        String recommendationMomentPodcast = request.getParameter("recommendationMomentPodcast");
+        String titrePodcast = request.getParameter("titrePodcast");
+        String dureePodcast = request.getParameter("dureePodcast");
+        String auteurPodcast = request.getParameter("auteurPodcast");
+        String categoriePodcast = request.getParameter("categoriePodcast");
+        Podcast podcast = null;
 
+        if(categoriePodcast != null) {
+            podcast = new Podcast("Du contenu audio.", Boolean.parseBoolean(recommendationMomentPodcast), titrePodcast, Integer.parseInt(dureePodcast), auteurPodcast, categorie.valueOf(categoriePodcast));
+            if(AjouterPodcastButton == null) {
+                podcast.setId(Integer.parseInt(idSent));
+            }
+        }
+        if(AjouterPodcastButton != null){
+            CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
+            catalogueDatabase.createContenuSonore(podcast);
+            System.out.println("Podcast créée !");
+            request.setAttribute(addSuccess, true);
+
+        } else if(ModifierPodcastButton != null){
+            CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
+            catalogueDatabase.updateContenuSonore(podcast);
+            System.out.println("Podcast modifiée !");
+            request.setAttribute(modifySuccess, true);
+
+        } else if(SupprimerPodcastButton != null){
+            CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
+            catalogueDatabase.deleteContenuSonore(podcast);
+            System.out.println("Podcast supprimée !");
+            request.setAttribute(deleteSuccess, true);
+        }
 
 
         String pageName = "/WEB-INF/admin/adminModifCatalogueTraitement.jsp";
@@ -130,7 +169,6 @@ public class TraitementModificationCatalogue extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 
