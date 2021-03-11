@@ -5,4 +5,3 @@
   Time: 16:15
   To change this template use File | Settings | File Templates.
 --%>
-<c:redirect page="/Acceuil"/>

@@ -13,6 +13,7 @@
     <servlet-mapping>
         <servlet-name>Acceuil</servlet-name>
         <url-pattern>/Acceuil</url-pattern>
+        <url-pattern>/index.jsp</url-pattern>
     </servlet-mapping>
     
     <servlet>
