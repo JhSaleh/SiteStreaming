@@ -1,6 +1,7 @@
 package com.siteStreaming.SiteStreaming.PageConnecté;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
 import com.siteStreaming.SiteStreaming.Catalogue.Playlist;
 import com.siteStreaming.SiteStreaming.DataBase.PlaylistDatabase;
 import javax.servlet.RequestDispatcher;
@@ -8,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,10 +19,11 @@ public class ModifierPalylist  extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            //Cas où le formulaire a été envoyé
-            //request.getParameter("mailAddress")
-            String mail = "aarobase@mail";
-            String genre = "pop";
+            // on recupere les infos du client
+            HttpSession session = request.getSession();
+            CompteClient client = (CompteClient) session.getAttribute("sessionUtilisateur");
+            String mail = client.getMail();
+            String genre = client.getStyleMusique();
             if (mail != null) {
                 PlaylistDatabase playlistDatabase = new PlaylistDatabase();
                 int idPlay;

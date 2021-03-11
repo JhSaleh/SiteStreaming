@@ -57,7 +57,7 @@ public class Acceuil extends HttpServlet {
                     request.setAttribute("mailAddressUsed", mail);
                     request.setAttribute("passwordUsed", password);
                 }
-                pageName = "/WEB-INF/index.jsp";
+                pageName = "/WEB-INF/accueil.jsp";
 
             }else if(compteAdmin != null){
                 if(compteAdmin.isPassWord(password)){
@@ -85,23 +85,23 @@ public class Acceuil extends HttpServlet {
                     System.out.println("Coté serveur : Echec de connection renvoit des données.");
                     request.setAttribute("mailAddressUsed", mail);
                     request.setAttribute("passwordUsed", password);
-                    pageName = "/WEB-INF/index.jsp";
+                    pageName = "/WEB-INF/accueil.jsp";
                 }
             }else {
                 System.out.println("Coté serveur : Echec de connection renvoit des données.");
                 request.setAttribute("mailAddressUsed", mail);
                 request.setAttribute("passwordUsed", password);
-                //pageName = "/WEB-INF/index.jsp";
-                pageName = "/WEB-INF/index.jsp";
+                //pageName = "/WEB-INF/accueil.jsp";
+                pageName = "/WEB-INF/accueil.jsp";
             }
         } else {
-            pageName = "/WEB-INF/index.jsp";
+            pageName = "/WEB-INF/accueil.jsp";
         }
 
 
         //Va chercher les musiques
         CatalogueDatabase cataloqueDatabase = new CatalogueDatabase();
-        List<ContenuSonore> listMus = cataloqueDatabase.getRecommendationMoment();
+        List<Musique> listMus = cataloqueDatabase.getRecommendationMoment();
         listMus.addAll(cataloqueDatabase.getMorceauxPopulaires());
         request.setAttribute("listMus",listMus);
         System.out.println("mise des musiques en attribut");
@@ -120,7 +120,7 @@ public class Acceuil extends HttpServlet {
         playlistDatabase.close();
         cataloqueDatabase.close();
         //Redirige vers la page d'acceuil
-        pageName = "/WEB-INF/index.jsp";
+        pageName = "/WEB-INF/accueil.jsp";
         RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
         if(notRedirected) { //parce qu'on peut pas forward et redirect en même temps
             rd = getServletContext().getRequestDispatcher(pageName);

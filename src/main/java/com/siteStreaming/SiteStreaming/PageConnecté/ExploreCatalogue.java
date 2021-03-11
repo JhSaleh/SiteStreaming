@@ -1,6 +1,7 @@
 package com.siteStreaming.SiteStreaming.PageConnecté;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast;
@@ -28,11 +29,11 @@ public class ExploreCatalogue extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            //Cas où le formulaire a été envoyé
+            // on recupere les infos du client
             HttpSession session = request.getSession();
-            String mail = "aarobase@mail";
-            String genre = "classique";
-            System.out.println("dopost");
+            CompteClient client = (CompteClient) session.getAttribute("sessionUtilisateur");
+            String mail = client.getMail();
+            String genre = client.getStyleMusique();
             if (mail != null) {
                 CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
                 PlaylistDatabase playlistDatabase = new PlaylistDatabase();
@@ -160,6 +161,9 @@ public class ExploreCatalogue extends HttpServlet {
                 } else {
                     recherche = false;
                     res = catalogueDatabase.searchByGenreMusical(genre);
+                    if(res.size()==0){
+                        res = catalogueDatabase.getTypeCatalogue("musique");
+                    }
                 }
                 catalogueDatabase.close();
 

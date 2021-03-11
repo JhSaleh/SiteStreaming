@@ -98,7 +98,7 @@
 </div>
 
 <div class="aside" id="listplaylist">
-
+<h3 id="textcenter">Mes playlists :</h3>
 
 </div>
 
@@ -388,11 +388,13 @@
 
     function setInfoMus(j) {
         //title.className ="in-button";
+        var minutes = Math.floor(dureeMus / 60);
+        var seconds = Math.floor(dureeMus - minutes * 60);
         var tt;
         if (paraMus.titre != null && paraMus.anneeCreation != null) {
-            tt= "Musique : "+paraMus.titre;
+            tt= "/"+convert(minutes,seconds)+" Musique : "+paraMus.titre;
         } else if (paraMus.titre != null) {
-            tt = "Podcast : "+paraMus.titre;
+            tt = "/"+convert(minutes,seconds)+" Podcast : "+paraMus.titre;
         } else {
             tt="Radio : " +paraMus.nom;
         }
@@ -400,7 +402,9 @@
     }
 
     function setInfoPlaylist(num) {
-        document.getElementById("montitremus").textContent = playlistArray[idPlaylist].musique[num].titre;
+        var minutes = Math.floor(dureeMus / 60);
+        var seconds = Math.floor(dureeMus - minutes * 60);
+        document.getElementById("montitremus").textContent = "/"+convert(minutes,seconds) +" "+playlistArray[idPlaylist].musique[num].titre;
     }
 
       function playMusique() {
@@ -408,9 +412,8 @@
           idMusique = paraMus.id;
           controls.style.visibility = 'visible';
           media.currentTime = 0;
-
-          setInfoMus(idMusique);
           dureeMus = paraMus.duree;
+          setInfoMus(idMusique);
       }
 
     function playPlaylist() {
@@ -419,8 +422,8 @@
         numMusique = parseInt(document.getElementById("p" + idMusique).getAttribute("num"));
         controls.style.visibility = 'visible';
         media.currentTime = 0;
-        setInfoPlaylist(numMusique);
         dureeMus = paraMus.duree;
+        setInfoPlaylist(numMusique);
     }
 
 
@@ -433,8 +436,8 @@
 
         } else {
             console.log("inplayfunc");
-            setInfoPlaylist(numMusique);
             dureeMus = playlistArray[idPlaylist].musique[numMusique].duree;
+            setInfoPlaylist(numMusique);
             play.id = "play";
             media.currentTime = 0;
             media.play();
@@ -480,16 +483,18 @@
     }
 
     function stopMedia1() {
-        if (dureeMus === null) {
+        if (paraMus.nom != null) {
             //si c'est une radio on tourne en boucle
             raz = raz + media.currentTime;
             media.currentTime = 0;
             media.play();
-        } else if (media.duration < dureeMus && raz < dureeMus) {
+            console.log("radio");
+        }else if (media.duration < dureeMus && raz < dureeMus) {
             //si la musique à encore du temps on reprend la musique
             raz = raz + media.duration;
             media.currentTime = 0;
             media.play();
+            console.log("boucle");
         } else if (idPlaylist !=-1) {
             // si on est dans un playlist et pas dans les cas précédents on pass à la musique suivante
             musAvant();
@@ -530,15 +535,7 @@
 
     media.addEventListener('timeupdate', setTime);
 
-
-    function setTime() {
-        if ((media.duration > dureeMus && media.currentTime >= dureeMus) || raz > dureeMus) {
-            // arrete la musique si on a dépassé le temps de la musqieu
-            stopMedia();
-        }
-
-        var minutes = Math.floor((media.currentTime + raz) / 60);
-        var seconds = Math.floor((media.currentTime + raz) - minutes * 60);
+    function convert(minutes,seconds){
         var minuteValue;
         var secondValue;
 
@@ -547,15 +544,24 @@
         } else {
             minuteValue = minutes;
         }
-
         if (seconds < 10) {
             secondValue = '0' + seconds;
         } else {
             secondValue = seconds;
         }
+        return minuteValue + ':' + secondValue;
+    }
 
-        var mediaTime = minuteValue + ':' + secondValue;
-        timer.textContent = mediaTime;
+    function setTime() {
+        if ((media.currentTime +raz) >= dureeMus) {
+            // arrete la musique si on a dépassé le temps de la musqieu
+            stopMedia();
+        }
+
+        var minutes = Math.floor((media.currentTime + raz) / 60);
+        var seconds = Math.floor((media.currentTime + raz) - minutes * 60);
+
+        timer.textContent =convert(minutes,seconds);
 
         if(dureeMus!=null) {
             var barLength = timerWrapper.clientWidth * ((media.currentTime+raz) / dureeMus);

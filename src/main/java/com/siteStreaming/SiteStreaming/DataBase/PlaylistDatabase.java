@@ -17,11 +17,11 @@ public class PlaylistDatabase {
     /**
      * Crée une connection avec la base de données
      */
-    public PlaylistDatabase(){
-        try{
+    public PlaylistDatabase() {
+        try {
             this.connection = DBManager.getInstance().getConnection();
             this.statement = this.connection.createStatement();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -29,11 +29,11 @@ public class PlaylistDatabase {
     /**
      * A utilisé si on supprime toutes les playlists (vide aussi leur contenu)
      */
-    public void resetPlaylist(){
+    public void resetPlaylist() {
         try {
             this.statement.executeUpdate("DELETE FROM Playlist;");
             //mettre dernière version
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -42,11 +42,11 @@ public class PlaylistDatabase {
     /**
      * A utiliser pour vider les contenus des playlists
      */
-    public void resetContenuPlaylist(){
+    public void resetContenuPlaylist() {
         try {
             this.statement.executeUpdate("DELETE FROM ContenuPlaylist;");
             //mettre dernière version
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -54,6 +54,7 @@ public class PlaylistDatabase {
     /**
      * Creer une playlist et mets la date de création quelque soit celle de l'objet playlist
      * à l'année en cours
+     *
      * @param playlist à créer dans la base de donnée
      * @return true si réussi, false sinon
      */
@@ -79,63 +80,64 @@ public class PlaylistDatabase {
             }
         }
     }
+
     /**
      * Renommer une playlist
+     *
      * @param playlist avec le nouveau nom
      * @return true si réussi, false sinon
      */
-    public boolean renamePlaylist(Playlist playlist){
+    public boolean renamePlaylist(Playlist playlist) {
         PreparedStatement preparedStatement = null;
-        try{
-            if(playlist.getIdPlaylist()<0){
+        try {
+            if (playlist.getIdPlaylist() < 0) {
                 System.out.print("pas d'id pour cette playlist !");
                 return false;
-            }else {
+            } else {
                 preparedStatement = this.connection.prepareStatement("UPDATE Playlist SET titre=? " +
-                                "where idPlaylist = ?;");
-                preparedStatement.setString(1,playlist.getTitre());
-                preparedStatement.setInt(2,playlist.getIdPlaylist());
+                        "where idPlaylist = ?;");
+                preparedStatement.setString(1, playlist.getTitre());
+                preparedStatement.setInt(2, playlist.getIdPlaylist());
                 preparedStatement.executeUpdate();
 
                 return true;
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
+        } finally {
+            try {
+                preparedStatement.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
-      finally {
-        try {
-            preparedStatement.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
     }
 
     /**
      * Mettre à jour la durée d'une playlist
+     *
      * @param playlist avec la nouvelle durée
      * @return true si réussi, false sinon
      */
     public boolean majDureePlaylist(Playlist playlist) {
         PreparedStatement preparedStatement = null;
         try {
-            if(playlist.getIdPlaylist()<0){
+            if (playlist.getIdPlaylist() < 0) {
                 System.out.print("pas d'id pour cette playlist !");
                 return false;
-            }else {
+            } else {
                 preparedStatement = this.connection.prepareStatement("UPDATE Playlist SET dureeTotale=? " +
-                                "where idPlaylist=?;");
-                preparedStatement.setInt(1,playlist.getDureeTotale());
-                preparedStatement.setInt(2,playlist.getIdPlaylist());
+                        "where idPlaylist=?;");
+                preparedStatement.setInt(1, playlist.getDureeTotale());
+                preparedStatement.setInt(2, playlist.getIdPlaylist());
                 preparedStatement.executeUpdate();
                 return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        }
-        finally {
+        } finally {
             try {
                 preparedStatement.close();
             } catch (SQLException throwables) {
@@ -146,17 +148,18 @@ public class PlaylistDatabase {
 
     /**
      * Supprimer une playlist de la base de donnée -- le supprime aussi de ContenuPlaylist avec ON DELETE CASCADE
+     *
      * @param playlist avec le nouveau nom
      * @return true si réussi, false sinon
      */
     public boolean deletePlaylist(Playlist playlist) {
         try {
-            if(playlist.getIdPlaylist()<0){
+            if (playlist.getIdPlaylist() < 0) {
                 System.out.print("pas d'id pour cette playlist !");
                 return false;
-            }else {
+            } else {
                 String query = "DELETE FROM Playlist" +
-                        "WHERE idPlaylist=" + playlist.getIdPlaylist() + ";";
+                        " WHERE idPlaylist=" + playlist.getIdPlaylist() + ";";
 
                 this.statement.executeUpdate(query);
                 return true;
@@ -172,38 +175,39 @@ public class PlaylistDatabase {
      * par défaut les musiques sont ajoutées à la fin de la playlist
      *
      * @param playlist à laquelle on ajoute une musique
-     * @param musique à ajouter
+     * @param musique  à ajouter
      * @return true si réussi, false sinon
      */
-    public boolean addMusiquetoPlaylist(Playlist playlist, Musique musique){
+    public boolean addMusiquetoPlaylist(Playlist playlist, Musique musique) {
         PreparedStatement preparedStatement = null;
         try {
-            if(playlist.getIdPlaylist()<0){
-                System.out.print("pas d'id pour cette playlist !");
+            if (playlist.getIdPlaylist() < 0 || musique.getId()<0) {
+                System.out.print("pas d'id pour cette playlist ou cette musique!");
                 return false;
-            }else {
-                if(playlist.ajouterElement(musique)) {
-                    int position = 0;
+            } else {
+                if (playlist.ajouterElement(musique)) {
+                    int position = 1;
 
                     /* On récupère la position où l'on doit insérer la musique */
-                    String query = "select max(position) from ContenuPlaylist where idPlaylist="+playlist.getIdPlaylist()+";";
+                    String query = "select max(position) from ContenuPlaylist where idPlaylist=" + playlist.getIdPlaylist() + ";";
                     ResultSet res = this.statement.executeQuery(query);
-                    if(res.next()){
-                        position=res.getInt("max(position)")+1;
-                        //System.out.println("here-- "+position+"--"+musique.getId()+"--"+playlist.getIdPlaylist());
+                    if (res.next()) {
+                        position = res.getInt("max(position)") + 1;
                     }
+                    System.out.println("add mus-- "+musique.getId()+"to :"+playlist.getIdPlaylist()+" at :"+position);
+
                     res.close();
 
-                   preparedStatement = this.connection.prepareStatement("INSERT INTO ContenuPlaylist " +
-                           "(idMusique, idPlaylist, position) VALUES (?,?,?);");
-                   preparedStatement.setInt(1,musique.getId());
-                    preparedStatement.setInt(2,playlist.getIdPlaylist());
-                    preparedStatement.setInt(3,position);
+                    preparedStatement = this.connection.prepareStatement("INSERT INTO ContenuPlaylist " +
+                            "(idMusique, idPlaylist, position) VALUES (?,?,?);");
+                    preparedStatement.setInt(1, musique.getId());
+                    preparedStatement.setInt(2, playlist.getIdPlaylist());
+                    preparedStatement.setInt(3, position);
 
                     preparedStatement.executeUpdate();
                     //la duree de la playlist a été augmenter dans ajouter element, il faut la changer dans la base de donnée aussi
-                    return  this.majDureePlaylist(playlist);
-                }else{
+                    return this.majDureePlaylist(playlist);
+                } else {
                     return false;
                 }
             }
@@ -223,23 +227,23 @@ public class PlaylistDatabase {
     /**
      * Restocke toute la playlist (en cas de déplacement ou de suppression d'une musique, ce qui se fait avec la classe playlist)
      * à appeler après déplacement ou suppression de contenu !!
+     *
      * @param playlist à laquelle on ajoute une musique
      * @return true si réussi, false sinon
      */
-    public boolean enregistrerContenuPlaylist(Playlist playlist){
+    public boolean enregistrerContenuPlaylist(Playlist playlist) {
         try {
-            if(playlist.getIdPlaylist()<0){
+            if (playlist.getIdPlaylist() < 0) {
                 System.out.print("pas d'id pour cette playlist !");
                 return false;
-            }else {
+            } else {
                 /* On supprime la playlist de la liste pour la réenregistrer totalement */
                 String query = "DELETE FROM ContenuPlaylist  WHERE idPlaylist = " + playlist.getIdPlaylist() + ";";
                 this.statement.executeUpdate(query);
 
 
-
-               boolean res = true;
-               // System.out.println("lignes supprimées : "+nb);
+                boolean res = true;
+                // System.out.println("lignes supprimées : "+nb);
                 /* On réajoute une à une toutes les musiques de la playlist */
                 for (int i = 0; i < playlist.getMusique().size(); i++) {
                     res = this.addMusiquetoPlaylist(playlist, playlist.getMusique().get(i));
@@ -258,15 +262,16 @@ public class PlaylistDatabase {
 
     /**
      * Récupère une musique depuis la base de donnée à partir de son id (sert dans la lecture des playlist depuis la base de donnée)
+     *
      * @param idMusique de la musique à récupérer
      * @return la musique dans la base de donnée correspondante
      */
-    public Musique getMusique(int idMusique){
-        try{
-            String query= "SELECT * FROM ContenuSonore,Musique where idContenuSonore=idMusique and " +
-                    "idMusique ="+idMusique+";";
+    public Musique getMusique(int idMusique) {
+        try {
+            String query = "SELECT * FROM ContenuSonore,Musique where idContenuSonore=idMusique and " +
+                    "idMusique =" + idMusique + ";";
             ResultSet res = this.statement.executeQuery(query);
-            if(res.next()){
+            if (res.next()) {
                 Musique m = new Musique(res.getString("fichierAudio"), res.getBoolean("recommendationMoment"),
                         res.getString("titre"), res.getString("interprete"), res.getString("anneeCreation"),
                         genreMusical.valueOf(res.getString("genreMusical")), res.getInt("duree"));
@@ -278,7 +283,7 @@ public class PlaylistDatabase {
                 return m;
             }
             return null;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -286,25 +291,25 @@ public class PlaylistDatabase {
 
     /**
      * Récupère l'id du client à partir de son mail
+     *
      * @param mail du client dont on veut l'id
      * @return l'id du client
      */
-    public int getIdClient(String mail){
+    public int getIdClient(String mail) {
         PreparedStatement preparedStatement = null;
-        ResultSet res= null;
+        ResultSet res = null;
         try {
-          preparedStatement = this.connection.prepareStatement("SELECT idCompteClient FROM CompteClient where adresseMailClient =?;");
-           preparedStatement.setString(1,mail );
-           res = preparedStatement.executeQuery();
+            preparedStatement = this.connection.prepareStatement("SELECT idCompteClient FROM CompteClient where adresseMailClient =?;");
+            preparedStatement.setString(1, mail);
+            res = preparedStatement.executeQuery();
             if (res.next()) {
                 return res.getInt("idCompteClient");
             }
             res.close();
             return -1;
-        }catch(SQLException e){
+        } catch (SQLException e) {
             return -1;
-        }
-        finally {
+        } finally {
             try {
                 preparedStatement.close();
                 res.close();
@@ -313,21 +318,23 @@ public class PlaylistDatabase {
             }
         }
     }
+
     /**
      * Récupère la liste des playlist d'un client
+     *
      * @param mail du client dont on récupère les playlist
      * @return la liste des playlists si réussi, null sinon
      */
-    public List<Playlist> getAllPlaylist(String mail){
+    public List<Playlist> getAllPlaylist(String mail) {
         try {
-            int idClient=-1;
+            int idClient = -1;
             /* On récupère l'id du client */
             idClient = this.getIdClient(mail);
 
-            if(idClient==-1){
+            if (idClient == -1) {
                 System.out.println("ce client n'a pas été trouvé dans la base de donnée");
                 return null;
-            }else {
+            } else {
                 /* On récupère les infos des playlists du client */
                 String query = "SELECT * FROM Playlist where idCompteClient=" + idClient + ";";
                 ResultSet res = this.statement.executeQuery(query);
@@ -345,6 +352,8 @@ public class PlaylistDatabase {
 
                 /* On récupère les musiques des playlists récupérée */
                 List<Musique> tempMus = new ArrayList<>();
+                System.out.println("nombre de playlist : " + playlists.size());
+                System.out.println(playlists);
                 for (int i = 0; i < playlists.size(); i++) {
                     playlists.get(i).setMusique(getListMusique(playlists.get(i).getIdPlaylist()));
                 }
@@ -357,44 +366,81 @@ public class PlaylistDatabase {
             return null;
         }
     }
+
     /**
      * Récupère la liste des musiques de la playlist
+     *
      * @param idPlaylist dont on récupère les musiques
      * @return la liste de musique
      */
     public List<Musique> getListMusique(int idPlaylist) {
-        PreparedStatement preparedStatement =null;
+        PreparedStatement preparedStatement = null;
         try {
-            if (idPlaylist== -1) {
+            if (idPlaylist == -1) {
                 System.out.println("la playlist n'a pas d'identifiant");
                 return null;
             } else {
-               /* On récupère les musiques de la playlist */
+                /* On récupère les musiques de la playlist */
                 List<Musique> tempMus = new ArrayList<>();
-                preparedStatement =this.connection.prepareStatement("SELECT * FROM ContenuPlaylist where idPlaylist=" +
+                List<Integer> positions = new ArrayList<>();
+                preparedStatement = this.connection.prepareStatement("SELECT * FROM ContenuPlaylist where idPlaylist=" +
                         idPlaylist + ";");
                 int pos;
                 ResultSet res2 = preparedStatement.executeQuery();
                 while (res2.next()) {
                     pos = res2.getInt("position");
-                    tempMus.add(pos - 1, this.getMusique(res2.getInt("idMusique")));
+                    positions.add(pos - 1);
+                    tempMus.add(this.getMusique(res2.getInt("idMusique")));
                 }
                 res2.close();
-                return  tempMus;
+                return trieMusiques(tempMus,positions);
             }
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
+
+    /**
+     * Trie la liste de musique avec une liste d'entier qui correpondent au positions souhaitées
+     * de chaque musique, la list de musique et de position correspndant index par index.
+     * Utile dans le cas où une des musiques de la playlist a été supprimée et qu'il y a un trou
+     * dans les numéros des positions de la base de donnée.
+     *
+     * @param musiques  liste des musiques à trier
+     * @param positions liste des positions des musiques
+     * @return la liste des musiques dans le bon ordre
+     */
+    public List<Musique> trieMusiques(List<Musique> musiques, List<Integer> positions) {
+        List<Musique> res = new ArrayList<>();
+        List<Integer> copie = new ArrayList<>();
+        copie.addAll(positions);
+        int parcours;
+        int min;
+        for (parcours = 0; parcours < musiques.size(); parcours++) {
+            if (copie.size() > 0) {
+                min = copie.get(0);
+                for (int j = 0; j < copie.size(); j++) {
+                    if (copie.get(j) < min) {
+                        min = copie.get(j);
+                    }
+                }
+                res.add(musiques.get(positions.indexOf(min)));
+                copie.remove(Integer.valueOf(min));
+            }
+        }
+        return res;
+    }
+
     /**
      * Récupère la playlist associée à l'identifiant donné
+     *
      * @param idPlaylist de la playlist recherchée
      * @return la playlist voulue
      */
     public Playlist getPlaylistById(int idPlaylist, String mail) {
         try {
-            if (idPlaylist== -1) {
+            if (idPlaylist == -1) {
                 System.out.println("la playlist n'a pas d'identifiant");
                 return null;
             } else {
@@ -422,7 +468,7 @@ public class PlaylistDatabase {
         }
     }
 
-    public void close(){
+    public void close() {
         try {
             this.statement.close();
             this.connection.close();
@@ -431,7 +477,7 @@ public class PlaylistDatabase {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         //Tests
 
@@ -439,47 +485,45 @@ public class PlaylistDatabase {
 
         //playlistDatabase.resetContenuPlaylist();
 
-        CompteClient c = new CompteClient("Moulinex","lopmiur","M","aarobase@mail","vgtbhynju","12/12/12","12 prepre LPOP 70345", "Boys");
-       //c.addToDatabase(c);
+         CompteClient c = new CompteClient("Moulinex","lopmiur","M","aarobase@mail2","vgtbhynju","12/12/12","12 prepre LPOP 70345", "Boys");
+        // c.addToDatabase(c);
 
-       // Playlist p = new Playlist(c.getMail(),"mesmusiquesperso",0,"9090");
-        //playlistDatabase.createPlaylist(p);
+       //  Playlist p = new Playlist(c.getMail(),"mesmusiquesperso",0,"9090");
+        // playlistDatabase.createPlaylist(p);
 
       /*  Playlist p1 = new Playlist(c,"copie",234,"1252");
 
         playlistDatabase.createPlaylist(p1);
 
 
-        Musique m = new Musique("linktothemusic", false, "Melodie du soir", "joueur de piano"
-                , "2 mars 4000", genreMusical.romantique,100);
-        Musique m1 = new Musique("freemusic.com", false, "Lullaby", "orchestre le grand"
-                , "09/12/21", genreMusical.classique,9000);
 
         CatalogueDatabase catDatabase = new CatalogueDatabase();
         catDatabase.createContenuSonore(m);
         catDatabase.createContenuSonore(m1);
-*/
+
         CatalogueDatabase catDatabase = new CatalogueDatabase();
         List<ContenuSonore> resultat = catDatabase.getTypeCatalogue("musique");
 
-
-        List<Playlist> mesplaylists = playlistDatabase.getAllPlaylist(c.getMail());
-       /* Musique tp= null;
-        for(int i=0;i<resultat.size();i++) {
-            tp = (Musique) resultat.get(i);
-
-
-        }
-
 */
-        mesplaylists.get(1).ajouterElement(mesplaylists.get(0).getMusique().get(0));
-        playlistDatabase.enregistrerContenuPlaylist(mesplaylists.get(1));
+        List<Playlist> mesplaylists = playlistDatabase.getAllPlaylist(c.getMail());
+
+        System.out.println(mesplaylists.get(0).toJson());
+
+     /*  Musique m = new Musique("newMus",false,"Musique douce",
+        "elizabeth","02/09/1000",genreMusical.pop,40);
+        CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
+        catalogueDatabase.createContenuSonore(m);
+        catalogueDatabase.close();*/
+
+        System.out.println(playlistDatabase.addMusiquetoPlaylist(mesplaylists.get(0), playlistDatabase.getMusique(88)));
+        //mesplaylists.get(0).ajouterElement(m);
+        playlistDatabase.deletePlaylist(mesplaylists.get(1));
 
         mesplaylists = playlistDatabase.getAllPlaylist(c.getMail());
-        System.out.println(mesplaylists.get(1).toJson());
+        System.out.println(mesplaylists.get(0).toJson());
+
+playlistDatabase.close();
 /*
-
-
         mesplaylists.get(0).setTitre("je me change");
         playlistDatabase.renamePlaylist(mesplaylists.get(1));
 

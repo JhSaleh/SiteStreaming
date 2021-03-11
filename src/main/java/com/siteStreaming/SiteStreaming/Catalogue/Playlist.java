@@ -127,7 +127,6 @@ public class Playlist {
             }
         }
         if(this.musique.contains(musique)){
-
             return true;
         }else{
             return false;
@@ -146,7 +145,7 @@ public class Playlist {
             this.musique.add(this.musique.size(), musique);
             this.dureeTotale = this.dureeTotale + musique.getDuree();
         }
-        return dejaContenu;
+        return !dejaContenu;
     }
 
     /**
