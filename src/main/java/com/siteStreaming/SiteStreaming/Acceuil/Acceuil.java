@@ -23,6 +23,7 @@ public class Acceuil extends HttpServlet {
         Boolean notRedirected = true;
         String pageName = "";
 
+
         //Cas où le formulaire a été envoyé
         System.out.println("passageServletAcceuil");
         //Récupération des données du formulaire

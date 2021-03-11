@@ -15,8 +15,6 @@
 
 
 <%
-
-
     //Récupération des données transmises depuis le servlet en cas de connection
     //En cas d'erreur de tentative de connection
     String mailAddressUsed = (String)request.getAttribute("mailAddressUsed");
@@ -228,9 +226,6 @@
         </div>
     </div>
             <div id = "catalogue">
-                <a href="${pageContext.request.contextPath}/ExploreCat" id="buttonCatalogueLink">
-                    <div class="buttonLayout changeButtonColor" id="buttonCatalogue">Voir plus</div>
-                </a>
             </div>
 </br>
             <div class="audio"  style="bottom: 0; position: sticky;">
