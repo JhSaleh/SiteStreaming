@@ -76,8 +76,16 @@ public class Acceuil extends HttpServlet {
                             e.printStackTrace();
                         }
                     } else {
-                        rdAdmin = request.getRequestDispatcher("..."); //METTRE LE LIEN VERS LE PROFIL GESTION MUSICAL
+                        //rdAdmin = request.getRequestDispatcher("..."); //METTRE LE LIEN VERS LE PROFIL GESTION MUSICAL
                         System.out.println("ManageLibrary");
+                        pageName = "Administration/AdminGestionnaireMusical";
+                        System.out.println("ManageCatalogue");
+                        try {
+                            response.sendRedirect(pageName);
+                            notRedirected = false;
+                        } catch (IOException  e){
+                            e.printStackTrace();
+                        }
                     }
 
 

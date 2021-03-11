@@ -119,6 +119,36 @@
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
+    <filter-mapping>
+        <filter-name>NonConnectedUser</filter-name>
+        <servlet-name>ModifierPlaylist</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>NonConnectedUser</filter-name>
+        <servlet-name>ExploreCat</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>NonConnectedUser</filter-name>
+        <servlet-name>AdminProfilClient</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>NonConnectedUser</filter-name>
+        <servlet-name>ModificationCatalogue</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>NonConnectedUser</filter-name>
+        <servlet-name>TraitementModificationCatalogue</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
     <!--Filtre utilisateur connecté-->
     <filter>
         <filter-name>ConnectedUser</filter-name>
@@ -134,6 +164,18 @@
     <filter-mapping>
         <filter-name>ConnectedUser</filter-name>
         <servlet-name>AdminProfilClient</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>NonConnectedUser</filter-name>
+        <servlet-name>ModificationCatalogue</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>NonConnectedUser</filter-name>
+        <servlet-name>TraitementModificationCatalogue</servlet-name>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
