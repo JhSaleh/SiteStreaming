@@ -1,9 +1,9 @@
 package com.siteStreaming.SiteStreaming.Acceuil;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siteStreaming.SiteStreaming.Access.AdminFilter;
 import com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter;
-import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
 import com.siteStreaming.SiteStreaming.DataBase.AdministratorDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Servlet qui redirige vers la page d'accueil en chargeant les recommendations du moment
@@ -123,6 +122,12 @@ public class Acceuil extends HttpServlet {
         listMus.addAll(cataloqueDatabase.getMorceauxPopulaires());
         request.setAttribute("listMus",listMus);
         LoggerSite.logger.info("Mise des musiques en attribut");
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            LoggerSite.logger.debug("Musiques :"+mapper.writeValueAsString(listMus));
+        } catch (JsonProcessingException e) {
+            LoggerSite.logger.error(e);
+        }
 
         //Regarde si une musique est écoutée
         PlaylistDatabase playlistDatabase = new PlaylistDatabase();

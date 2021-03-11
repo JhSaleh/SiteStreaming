@@ -537,12 +537,12 @@ public class CatalogueDatabase {
        // catDatabase.deleteContenuSonore(liste.get(0));
 
 
-        for (ContenuSonore contenuSonore : liste) {
+        /*for (ContenuSonore contenuSonore : liste) {
             System.out.print(contenuSonore.getContenu() + "--");
         }
         System.out.println("recommendation");
 
-       /* liste = catDatabase.getRecommendationMoment();
+       liste = catDatabase.getRecommendationMoment();
         for (ContenuSonore contenuSonore : liste) {
             System.out.print(contenuSonore.getContenu() + "--");
         }
@@ -550,20 +550,20 @@ public class CatalogueDatabase {
        List<ContenuSonore> liste = catDatabase.getMorceauxPopulaires();
         for(int i=0;i<liste.size();i++){
             System.out.print(liste.get(i).getContenu() + "--");
-        }*/
+        }
         liste = catDatabase.searchByGenreMusical("po");
         for(int i=0;i<liste.size();i++){
             System.out.print(liste.get(i).getContenu() + "--");
-        }
-       /*   List<Musique> listMus = catDatabase.getRecommendationMoment();
-        listMus.addAll(catDatabase.getMorceauxPopulaires());
+        }*/
+        //List<Musique> listMus = catDatabase.getRecommendationMoment();
+        List<Musique> listMus =catDatabase.getMorceauxPopulaires();
         System.out.println(listMus.size());
         for(int i =0;i<listMus.size();i++){
             System.out.println(listMus.get(i).musToJson());
         }
-catDatabase.close();*/
+        catDatabase.close();
 
-      System.out.println("title");
+     /* System.out.println("title");
         liste = catDatabase.searchAllByTitle("les");
         for(int i=0;i<liste.size();i++){
             System.out.print(liste.get(i).getContenu() + "--");
@@ -584,7 +584,7 @@ catDatabase.close();*/
         for(int i=0;i<liste.size();i++){
             System.out.print(liste.get(i).getContenu() + "--");
         }
-        System.out.println("");
+        System.out.println("");*/
 
 
 

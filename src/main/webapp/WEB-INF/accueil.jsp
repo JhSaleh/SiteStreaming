@@ -164,7 +164,7 @@
                 int tpNbViewsRec;
                 String tpannee;
                 int id = -1;
-                for(int i = 1;i<6;i++){
+                for(int i = 0;i<5;i++){
                     if(listMus!=null && i<listMus.size() && listMus.get(i)!=null) {
                             linkImg = baseLink + Integer.toString(i) + ".jpg"; //génère le lien de l'image
                             videoRec = "vidRec" + Integer.toString(i);
@@ -199,7 +199,7 @@
         <h4>Morceaux Populaires :</h4>
         <div id = "gridyPopularVideos">
             <%
-                for(int i = 6;i<11;i++){
+                for(int i = 5;i<10;i++){
                     if(listMus!=null  && i<listMus.size() && listMus.get(i)!=null) {
                             linkImg = baseLink + Integer.toString(i) + ".jpg";
                             videoRec = "vidRec" + Integer.toString(i);
