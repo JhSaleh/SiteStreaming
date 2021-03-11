@@ -1,6 +1,7 @@
 package com.siteStreaming.SiteStreaming.DataBase;
 import com.siteStreaming.SiteStreaming.Acceuil.CompteAdmin;
 import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
+import com.siteStreaming.SiteStreaming.LoggerSite;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,7 +21,7 @@ public class AdministratorDatabase {
             this.connection = DBManager.getInstance().getConnection();
             this.statement = this.connection.createStatement();
         } catch (SQLException e){
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -42,7 +43,7 @@ public class AdministratorDatabase {
                 return false;
             }
         } catch(SQLException e){
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
         return false;
     }
@@ -67,7 +68,7 @@ public class AdministratorDatabase {
                 return null;
             }
         } catch (SQLException e){
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
         return null;
     }
@@ -80,13 +81,13 @@ public class AdministratorDatabase {
             ResultSet res = this.statement.executeQuery(query);
             if (res.next()) { //S'il y a un élément dans le résultat, c'est que le client est présent dans la bdd
                 String[] answer = {res.getString("adresseMail"), res.getString("civilite"), res.getString("nom"), res.getString("prenom"), res.getString("motDePasse"), res.getString("dateNaissance")};
-                //System.out.println("Tte les infos clients : "+ answer[0] +answer[1] + answer[3] + answer[4] + " etc.");
+                LoggerSite.logger.debug("Tte les infos clients : "+ answer[0] +answer[1] + answer[3] + answer[4] + " etc.");
                 return answer;
             } else {
                 return null;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
         return null;
     }
@@ -117,7 +118,7 @@ public class AdministratorDatabase {
                 ResultSet res2 = this.statement.executeQuery(query2);
                 if (res2.next()){
                     isProfilManagerClient = res2.getString("isProfilManagerClient");
-                    System.out.println("Succes finding the admin !");
+                    LoggerSite.logger.info("Succes finding the admin !");
                     return new CompteAdmin(nom, prenom, civilite, email, mdp, dateNaissance, isProfilManagerClient);
                 }
 
@@ -126,7 +127,7 @@ public class AdministratorDatabase {
                 return null;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
         return null;
     }
@@ -146,15 +147,15 @@ public class AdministratorDatabase {
                     compte.getPasswordD()+","+
                     compte.getBirthDateD()+
                     ");";
-            System.out.println(addToCompte);
+            LoggerSite.logger.debug(addToCompte);
             this.statement.executeUpdate(addToCompte);
 
             this.statement.executeUpdate("insert into `CompteAdmin` values(NULL,"+compte.getMailD()+","+compte.getIsProfilManagerClientD()+");");
-            System.out.println("Admin ajouté à la bdd!");
+            LoggerSite.logger.info("Admin ajouté à la bdd!");
             return true;
         } catch (SQLException e){
-            System.out.println("Admin non ajouté à la bdd!");
-            e.printStackTrace();
+            LoggerSite.logger.error("Admin non ajouté à la bdd!");
+            LoggerSite.logger.error(e);
             return false;
         }
     }

@@ -6,6 +6,7 @@ import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.gen
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio;
+import com.siteStreaming.SiteStreaming.LoggerSite;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ public class AdminDatabase {
             this.connection = DBManager.getInstance().getConnection();
             this.statement = this.connection.createStatement();
         } catch (SQLException e){
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -56,7 +57,7 @@ public class AdminDatabase {
         }
 
         java.sql.ResultSet rs = statement.executeQuery("select * from ContenuSonore order by "+qPeriode+" desc");
-        System.out.println("select * from ContenuSonore order by "+qPeriode+" desc");
+        LoggerSite.logger.debug("select * from ContenuSonore order by "+qPeriode+" desc");
         while(rs.next() && counter<n){
             idContenuSonore = rs.getInt("idContenuSonore");
 
@@ -73,7 +74,7 @@ public class AdminDatabase {
                 genreMusical = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical.valueOf(CategorieTest.getString("genreMusical"));
                 duree = CategorieTest.getInt("duree");
                 annee = CategorieTest.getString("anneeCreation");
-                System.out.println("idContenuSonore = "+idContenuSonore+", nbLectureMois = "+nbLectureMois+", nbLectureTotal = "+nbLectureTotal);
+                LoggerSite.logger.debug("idContenuSonore = "+idContenuSonore+", nbLectureMois = "+nbLectureMois+", nbLectureTotal = "+nbLectureTotal);
                 Musique music = new Musique(contenu,false,titre,interprete,annee,genreMusical,duree);
 
                 topNmusique.add(music);
@@ -115,7 +116,7 @@ public class AdminDatabase {
         }
 
         java.sql.ResultSet rs = statement.executeQuery("select * from ContenuSonore order by "+qPeriode+" desc");
-        System.out.println("select * from ContenuSonore order by "+qPeriode+" desc");
+        LoggerSite.logger.debug("select * from ContenuSonore order by "+qPeriode+" desc");
         while(rs.next() && counter<n){
             idContenuSonore = rs.getInt("idContenuSonore");
 
@@ -141,7 +142,7 @@ public class AdminDatabase {
                         genreMusical = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical.valueOf(CategorieTest.getString("genreMusical"));
                         duree = CategorieTest.getInt("duree");
                         annee = CategorieTest.getString("anneeCreation");
-                        System.out.println("idContenuSonore = " + idContenuSonore + ", nbLectureMois = " + nbLectureMois + ", nbLectureTotal = " + nbLectureTotal);
+                        LoggerSite.logger.debug("idContenuSonore = " + idContenuSonore + ", nbLectureMois = " + nbLectureMois + ", nbLectureTotal = " + nbLectureTotal);
 
 
                         ContenuSonore cont = new Musique(contenu, false, titre, interprete, annee, genreMusical, duree);
@@ -163,7 +164,7 @@ public class AdminDatabase {
                         contenu = rs.getString("fichierAudio");
                         nom = CategorieTest.getString("nom");
                         genreMusical = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical.valueOf(CategorieTest.getString("genreMusical"));
-                        System.out.println("idContenuSonore = " + idContenuSonore + ", nbLectureMois = " + nbLectureMois + ", nbLectureTotal = " + nbLectureTotal);
+                        LoggerSite.logger.debug("idContenuSonore = " + idContenuSonore + ", nbLectureMois = " + nbLectureMois + ", nbLectureTotal = " + nbLectureTotal);
                         ContenuSonore cont = new Radio(contenu, false, nom, genreMusical);
                         topN.add(cont);
                         counter += 1;
@@ -185,7 +186,7 @@ public class AdminDatabase {
                         duree = CategorieTest.getInt("duree");
                         auteur = CategorieTest.getString("auteur");
                         categorie = com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie.valueOf(CategorieTest.getString("categorie"));
-                        System.out.println("idContenuSonore = " + idContenuSonore + ", nbLectureMois = " + nbLectureMois + ", nbLectureTotal = " + nbLectureTotal);
+                        LoggerSite.logger.debug("idContenuSonore = " + idContenuSonore + ", nbLectureMois = " + nbLectureMois + ", nbLectureTotal = " + nbLectureTotal);
                         ContenuSonore cont = new Podcast(contenu, false, titre, duree, auteur, categorie);
                         topN.add(cont);
                         counter += 1;
@@ -225,7 +226,7 @@ public class AdminDatabase {
             while (CategorieTest.next()) {
 
                 idMusique = CategorieTest.getInt("idMusique");
-                System.out.println(idMusique);
+                LoggerSite.logger.debug("id de la musique cherchée "+idMusique);
                 java.sql.ResultSet rs = statement.executeQuery("select * from ContenuSonore where idContenuSonore = '" + idMusique + "'");
                 rs.next();
                 contenu = rs.getString("fichierAudio");

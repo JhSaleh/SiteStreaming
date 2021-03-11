@@ -1,18 +1,22 @@
 package com.siteStreaming.SiteStreaming.DataBase;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio;
+import com.siteStreaming.SiteStreaming.LoggerSite;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe qui gere la creation et la suppression d'elements du catalogue,
+ * ainsi qj'un certain nombre de fonctions de recherches dans la base donnée.
+ */
 public class CatalogueDatabase {
     public Connection connection;
     public Statement statement;
@@ -26,7 +30,7 @@ public class CatalogueDatabase {
             this.connection = DBManager.getInstance().getConnection();
             this.statement = this.connection.createStatement();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -37,7 +41,7 @@ public class CatalogueDatabase {
         try {
             this.statement.executeUpdate("DELETE FROM ContenuSonore;");
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -101,20 +105,20 @@ public class CatalogueDatabase {
             this.connection.setAutoCommit(true);
             return true;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             try {
                 // If there is any error.
                 this.connection.rollback();
                 this.connection.setAutoCommit(true);
             } catch (SQLException e2) {
-                e2.printStackTrace();
+                LoggerSite.logger.error(e2);
             }
             return false;
         } finally {
             try {
                 preparedStatement.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                LoggerSite.logger.error(e);
             }
         }
     }
@@ -130,7 +134,7 @@ public class CatalogueDatabase {
         try {
             int id = contenu.getId();
             if (id == -1) {
-                System.out.println("ce contenu n'a pas d'id !");
+                LoggerSite.logger.info("ce contenu n'a pas d'id !");
                 return false;
             } else {
                 //Assume a valid connection object conn
@@ -187,20 +191,20 @@ public class CatalogueDatabase {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             try {
                 // If there is any error.
                 this.connection.rollback();
                 this.connection.setAutoCommit(true);
             } catch (SQLException e2) {
-                e2.printStackTrace();
+                LoggerSite.logger.error(e2);
             }
             return false;
         } finally {
             try {
                 preparedStatement.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                LoggerSite.logger.error(e);
             }
         }
     }
@@ -215,7 +219,7 @@ public class CatalogueDatabase {
         try {
             int id = contenu.getId();
             if (id == -1) {
-                System.out.println("ce contenu n'a pas d'id !");
+                LoggerSite.logger.info("ce contenu n'a pas d'id !");
                 return false;
             } else {
                 // Suffisant car on a ON DELETE CASCADE sur tous les autres ids
@@ -226,12 +230,12 @@ public class CatalogueDatabase {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             try {
                 // If there is any error.
                 this.connection.rollback();
             } catch (SQLException e2) {
-                e2.printStackTrace();
+                LoggerSite.logger.error(e2);
             }
             return false;
         }
@@ -251,7 +255,7 @@ public class CatalogueDatabase {
         try {
             int id = contenu.getId();
             if (id == -1) {
-                System.out.println("ce contenu n'a pas d'id !");
+                LoggerSite.logger.info("ce contenu n'a pas d'id !");
                 return false;
             } else {
                 preparedStatement = this.connection.prepareStatement("UPDATE ContenuSonore SET fichierAudio=?," +
@@ -266,13 +270,13 @@ public class CatalogueDatabase {
                 return true;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             return false;
         } finally {
             try {
                 preparedStatement.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                LoggerSite.logger.error(e);
             }
         }
     }
@@ -298,7 +302,7 @@ public class CatalogueDatabase {
             } else if (choix.equals("podcast")) {
                 preparedStatement = this.connection.prepareStatement("SELECT * FROM ContenuSonore,Podcast WHERE idContenuSonore=idPodcast" + filtre + ";");
             } else {
-                System.out.println("L'entrée choix n'est pas valide");
+                LoggerSite.logger.info("L'entrée choix n'est pas valide");
                 return null;
             }
             if (param != null) {
@@ -306,7 +310,7 @@ public class CatalogueDatabase {
             }
             return preparedStatement.executeQuery();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             return null;
         }
 
@@ -358,11 +362,11 @@ public class CatalogueDatabase {
                     catalogue.add(temp);
                 }
             } else {
-                System.out.println("L'entrée choix n'est pas valide");
+                LoggerSite.logger.info("L'entrée choix n'est pas valide");
             }
             return catalogue;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
             return null;
         }
     }
@@ -393,7 +397,7 @@ public class CatalogueDatabase {
         } else if (choix.equals("podcast")) {
             return this.readResultset("podcast", this.getAllBy("podcast", "  limit 30", null));
         } else {
-            System.out.println("Choix du type de contenu sonore incorrect");
+            LoggerSite.logger.error("Choix du type de contenu sonore incorrect");
             return null;
         }
     }

@@ -6,6 +6,7 @@ import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio;
 import com.siteStreaming.SiteStreaming.DataBase.AdminDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
+import com.siteStreaming.SiteStreaming.LoggerSite;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,7 +37,7 @@ public class ModificationCatalogue extends HttpServlet {
 
     private void doProcess(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         redirect = false;
-        System.out.println("Passage servlet.");
+        LoggerSite.logger.debug("Passage servlet.");
 
         //Champs envoyés
         String action = request.getParameter("action");
@@ -59,7 +60,7 @@ public class ModificationCatalogue extends HttpServlet {
                 try {
                     response.sendRedirect(page);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LoggerSite.logger.error(e);
                 }
             }
 
@@ -69,7 +70,7 @@ public class ModificationCatalogue extends HttpServlet {
 
         //2ème étape : Modifier/Supprimer
         if(fieldModifierSupprimer != null){
-            System.out.println("Second traitement.");
+            LoggerSite.logger.debug("Second traitement.");
             //Capture des paramètres du lien, transmission dans sur la seconde réponse
             action = request.getParameter("actionChoisit");
             choixContenu = request.getParameter("choixContenuChoisit");
@@ -84,7 +85,7 @@ public class ModificationCatalogue extends HttpServlet {
             request.setAttribute(secondStep, true);
 
             if(choixContenu.equals("Musique")){
-                System.out.println("Passage musique");
+                LoggerSite.logger.debug("Passage musique");
 
                 AdminDatabase adminDatabase = new AdminDatabase();
                 ArrayList<Musique> resultatMusique = new ArrayList<>();
@@ -96,7 +97,7 @@ public class ModificationCatalogue extends HttpServlet {
 
                 request.setAttribute("resultatListeMusique", resultatMusique);
             } else if(choixContenu.equals("Radio")){
-                System.out.println("Passage radio");
+                LoggerSite.logger.debug("Passage radio");
 
                 AdminDatabase adminDatabase = new AdminDatabase();
                 ArrayList<Radio> resultatRadio = new ArrayList<>();
@@ -109,7 +110,7 @@ public class ModificationCatalogue extends HttpServlet {
                 request.setAttribute("resultatListeRadio", resultatRadio);
 
             } else if(choixContenu.equals("Podcast")){
-                System.out.println("Passage podcast");
+                LoggerSite.logger.debug("Passage podcast");
 
                 AdminDatabase adminDatabase = new AdminDatabase();
                 ArrayList<Podcast> resultatPodcast = new ArrayList<>();
@@ -131,9 +132,9 @@ public class ModificationCatalogue extends HttpServlet {
             try {
                 rd.forward(request, response);
             } catch (ServletException e) {
-                e.printStackTrace();
+                LoggerSite.logger.error(e);
             } catch (IOException e) {
-                e.printStackTrace();
+                LoggerSite.logger.error(e);
             }
         }
     }
@@ -143,8 +144,8 @@ public class ModificationCatalogue extends HttpServlet {
         resp.setContentType("text/html");
         try {
             doProcess(req, resp);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -153,8 +154,8 @@ public class ModificationCatalogue extends HttpServlet {
         resp.setContentType("text/html");
         try {
             doProcess(req, resp);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LoggerSite.logger.error(e);
         }
     }
 }

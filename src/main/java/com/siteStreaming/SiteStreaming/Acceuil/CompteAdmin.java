@@ -2,6 +2,9 @@ package com.siteStreaming.SiteStreaming.Acceuil;
 
 import com.siteStreaming.SiteStreaming.DataBase.S;
 
+/**
+ * Classe pour la gestion des comptes administrateurs.
+ */
 public class CompteAdmin {
     private String nom;
     private String prenom;
@@ -11,6 +14,16 @@ public class CompteAdmin {
     private String birthDate;
     private String isProfilManagerClient;
 
+    /**
+     *
+     * @param inNom
+     * @param inPrenom
+     * @param inCivilite
+     * @param inMail
+     * @param inPassword
+     * @param inBirthDate
+     * @param inIsProfilManagerClient
+     */
     public CompteAdmin(String inNom, String inPrenom, String inCivilite, String inMail, String inPassword, String inBirthDate, String inIsProfilManagerClient){
         this.nom = inNom;
         this.prenom = inPrenom;
@@ -116,7 +129,7 @@ public class CompteAdmin {
     }
 
     /**
-     * Affiche les informations liées au compte client
+     * Affiche les informations liées au compte admin
      */
     public void displayInformation(){
         System.out.println("Nom :"+nom);

@@ -3,6 +3,9 @@ package com.siteStreaming.SiteStreaming.Acceuil;
 import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.S;
 
+/**
+ * Classe pour la gestion des comptes clients.
+ */
 public class CompteClient {
     private String nom;
     private String prenom;
@@ -14,6 +17,17 @@ public class CompteClient {
     private String styleMusique;
 
 
+    /**
+     *
+     * @param inNom
+     * @param inPrenom
+     * @param inCivilite
+     * @param inMail
+     * @param inPassword
+     * @param inBirthDate
+     * @param inAddress
+     * @param inStyleMusique
+     */
     public CompteClient(String inNom, String inPrenom, String inCivilite, String inMail, String inPassword, String inBirthDate, String inAddress, String inStyleMusique){
         this.nom = inNom;
         this.prenom = inPrenom;

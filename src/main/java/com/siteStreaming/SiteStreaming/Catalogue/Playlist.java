@@ -8,6 +8,10 @@ import com.siteStreaming.SiteStreaming.DataBase.PlaylistDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe qui représente une playlist et correspond aux informations stockées en base de donnée
+ * pour une playlist.
+ */
 public class Playlist {
     /**
      * id de la playlist si est lu depuis la base de donnée
@@ -34,6 +38,8 @@ public class Playlist {
      */
     String anneeCreation;
 
+
+    //Getter et Setter
     public int getIdPlaylist() {
         return idPlaylist;
     }
@@ -85,10 +91,10 @@ public class Playlist {
 
     /**
      * Constructeur d'une playlist : à sa construction, elle est vide
-     * @param mail
-     * @param titre
-     * @param dureeTotale
-     * @param anneeCreation
+     * @param mail du client à qui appartient la playlist
+     * @param titre de la playlist
+     * @param dureeTotale de la playlist
+     * @param anneeCreation de la playlist
      */
     public Playlist(String mail, String titre, int dureeTotale, String anneeCreation) {
         PlaylistDatabase playlistDatabase = new PlaylistDatabase();
@@ -182,6 +188,10 @@ public class Playlist {
         return existe;
     }
 
+    /**
+     * Converti la playlist en une chaine de caractère json plus facile à exploiter en javascript
+     * @return la chaine de caractère correspondant à l'objet converti en json.
+     */
     public String toJson(){
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -191,8 +201,6 @@ public class Playlist {
             return null;
         }
     }
-    public void enregistrer(){
 
-    }
 
 }

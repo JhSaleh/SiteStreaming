@@ -5,6 +5,7 @@ import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio;
 import com.siteStreaming.SiteStreaming.DataBase.AdminDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.CatalogueDatabase;
+import com.siteStreaming.SiteStreaming.LoggerSite;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,7 +22,7 @@ public class TraitementModificationCatalogue extends HttpServlet {
 
 
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        System.out.println("Passage servlet traitement catalogue.");
+        LoggerSite.logger.info("Passage servlet traitement catalogue.");
         //Premier passage dans le servlet
         String action = request.getParameter("actionChoisit");
         String choixContenu = request.getParameter("choixContenuChoisit");
@@ -37,7 +38,7 @@ public class TraitementModificationCatalogue extends HttpServlet {
         request.setAttribute("idRadio", idRadio);
         request.setAttribute("idPodcast", idPodcast);
 
-        System.out.println("-------Dans le servlet\n Action : "+action+"\nchoixContenu : "+choixContenu+"\nidMusique : "+idMusique);
+        LoggerSite.logger.debug("-------Dans le servlet\n Action : "+action+"\nchoixContenu : "+choixContenu+"\nidMusique : "+idMusique);
 
         //Envoit du form de la page
         String idSent = request.getParameter("idSent"); //Valable pour un podcast, une radio et une musique
@@ -73,17 +74,17 @@ public class TraitementModificationCatalogue extends HttpServlet {
         if(AjouterMusiqueButton != null){
             CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
             catalogueDatabase.createContenuSonore(musique);
-            System.out.println("Musique créée !");
+            LoggerSite.logger.info("Musique créée !");
 
         } else if(ModifierMusiqueButton != null){
             CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
             catalogueDatabase.updateContenuSonore(musique);
-            System.out.println("Musique modifiée !");
+            LoggerSite.logger.info("Musique modifiée !");
 
         } else if(SupprimerMusiqueButton != null){
             CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
             catalogueDatabase.deleteContenuSonore(musique);
-            System.out.println("Musique supprimée !");
+            LoggerSite.logger.info("Musique supprimée !");
         }
 
         //Radio
@@ -102,17 +103,17 @@ public class TraitementModificationCatalogue extends HttpServlet {
         if(AjouterRadioButton != null){
             CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
             catalogueDatabase.createContenuSonore(radio);
-            System.out.println("Radio créée !");
+            LoggerSite.logger.info("Radio créée !");
 
         } else if(ModifierRadioButton != null){
             CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
             catalogueDatabase.updateContenuSonore(radio);
-            System.out.println("Radio modifiée !");
+            LoggerSite.logger.info("Radio modifiée !");
 
         } else if(SupprimerRadioButton != null){
             CatalogueDatabase catalogueDatabase = new CatalogueDatabase();
             catalogueDatabase.deleteContenuSonore(radio);
-            System.out.println("Radio supprimée !");
+            LoggerSite.logger.info("Radio supprimée !");
         }
 
         //Podcast
@@ -126,9 +127,9 @@ public class TraitementModificationCatalogue extends HttpServlet {
         try {
             rd.forward(request, response);
         } catch (ServletException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            LoggerSite.logger.error(e);
         }
 
     }
@@ -139,8 +140,8 @@ public class TraitementModificationCatalogue extends HttpServlet {
         resp.setContentType("text/html");
         try {
             doProcess(req, resp);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LoggerSite.logger.error(e);
         }
     }
 
@@ -149,8 +150,8 @@ public class TraitementModificationCatalogue extends HttpServlet {
         resp.setContentType("text/html");
         try {
             doProcess(req, resp);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            LoggerSite.logger.error(e);
         }
     }
 }

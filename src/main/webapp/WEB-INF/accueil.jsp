@@ -12,6 +12,7 @@
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique" %>
+<%@ page import="com.siteStreaming.SiteStreaming.LoggerSite" %>
 
 
 <%
@@ -174,7 +175,7 @@
                                 tpNbViewsRec = temp.getNbLectureTotal();
                                 id = temp.getId();
                             }catch (Exception e){
-                                System.out.println("ceci n'est pas une musique !");
+                                LoggerSite.logger.debug("ceci n'est pas une musique !");
                                 tptitle = defaultValueTitle;
                                 tpannee = defaultValueYear;
                                 tpNbViewsRec = Integer.parseInt(defaultValueViews);
@@ -208,7 +209,7 @@
                                 tpNbViewsRec = temp.getNbLectureTotal();
                                 id = temp.getId();
                             }catch (Exception e){
-                                System.out.println("ceci n'est pas une musique !");
+                                LoggerSite.logger.debug("ceci n'est pas une musique !");
                                 tptitle = defaultValueTitle;
                                 tpannee = defaultValueYear;
                                 tpNbViewsRec = Integer.parseInt(defaultValueViews);

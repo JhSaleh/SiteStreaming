@@ -2,6 +2,9 @@ package com.siteStreaming.SiteStreaming.Acceuil;
 
 import com.siteStreaming.SiteStreaming.DataBase.S;
 
+/**
+ *
+ */
 public class MetaErrorHandler {
     private String defaultStringAnswer = "\"\""; //Correspond à la valeur par default des champs input
     private String emailUsed;

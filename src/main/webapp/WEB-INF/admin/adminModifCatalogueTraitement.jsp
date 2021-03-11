@@ -1,7 +1,8 @@
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique" %>
 <%@ page import="com.siteStreaming.SiteStreaming.DataBase.AdminDatabase" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical" %>
-<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio" %><%--
+<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio" %>
+<%@ page import="com.siteStreaming.SiteStreaming.LoggerSite" %><%--
   Created by IntelliJ IDEA.
   User: jeanhanna
   Date: 09/03/2021
@@ -19,7 +20,7 @@
     String idRadio = request.getParameter("idRadio");
     String idPodcast = request.getParameter("idPodcast");
 
-    System.out.println("-----Sur le jsp\nAction : "+action+"\nchoixContenu : "+choixContenu+"\nidMusique : "+idMusique);
+    LoggerSite.logger.debug("-----Sur le jsp\nAction : "+action+"\nchoixContenu : "+choixContenu+"\nidMusique : "+idMusique);
 %>
 
 
@@ -41,20 +42,20 @@
 
     <div id="MetaDiv">
         <!--MUSIQUE-->
-    <%
-        Musique musique = null;
-        if(choixContenu != null && choixContenu.equals("Musique")) {
+        <%
+            Musique musique = null;
+            if(choixContenu != null && choixContenu.equals("Musique")) {
 
-        System.out.println("Passage dans la création du formulaire");
-        System.out.println("action :" + action);
+                LoggerSite.logger.debug("Passage dans la création du formulaire");
+                LoggerSite.logger.debug("action :" + action);
 
-        if(idMusique == null){
-            musique = new Musique("",false,"","","", genreMusical.salsa,0);
-        } else if(action.equals("Modifier") || action.equals("Supprimer")) {
-            AdminDatabase adminDatabase = new AdminDatabase();
-            musique = adminDatabase.getMusic(Integer.parseInt(idMusique), null).get(0);
-        }
-    %>
+                if(idMusique == null){
+                    musique = new Musique("",false,"","","", genreMusical.salsa,0);
+                } else if(action.equals("Modifier") || action.equals("Supprimer")) {
+                    AdminDatabase adminDatabase = new AdminDatabase();
+                    musique = adminDatabase.getMusic(Integer.parseInt(idMusique), null).get(0);
+                }
+        %>
 
         <form id="formPage" action="${pageContext.request.contextPath}/Administration/AdminGestionnaireMusicalTraitement?idSent=<%=idMusique%>" method="POST">
             <div id="greedyMusicField">
@@ -112,9 +113,9 @@
             Radio radio = null;
             if(choixContenu != null && choixContenu.equals("Radio")) {
 
-                System.out.println("Passage dans la création du formulaire");
-                System.out.println("action :" + action);
-                System.out.println("idRadio :"+idRadio);
+                LoggerSite.logger.debug("Passage dans la création du formulaire");
+                LoggerSite.logger.debug("action :" + action);
+                LoggerSite.logger.debug("idRadio :"+idRadio);
 
                 if(idRadio == null){
                     radio = new Radio("",false,"",genreMusical.salsa);

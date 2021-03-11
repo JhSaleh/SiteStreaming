@@ -1,5 +1,7 @@
 package com.siteStreaming.SiteStreaming.Acceuil;
 
+import com.siteStreaming.SiteStreaming.LoggerSite;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -7,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet redirigeant vers la page d'inscription et traitant les inscriptions reçues.
+ */
 public class Inscription extends HttpServlet {
     private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 
@@ -23,9 +28,11 @@ public class Inscription extends HttpServlet {
             //En cas d'échec de l'ajout, on envoit les champs déjà remplis remplis aux clients
             boolean successAdd = compteToAdd.addToDatabase(compteToAdd);
             if(!successAdd){
+                LoggerSite.logger.info("Echec de l'insciption");
                 request.setAttribute("compteInscription", compteToAdd);
                 request.setAttribute("successSignUp", false);
             } else {
+                LoggerSite.logger.debug("Inscription réussie");
                 request.setAttribute("successSignUp", true);
             }
         }
@@ -33,7 +40,7 @@ public class Inscription extends HttpServlet {
 
 
 
-        //Redirige vers la page d'acceuil
+        //Redirige vers la page d'inscription
         String pageName = "/WEB-INF/inscription.jsp";
         RequestDispatcher rd = getServletContext().getRequestDispatcher(pageName);
 

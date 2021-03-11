@@ -1,12 +1,17 @@
 package com.siteStreaming.SiteStreaming.Access;
 
 
+import com.siteStreaming.SiteStreaming.LoggerSite;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Classe qui redirige les utillisateurs non connectés.
+ */
 public class NonConnectedUserFilter implements Filter {
     /**
      * Page vers laquelle on redirige les utilisateurs qui n'ont pas de session ouverte.
@@ -37,7 +42,7 @@ public class NonConnectedUserFilter implements Filter {
         /* Récupération de la session depuis la requête */
         HttpSession session = request.getSession();
 
-        System.out.println("On filtre la requete dans AccessFilter.");
+        LoggerSite.logger.info("On filtre la requete dans AccessFilter.");
 
         /*
          * Si l'objet utilisateur n'existe pas dans la session en cours, alors

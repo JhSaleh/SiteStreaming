@@ -31,9 +31,7 @@ public abstract class ContenuSonore {
     int nbLectureTotal = 0;
 
 
-    void ajoutPlaylist(){};
-    void majStatistique(){};
-
+    //Getter et Setter
     public int getId() {
         return id;
     }
@@ -84,8 +82,8 @@ public abstract class ContenuSonore {
 
     /**
      * Constructeur d'un contenu sonore
-     * @param contenu
-     * @param recommendationMoment
+     * @param contenu lien vers le contenu sonore associé
+     * @param recommendationMoment booléen qui indique si le contenu fait partie des recommendations du moment
      */
     public ContenuSonore(String contenu, Boolean recommendationMoment) {
         this.contenu = contenu;
