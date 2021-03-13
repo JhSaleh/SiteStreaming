@@ -166,8 +166,8 @@
                 int id = -1;
                 for(int i = 0;i<5;i++){
                     if(listMus!=null && i<listMus.size() && listMus.get(i)!=null) {
-                            linkImg = baseLink + Integer.toString(i) + ".jpg"; //génère le lien de l'image
-                            videoRec = "vidRec" + Integer.toString(i);
+                            linkImg = baseLink + Integer.toString(i+1) + ".jpg"; //génère le lien de l'image
+                            videoRec = "vidRec" + Integer.toString(i+1);
 
                             try {
                                 temp = (Musique) listMus.get(i);
