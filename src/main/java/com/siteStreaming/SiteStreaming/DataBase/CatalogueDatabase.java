@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Classe qui gere la creation et la suppression d'elements du catalogue,
- * ainsi qj'un certain nombre de fonctions de recherches dans la base donnée.
+ * ainsi qu'un certain nombre de fonctions de recherches dans la base données.
  */
 public class CatalogueDatabase {
     public Connection connection;
@@ -35,7 +35,7 @@ public class CatalogueDatabase {
     }
 
     /**
-     * Vide la base de donner (ContenuSonore vide les autres qui ont on delete cascade)
+     * Vide la base de données (ContenuSonore vide les autres qui ont on delete cascade)
      */
     public void resetCatalogue() {
         try {
@@ -46,7 +46,7 @@ public class CatalogueDatabase {
     }
 
     /**
-     * petite fonction pour convertir le booleen en entier pour la base de donnée
+     * petite fonction pour convertir le booleen en entier pour la base de données
      *
      * @param b a convertir
      * @return la valeur entière
@@ -56,15 +56,15 @@ public class CatalogueDatabase {
     }
 
     /**
-     * Crée un nouveau contenu sonore dans la base de donnée
+     * Crée un nouveau contenu sonore dans la base de données
      *
-     * @param contenu contenu à ajouter dans la base de donnée
+     * @param contenu contenu à ajouter dans la base de données
      * @return true si réussi false sinon
      */
     public boolean createContenuSonore(ContenuSonore contenu) {
         try {
             String name = "com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.";
-            //Assume a valid connection object conn
+            //Assume a valid connection object connexion
             this.connection.setAutoCommit(false);
             preparedStatement = this.connection.prepareStatement("INSERT INTO ContenuSonore " +
                     "(fichierAudio, recommendationMoment, morceauxPopulaire,nbLectureMois, nbLectureTotal) VALUES (?,?,?,?,?);");
@@ -124,7 +124,7 @@ public class CatalogueDatabase {
     }
 
     /**
-     * Mets à jour dans la base de donnée toutes les informations d'un contenu sonore
+     * Met à jour dans la base de données toutes les informations d'un contenu sonore
      *
      * @param contenu objet avec les infos mises à jour
      * @return true si reussi, false sinon
@@ -210,7 +210,7 @@ public class CatalogueDatabase {
     }
 
     /**
-     * Supprime un contenu sonore de la base de donnée
+     * Supprime un contenu sonore de la base de données
      *
      * @param contenu à suprimer
      * @return true si réussi false sinon
@@ -244,10 +244,10 @@ public class CatalogueDatabase {
 
 
     /**
-     * Mets à jour dans la base de donnée les infos de lectures d'un contenu sonore
-     * (que les infos du contenu sonore, pas celles plus precise de la musique, la radio ou le podcast)
+     * Met à jour dans la base de données les infos de lecture d'un contenu sonore
+     * (que les infos du contenu sonore, pas celles plus precises de la musique, la radio ou le podcast)
      *
-     * @param contenu obet avec les infos mises à jour
+     * @param contenu objet avec les infos mises à jour
      * @return true si réussi, false sinon
      */
     public boolean infoStatMAJContenuSonore(ContenuSonore contenu) {
@@ -282,8 +282,8 @@ public class CatalogueDatabase {
     }
 
     /**
-     * Renvoie un resultset de tous les résultat de la base de donnée correspondant à un type
-     * de contenu sonore ou tous les contenus sonore
+     * Renvoie un resultset de tous les résultats de la base de données correspondant à un type
+     * de contenu sonore ou tous les contenus sonores
      *
      * @param choix  "musique", "radio" ou "podcast"
      * @param filtre filtre à rajouter si voulu, sinon mettre une chaine vide ""
@@ -318,11 +318,11 @@ public class CatalogueDatabase {
 
 
     /**
-     * Lire un resultset donné selon s'il s'agit de musiques, de radio, ou de podcast
+     * Lire un resultset donné selon de s'il s'agit de musiques, de radio, ou de podcast
      *
      * @param choix "musique", "radio", "podcast"
      * @param res   resultset à lire
-     * @return la liste des contenus sonore du type choisi du resultset donné
+     * @return la liste des contenus sonores du type choisi du resultset donné
      */
     public List<ContenuSonore> readResultset(String choix, ResultSet res) {
         try {
@@ -372,7 +372,7 @@ public class CatalogueDatabase {
     }
 
     /**
-     * Donne le catalogue complet en demandant toutes les musiques, radio et podcast sans aucun filtre
+     * Donne le catalogue complet en demandant toutes les musiques, radios et podcasts sans aucun filtre
      *
      * @return la liste des contenus sonores du catalogue
      */
@@ -420,9 +420,9 @@ public class CatalogueDatabase {
     }
 
     /**
-     * Renvoie tous les contenus sonore dont l'auteur ou l'interprete contient les caractères recherchés
+     * Renvoie tous les contenus sonores dont l'auteur ou l'interprete contient les caractères recherchés
      *
-     * @param auteur chaine qui doit être dansl'auteur ou l'interprete
+     * @param auteur chaine qui doit être dans l'auteur ou l'interprete
      * @return liste de tous les contenus sonores trouvés
      */
     public List<ContenuSonore> searchByAutor(String auteur) {
@@ -434,7 +434,7 @@ public class CatalogueDatabase {
     }
 
     /**
-     * Renvoie tous les contenus sonore dont le genre musical correspond à celui recherché :
+     * Renvoie tous les contenus sonores dont le genre musical correspond à celui recherché :
      * ne peuvent être que des musiques ou des radios
      *
      * @param genre chaine qui doit être dans genreMusical
@@ -449,7 +449,7 @@ public class CatalogueDatabase {
     }
 
     /**
-     * Renvoie tous les contenus sonore dont le genre musical correspond à celui recherché :
+     * Renvoie tous les contenus sonores dont le genre musical correspond à celui recherché :
      * ne peuvent être que des musiques ou des radios
      *
      * @param categorie chaine qui doit être dans genreMusical

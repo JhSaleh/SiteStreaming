@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
- * Classe qui sert la gestion des comptes clients dans la base de donnée.
+ * Classe qui sert la gestion des comptes clients dans la base de données.
  */
 public class ClientDatabase {
     public Connection connection;
@@ -31,7 +31,7 @@ public class ClientDatabase {
     }
 
     /**
-     * A utilisé si la table Compte est supprimée
+     * A utiliser si la table Compte est supprimée
      */
     public void createAccountTable(){
         try {
@@ -77,7 +77,7 @@ public class ClientDatabase {
     }
 
     /**
-     * Renvoit le nom et prénom d'un client
+     * Renvoie le nom et prénom d'un client
      * @param mail
      * @return
      */
@@ -121,7 +121,7 @@ public class ClientDatabase {
     }
 
     /**
-     * Renvoit le compte client s'il existe pour un mail donné
+     * Renvoie le compte client s'il existe pour un mail donné
      * @param mail
      * @return
      */

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe qui sert à la gestion des playlists dans la base de donnée, et à la récupération
+ * Classe qui sert à la gestion des playlists dans la base de données, et à la récupération
  * d'informations qui en viennent.
  */
 public class PlaylistDatabase {
@@ -31,7 +31,7 @@ public class PlaylistDatabase {
     }
 
     /**
-     * A utilisé si on supprime toutes les playlists (vide aussi leur contenu)
+     * A utiliser si on supprime toutes les playlists (vide aussi leur contenu)
      */
     public void resetPlaylist() {
         try {
@@ -56,10 +56,10 @@ public class PlaylistDatabase {
     }
 
     /**
-     * Creer une playlist et mets la date de création quelque soit celle de l'objet playlist
+     * Creer une playlist et met la date de création quelque soit celle de l'objet playlist
      * à l'année en cours
      *
-     * @param playlist à créer dans la base de donnée
+     * @param playlist à créer dans la base de données
      * @return true si réussi, false sinon
      */
     public boolean createPlaylist(Playlist playlist) {
@@ -151,7 +151,7 @@ public class PlaylistDatabase {
     }
 
     /**
-     * Supprimer une playlist de la base de donnée -- le supprime aussi de ContenuPlaylist avec ON DELETE CASCADE
+     * Supprimer une playlist de la base de données -- le supprime aussi de ContenuPlaylist avec ON DELETE CASCADE
      *
      * @param playlist avec le nouveau nom
      * @return true si réussi, false sinon
@@ -257,10 +257,10 @@ public class PlaylistDatabase {
     }
 
     /**
-     * Récupère une musique depuis la base de donnée à partir de son id (sert dans la lecture des playlist depuis la base de donnée)
+     * Récupère une musique depuis la base de données à partir de son id (sert dans la lecture des playlist depuis la base de données)
      *
      * @param idMusique de la musique à récupérer
-     * @return la musique dans la base de donnée correspondante
+     * @return la musique dans la base de données correspondante
      */
     public Musique getMusique(int idMusique) {
         try {
@@ -319,7 +319,7 @@ public class PlaylistDatabase {
     /**
      * Récupère la liste des playlist d'un client
      *
-     * @param mail du client dont on récupère les playlist
+     * @param mail du client dont on récupère les playlists
      * @return la liste des playlists si réussi, null sinon
      */
     public List<Playlist> getAllPlaylist(String mail) {
@@ -399,10 +399,10 @@ public class PlaylistDatabase {
     }
 
     /**
-     * Trie la liste de musique avec une liste d'entier qui correpondent au positions souhaitées
-     * de chaque musique, la list de musique et de position correspndant index par index.
+     * Trie la liste des musiques avec une liste d'entier qui correpondent aux positions souhaitées
+     * de chaque musique, la liste de musiques et de positions correspondant index par index.
      * Utile dans le cas où une des musiques de la playlist a été supprimée et qu'il y a un trou
-     * dans les numéros des positions de la base de donnée.
+     * dans les numéros des positions de la base de données.
      *
      * @param musiques  liste des musiques à trier
      * @param positions liste des positions des musiques

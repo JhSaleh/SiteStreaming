@@ -92,7 +92,7 @@ public class AdministratorDatabase {
     }
 
     /**
-     * Renvoit le compte client s'il existe pour un mail donné
+     * Renvoie le compte client s'il existe pour un mail donné
      * @param mail
      * @return
      */

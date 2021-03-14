@@ -24,7 +24,7 @@ public class S {
     }
 
     /**
-     * Vérifie qu'un objet string n'est pas nul, sans quoi il est remplacé par la chaine vide
+     * Vérifie qu'un objet string n'est pas null, sans quoi il est remplacé par la chaine vide
      * @param string
      * @return
      */
