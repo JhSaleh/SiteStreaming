@@ -43,7 +43,7 @@
 
 <body>
     <div class = "gridyHeaderInscription">
-        <div id ="title"><a href="${pageContext.request.contextPath}/Acceuil">UsTube</a></div>
+        <div id ="title"><a href="${pageContext.request.contextPath}/Accueil">UsTube</a></div>
         <div id = "modifTitle">Gestionnaire Catalogue</div>
         <a href="${pageContext.request.contextPath}/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
     </div>

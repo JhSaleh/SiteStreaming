@@ -1,9 +1,7 @@
-package com.siteStreaming.SiteStreaming.Acceuil;
+package com.siteStreaming.SiteStreaming.Accueil;
 
-import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
 import com.siteStreaming.SiteStreaming.LoggerSite;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +21,7 @@ public class LogOut extends HttpServlet {
 
         //Redirection vers la page d'acceuil
         try{
-            response.sendRedirect("./Acceuil");
+            response.sendRedirect("./Accueil");
         }catch(IOException e) {
             LoggerSite.logger.error(e);
         }

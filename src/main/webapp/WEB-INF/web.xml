@@ -5,26 +5,26 @@
          version="4.0">
     <!--SERVLET-->
     <servlet>
-        <display-name>Acceuil</display-name>
-        <servlet-name>Acceuil</servlet-name>
-        <servlet-class>com.siteStreaming.SiteStreaming.Acceuil.Acceuil</servlet-class>
+        <display-name>Accueil</display-name>
+        <servlet-name>Accueil</servlet-name>
+        <servlet-class>com.siteStreaming.SiteStreaming.Accueil.Accueil</servlet-class>
     </servlet>
     
     <servlet-mapping>
-        <servlet-name>Acceuil</servlet-name>
-        <url-pattern>/Acceuil</url-pattern>
+        <servlet-name>Accueil</servlet-name>
+        <url-pattern>/Accueil</url-pattern>
         <url-pattern>/index.jsp</url-pattern>
     </servlet-mapping>
     
     <servlet>
         <display-name>Inscription</display-name>
         <servlet-name>Inscription</servlet-name>
-        <servlet-class>com.siteStreaming.SiteStreaming.Acceuil.Inscription</servlet-class>
+        <servlet-class>com.siteStreaming.SiteStreaming.Accueil.Inscription</servlet-class>
     </servlet>
     
     <servlet-mapping>
         <servlet-name>Inscription</servlet-name>
-        <url-pattern>/Acceuil/Inscription</url-pattern>
+        <url-pattern>/Accueil/Inscription</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -41,7 +41,7 @@
     <servlet>
         <display-name>LogOut</display-name>
         <servlet-name>LogOut</servlet-name>
-        <servlet-class>com.siteStreaming.SiteStreaming.Acceuil.LogOut</servlet-class>
+        <servlet-class>com.siteStreaming.SiteStreaming.Accueil.LogOut</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -108,6 +108,7 @@
 
     <!--FILTER-->
     <!--Filtre utilisateur non connecté-->
+
     <filter>
         <filter-name>NonConnectedUser</filter-name>
         <filter-class>com.siteStreaming.SiteStreaming.Access.NonConnectedUserFilter</filter-class>
@@ -131,25 +132,10 @@
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
-    <filter-mapping>
-        <filter-name>NonConnectedUser</filter-name>
-        <servlet-name>AdminProfilClient</servlet-name>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
 
-    <filter-mapping>
-        <filter-name>NonConnectedUser</filter-name>
-        <servlet-name>ModificationCatalogue</servlet-name>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
-
-    <filter-mapping>
-        <filter-name>NonConnectedUser</filter-name>
-        <servlet-name>TraitementModificationCatalogue</servlet-name>
-        <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>
 
     <!--Filtre utilisateur connecté-->
+
     <filter>
         <filter-name>ConnectedUser</filter-name>
         <filter-class>com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter</filter-class>
@@ -161,27 +147,34 @@
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
+
+    <!--Filtre ADMINISTRATEUR-->
+    <filter>
+        <filter-name>Admin</filter-name>
+        <filter-class>com.siteStreaming.SiteStreaming.Access.AdminFilter</filter-class>
+    </filter>
+
     <filter-mapping>
-        <filter-name>ConnectedUser</filter-name>
+        <filter-name>Admin</filter-name>
         <servlet-name>AdminProfilClient</servlet-name>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
     <filter-mapping>
-        <filter-name>NonConnectedUser</filter-name>
+        <filter-name>Admin</filter-name>
         <servlet-name>ModificationCatalogue</servlet-name>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
     <filter-mapping>
-        <filter-name>NonConnectedUser</filter-name>
+        <filter-name>Admin</filter-name>
         <servlet-name>TraitementModificationCatalogue</servlet-name>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
     <error-page>
         <error-code>404</error-code>
-        <location>/Acceuil</location>
+        <location>/Accueil</location>
     </error-page>
 
 </web-app>

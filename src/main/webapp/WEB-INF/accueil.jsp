@@ -7,8 +7,8 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="com.siteStreaming.SiteStreaming.DataBase.S" %>
-<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.MetaErrorHandler" %>
-<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.MetaErrorHandler" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.CompteClient" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique" %>
@@ -105,7 +105,7 @@
         <div class="modal-content gridyModal"> <!--Contenu du modal-->
             <div id="SignUpModal">Se connecter</div>
             <div class="close">&times;</div> <!--syntaxe pour le bouton x-->
-            <form id="formSignIn" action="${pageContext.request.contextPath}/Acceuil" method="POST">
+            <form id="formSignIn" action="${pageContext.request.contextPath}/Accueil" method="POST">
 
                 <div class="gridyFields">
                     <label id="mailAddressLabel" for="mailAddress">Adresse mail :</label>
@@ -132,7 +132,7 @@
                         <h3 id="TitreMusoc" style="float:left; padding-left: 3%; padding-right: 3%;"></h3>
                         </br>
                         <div class="forms">
-                            <form action="${pageContext.request.contextPath}/Acceuil" method=POST">
+                            <form action="${pageContext.request.contextPath}/Accueil" method=POST">
                                 <input type="hidden" id="hiddenChamp" name="hiddenChamp">
                                 <input type="submit" class="labelStyle" id="Ecouter" value="Ecouter">
                             </form>

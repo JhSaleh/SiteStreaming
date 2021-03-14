@@ -1,21 +1,18 @@
-package com.siteStreaming.SiteStreaming.Acceuil;
+package com.siteStreaming.SiteStreaming.Accueil;
 
-import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
 import com.siteStreaming.SiteStreaming.DataBase.S;
 
 /**
- * Classe pour la gestion des comptes clients.
+ * Classe pour la gestion des comptes administrateurs.
  */
-public class CompteClient {
+public class CompteAdmin {
     private String nom;
     private String prenom;
     private String civilite;
     private String mail;
     private String password;
     private String birthDate;
-    private String address;
-    private String styleMusique;
-
+    private String isProfilManagerClient;
 
     /**
      *
@@ -25,18 +22,16 @@ public class CompteClient {
      * @param inMail
      * @param inPassword
      * @param inBirthDate
-     * @param inAddress
-     * @param inStyleMusique
+     * @param inIsProfilManagerClient
      */
-    public CompteClient(String inNom, String inPrenom, String inCivilite, String inMail, String inPassword, String inBirthDate, String inAddress, String inStyleMusique){
+    public CompteAdmin(String inNom, String inPrenom, String inCivilite, String inMail, String inPassword, String inBirthDate, String inIsProfilManagerClient){
         this.nom = inNom;
         this.prenom = inPrenom;
         this.civilite = inCivilite;
         this.mail = inMail;
         this.password = inPassword;
         this.birthDate = inBirthDate;
-        this.address = inAddress;
-        this.styleMusique = inStyleMusique;
+        this.isProfilManagerClient = inIsProfilManagerClient;
     }
 
     //Setter
@@ -64,12 +59,8 @@ public class CompteClient {
         this.birthDate = birthDate;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setStyleMusique(String styleMusique) {
-        this.styleMusique = styleMusique;
+    public void setIsProfilManagerClient(String isProfilManagerClient) {
+        this.isProfilManagerClient = isProfilManagerClient;
     }
 
     //Getter
@@ -97,12 +88,8 @@ public class CompteClient {
         return birthDate;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public String getStyleMusique() {
-        return styleMusique;
+    public String getIsProfilManagerClient() {
+        return isProfilManagerClient;
     }
 
     //VersionDatabase
@@ -128,26 +115,21 @@ public class CompteClient {
 
     public String getBirthDateD() { return S.c(birthDate);}
 
-    public String getAddressD() {
-        return S.c(address);
+    public String getIsProfilManagerClientD() {
+        return S.c(isProfilManagerClient);
     }
-
-    public String getStyleMusiqueD(){
-        return S.c(styleMusique);
-    }
-
 
     /**
-     * Ajoute un compte client à la base de donnée
-     * @param compteClient
+     * Vérifie si un certain mot de passe est celui associé au compte admin
+     * @param password
+     * @return
      */
-    public boolean addToDatabase(CompteClient compteClient){
-        ClientDatabase clientDatabase = new ClientDatabase(); //Créé une connexion avec la bdd
-        return clientDatabase.addClientAccount(compteClient);
+    public boolean isPassWord(String password){
+        return this.getPassword().equals(password);
     }
 
     /**
-     * Affiche les informations liées au compte client
+     * Affiche les informations liées au compte admin
      */
     public void displayInformation(){
         System.out.println("Nom :"+nom);
@@ -156,17 +138,8 @@ public class CompteClient {
         System.out.println("AdresseMail :"+mail);
         System.out.println("MotDePasse :"+password);
         System.out.println("DateNaissance :"+birthDate);
-        System.out.println("AdresseFacturation :"+address);
-        System.out.println("AdresseFacturation :"+styleMusique);
+        System.out.println("AdresseFacturation :"+isProfilManagerClient);
     }
 
-    /**
-     * Vérifie si un certain mot de passe est celui associé au compte client
-     * @param password
-     * @return
-     */
-    public boolean isPassWord(String password){
-        return this.getPassword().equals(password);
-    }
 
 }

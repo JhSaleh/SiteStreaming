@@ -1,6 +1,6 @@
 package com.siteStreaming.SiteStreaming.DataBase;
 
-import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
+import com.siteStreaming.SiteStreaming.Accueil.CompteClient;
 import com.siteStreaming.SiteStreaming.LoggerSite;
 
 import java.sql.Connection;

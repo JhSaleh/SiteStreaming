@@ -1,4 +1,4 @@
-package com.siteStreaming.SiteStreaming.Acceuil;
+package com.siteStreaming.SiteStreaming.Accueil;
 
 import com.siteStreaming.SiteStreaming.LoggerSite;
 

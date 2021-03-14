@@ -1,6 +1,6 @@
 package com.siteStreaming.SiteStreaming.DataBase;
 
-import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
+import com.siteStreaming.SiteStreaming.Accueil.CompteClient;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
 import com.siteStreaming.SiteStreaming.Catalogue.Playlist;

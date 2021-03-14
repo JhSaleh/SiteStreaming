@@ -1,4 +1,4 @@
-<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient" %><%--
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.CompteClient" %><%--
   Created by IntelliJ IDEA.
   User: jeanhanna
   Date: 19/02/2021
@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient"%>
-<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.MetaCompteClient" %>
+<%@page import="com.siteStreaming.SiteStreaming.Accueil.CompteClient"%>
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.MetaCompteClient" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter" %>
 <%
     //CompteClient compteInscription = (CompteClient) request.getAttribute("compteInscription"); //Récupération du compte qu'on a essayé d'inscrire
@@ -45,7 +45,7 @@
 
 <body>
 <div class = "gridyProfilTitle">
-    <div id ="title"><a href="${pageContext.request.contextPath}/Acceuil">UsTube</a></div>
+    <div id ="title"><a href="${pageContext.request.contextPath}/Accueil">UsTube</a></div>
     <div id = "inscriptionTitle">Profil</div>
      <a href="${pageContext.request.contextPath}/ModifierPlaylist" id="buttonCatalogueLink">
         <div class="buttonLayout changeButtonColor" id="buttonCatalogue">Gérer playlist</div>

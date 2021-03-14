@@ -16,7 +16,7 @@ public class ConnectedUserFilter implements Filter {
     /**
      * Page vers laquelle on redirige les utilisateurs qui n'ont pas de session ouverte.
      */
-    public static final String ACCES_PUBLIC = "/Acceuil";
+    public static final String ACCES_PUBLIC = "/Accueil";
 
     /**
      * Objet identifiant la session

@@ -1,4 +1,4 @@
-<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.CompteClient" %>
 <%@ page import="com.siteStreaming.SiteStreaming.LoggerSite" %><%--
   Created by IntelliJ IDEA.
   User: declerck
@@ -92,9 +92,9 @@
 <!--Partie visible du site-->
 <div id="gridyHeader">
     <div id="gridyHeaderBeforeSignIn">
-        <div id="title"><a href="Acceuil">UsTube</a></div>
+        <div id="title"><a href="Accueil">UsTube</a></div>
         <a href="Profil"><div id="nomPrenomUser" class="profilButtonLayout changeButtonProfilColor"><%=prenom%> <%=nom%></div></a>
-        <div id="SignOut" class="buttonLayout changeButtonColor">Se déconnecter</div>
+        <a href="${pageContext.request.contextPath}/LogOut"><div id="SignOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
     </div>
 </div>
 

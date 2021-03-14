@@ -42,7 +42,7 @@
 
 <body>
     <div class = "gridyHeaderInscription">
-        <div id ="title"><a href="${pageContext.request.contextPath}/Acceuil">UsTube</a></div>
+        <div id ="title"><a href="${pageContext.request.contextPath}/Accueil">UsTube</a></div>
         <a href="${pageContext.request.contextPath}/Administration/AdminGestionnaireMusical" id="buttonCatalogueLink">
             <div id = "inscriptionTitle">Gestionnaire Catalogue</div>
         </a>

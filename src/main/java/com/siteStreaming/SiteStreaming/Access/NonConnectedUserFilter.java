@@ -16,7 +16,7 @@ public class NonConnectedUserFilter implements Filter {
     /**
      * Page vers laquelle on redirige les utilisateurs qui n'ont pas de session ouverte.
      */
-    public static final String ACCES_PUBLIC = "/Acceuil";
+    public static final String ACCES_PUBLIC = "/Accueil";
 
     /**
      * Objet identifiant la session
@@ -48,7 +48,7 @@ public class NonConnectedUserFilter implements Filter {
          * Si l'objet utilisateur n'existe pas dans la session en cours, alors
          * l'utilisateur n'est pas connecté.
          */
-        if ( session.getAttribute(sessionUtilisateur) == null ) {
+        if ( session.getAttribute(sessionUtilisateur) == null) {
             /* Redirection vers la page publique */
             response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
         } else {

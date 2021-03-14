@@ -12,7 +12,7 @@ window.addEventListener("load", function (){
             //Ancien systeme
             deleteObject('client');
             console.log("Utilisateur deconnecté.");
-            window.location = "Acceuil"; //recharge la page d'acceuil
+            window.location = "Accueil"; //recharge la page d'acceuil
             */
 
             //Ne marche pas dans l'état avec la notion de session

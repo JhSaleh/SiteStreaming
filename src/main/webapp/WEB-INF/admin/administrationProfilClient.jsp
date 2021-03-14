@@ -1,4 +1,4 @@
-<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient" %><%--
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.CompteClient" %><%--
   Created by IntelliJ IDEA.
   User: jeanhanna
   Date: 19/02/2021
@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient"%>
-<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.MetaCompteClient" %>
+<%@page import="com.siteStreaming.SiteStreaming.Accueil.CompteClient"%>
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.MetaCompteClient" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter" %>
 <%@ page import="com.siteStreaming.SiteStreaming.DataBase.ClientDatabase" %>
 <%
@@ -48,7 +48,7 @@
 
 <body>
 <div class = "gridyProfilTitle">
-    <div id ="title"><a href="/SiteStreaming_war_exploded/Acceuil">UsTube</a></div>
+    <div id ="title"><a href="/SiteStreaming_war_exploded/Accueil">UsTube</a></div>
     <a href="${pageContext.request.contextPath}/Administration/AdminProfilClient"><div id = "inscriptionTitle">Modification Profil Client</div></a>
     <a href="/SiteStreaming_war_exploded/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
 </div>

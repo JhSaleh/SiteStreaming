@@ -4,7 +4,7 @@
 package com.siteStreaming.SiteStreaming.ProfilUser;
 
 import com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter;
-import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
+import com.siteStreaming.SiteStreaming.Accueil.CompteClient;
 import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
 import com.siteStreaming.SiteStreaming.LoggerSite;
 

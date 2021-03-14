@@ -5,10 +5,10 @@
 
 /* Ancien bloc
 <div id = "gridyHeaderBeforeSignIn">
-    <div id ="title"><a href="${pageContext.request.contextPath}/Acceuil">UsTube</a></div>
+    <div id ="title"><a href="${pageContext.request.contextPath}/Accueil">UsTube</a></div>
     <div id="nomPrenomUser"></div> <!--A laisse vide, sinon null pointer exception-->
     <div id="SignIn" class="buttonLayout changeButtonColor">Se connecter</div>
-    <a href="${pageContext.request.contextPath}/Acceuil/Inscription"><div id="SignUp" class="buttonLayout changeButtonColor">S'inscrire</div></a>
+    <a href="${pageContext.request.contextPath}/Accueil/Inscription"><div id="SignUp" class="buttonLayout changeButtonColor">S'inscrire</div></a>
 </div>
 * */
 
@@ -24,7 +24,7 @@ window.addEventListener("load", function (){
         titleDiv.id = "title";
 
         var linkTitleDiv = document.createElement('a');
-        linkTitleDiv.href = "./Acceuil";
+        linkTitleDiv.href = "./Accueil";
         linkTitleDiv.textContent = "UsTube";
 
         //Bouton sign in
@@ -40,7 +40,7 @@ window.addEventListener("load", function (){
         SignUpDiv.textContent = "S'inscrire";
 
         var SignUpLink = document.createElement('a');
-        SignUpLink.href = "./Acceuil/Inscription";
+        SignUpLink.href = "./Accueil/Inscription";
 
         //Assemblage
         SignUpLink.appendChild(SignUpDiv);
@@ -64,7 +64,7 @@ window.addEventListener("load", function (){
         titleDiv.id = "title";
 
         var linkTitleDiv = document.createElement('a');
-        linkTitleDiv.href = "./Acceuil";
+        linkTitleDiv.href = "./Accueil";
         linkTitleDiv.textContent = "UsTube";
 
         var nomPrenomUserDiv = document.createElement('div');
@@ -104,7 +104,7 @@ window.addEventListener("load", function (){
         titleDiv.id = "title";
 
         var linkTitleDiv = document.createElement('a');
-        linkTitleDiv.href = "./Acceuil";
+        linkTitleDiv.href = "./Accueil";
         linkTitleDiv.textContent = "UsTube";
 
         nomPrenomUserDivLink.appendChild(nomPrenomUserDiv);

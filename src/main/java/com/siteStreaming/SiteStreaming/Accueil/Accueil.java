@@ -1,4 +1,4 @@
-package com.siteStreaming.SiteStreaming.Acceuil;
+package com.siteStreaming.SiteStreaming.Accueil;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,14 +25,14 @@ import java.util.List;
  * et les morceaux populaire et s'occupant de la connection des utilisateurs.
  * Servlet vers laquelle sont redirigées les erreurs 404.
  */
-public class Acceuil extends HttpServlet {
+public class Accueil extends HttpServlet {
     private void doProcess(HttpServletRequest request, HttpServletResponse response){
         Boolean notRedirected = true;
         String pageName = "";
 
 
         //Cas où le formulaire a été envoyé
-        LoggerSite.logger.info("Passage Servlet d'Acceuil");
+        LoggerSite.logger.info("Passage Servlet d'Accueil");
 
         //Récupération des données du formulaire
         String mail = request.getParameter("mailAddress");

@@ -158,7 +158,7 @@
 
     %>
     <div class="gridyBody">
-        <form id="profil" action="${pageContext.request.contextPath}/Profil" method="POST">  // Acceuil/Profil ????
+        <form id="profil" action="${pageContext.request.contextPath}/Profil" method="POST">  // Accueil/Profil ????
             <div class="gridyProfilForm">
                 <label id="nomL" for="nom">Nom :</label>
                 <input id="nom" class="labelStyle" type="text" required name="nom"> <!--name pour récupérer le nom sous jee-->

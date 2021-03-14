@@ -1,7 +1,7 @@
 package com.siteStreaming.SiteStreaming.PageConnecté;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
+import com.siteStreaming.SiteStreaming.Accueil.CompteClient;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.ContenuSonore;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique;
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast;

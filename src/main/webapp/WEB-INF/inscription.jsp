@@ -1,4 +1,4 @@
-<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient" %><%--
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.CompteClient" %><%--
   Created by IntelliJ IDEA.
   User: jeanhanna
   Date: 19/02/2021
@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page import="com.siteStreaming.SiteStreaming.Acceuil.CompteClient"%>
-<%@ page import="com.siteStreaming.SiteStreaming.Acceuil.MetaCompteClient" %>
+<%@page import="com.siteStreaming.SiteStreaming.Accueil.CompteClient"%>
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.MetaCompteClient" %>
 <%
     CompteClient compteInscription = (CompteClient) request.getAttribute("compteInscription"); //Récupération du compte qu'on a essayé d'inscrire
     MetaCompteClient compte = new MetaCompteClient(compteInscription);
@@ -46,12 +46,12 @@
 
 <body>
     <div class = "gridyHeaderInscription">
-        <div id ="title"><a href="/SiteStreaming_war_exploded/Acceuil">UsTube</a></div>
+        <div id ="title"><a href="/SiteStreaming_war_exploded/Accueil">UsTube</a></div>
         <div id = "inscriptionTitle">Inscription</div>
     </div>
 
     <div class="gridyBody">
-        <form id="inscription" action="${pageContext.request.contextPath}/Acceuil/Inscription" method="POST">
+        <form id="inscription" action="${pageContext.request.contextPath}/Accueil/Inscription" method="POST">
             <div class="gridyInscriptionForm">
 
                 <label id="nomL" for="nom">Nom :</label>

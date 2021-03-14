@@ -3,11 +3,7 @@
  */
 package com.siteStreaming.SiteStreaming.PageWebAdmin;
 
-import com.siteStreaming.SiteStreaming.Access.AdminFilter;
-import com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter;
-import com.siteStreaming.SiteStreaming.Acceuil.CompteAdmin;
-import com.siteStreaming.SiteStreaming.Acceuil.CompteClient;
-import com.siteStreaming.SiteStreaming.DataBase.AdministratorDatabase;
+import com.siteStreaming.SiteStreaming.Accueil.CompteClient;
 import com.siteStreaming.SiteStreaming.DataBase.ClientDatabase;
 import com.siteStreaming.SiteStreaming.LoggerSite;
 
