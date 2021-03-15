@@ -206,7 +206,7 @@
 
 
     <%}else{%>
-    <div class="errorMsgResearchClient">Aucun résultats.</div>
+    <div class="errorMsgResearchClient">Aucun résultat.</div>
     <%
 }
 }

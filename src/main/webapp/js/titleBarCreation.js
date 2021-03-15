@@ -115,7 +115,7 @@ window.addEventListener("load", function (){
         div.appendChild(deconnectionDivLink);
         mainDiv.appendChild(div);
 
-        //Bouton catalogue principale
+        //Bouton catalogue principal
         catalogueButtonDivLink.appendChild(catalogueButtonDiv);
         catalogueMainDiv.appendChild(catalogueButtonDivLink);
     }

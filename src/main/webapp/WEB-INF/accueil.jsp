@@ -22,7 +22,7 @@
     String passwordUsed = (String)request.getAttribute("passwordUsed");
     MetaErrorHandler metaErrorHandler = new MetaErrorHandler(mailAddressUsed, passwordUsed);
 
-    //Création de la sessions
+    //Création de la session
     CompteClient client = (CompteClient) session.getAttribute("sessionUtilisateur");
 
     List<Musique> listMus = (List<Musique>) request.getAttribute("listMus");
@@ -57,7 +57,7 @@
     <%if(client == null){%>
     <script>
         window.addEventListener("load", function (){
-            waitForElement("connexion", createModal); //Va attendre la creation du bouton SignIn avant d'executé le script du modal
+            waitForElement("connexion", createModal); //Va attendre la creation du bouton SignIn avant d'executer le script du modal
             logedOut(); //Cas utilisateur non connecté
         })
     </script>
