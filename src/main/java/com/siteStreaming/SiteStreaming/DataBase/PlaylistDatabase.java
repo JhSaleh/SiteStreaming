@@ -399,7 +399,7 @@ public class PlaylistDatabase {
     }
 
     /**
-     * Trie la liste des musiques avec une liste d'entier qui correpondent aux positions souhaitées
+     * Trie la liste des musiques avec une liste d'entiers qui correpondent aux positions souhaitées
      * de chaque musique, la liste de musiques et de positions correspondant index par index.
      * Utile dans le cas où une des musiques de la playlist a été supprimée et qu'il y a un trou
      * dans les numéros des positions de la base de données.
