@@ -39,6 +39,7 @@
     <title>Modification Catalogue</title>
     <link rel="stylesheet" type="text/css" href="../css/administration.css">
     <link rel="stylesheet" type="text/css" href="../css/acceuil.css">
+    <link rel="stylesheet" type="text/css" href="../css/stars.css">
 </head>
 
 <body>
@@ -211,6 +212,14 @@
 }
 }
 %>
+<!--Animation-->
+<div class="animation-wrapper">
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+</div>
+
 </body>
 <footer class="footer">© Copyright 2021 All Rights Reserved.</footer>
 </html>

@@ -23,6 +23,7 @@
     <link rel="shortcut icon" href="#"> <!--favicon error-->
     <link rel="stylesheet" type="text/css" href="../css/acceuil.css"> <!--Attention on est dans le répertoire Accueil, il faut donc remonter un cran-->
     <link rel="stylesheet" type="text/css" href="../css/inscription.css">
+    <link rel="stylesheet" type="text/css" href="../css/stars.css">
     <script src="../js/inscription.js"></script>
     <script src="../js/waitForHTMLElementToLoad.js"></script>
     <title>SignUp</title>
@@ -119,7 +120,13 @@
         <%}%>
     </div>
 
-
+    <!--Animation-->
+    <div class="animation-wrapper">
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+    </div>
 </body>
 
 <footer class="footer">© Copyright 2021 All Rights Reserved.</footer>

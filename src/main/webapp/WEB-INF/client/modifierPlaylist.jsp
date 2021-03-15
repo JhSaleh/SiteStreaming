@@ -17,6 +17,7 @@
         <link rel="stylesheet" type="text/css" href="css/profil.css">
         <link rel="stylesheet" type="text/css" href="css/catalogue.css">
         <link rel="stylesheet" type="text/css" href="css/exploreur.css">
+        <link rel="stylesheet" type="text/css" href="css/stars.css">
         <script src="js/client.js"></script>
         <script src="js/storeObject.js"></script>
         <script src="js/titleBarCreation.js"></script>
@@ -162,6 +163,13 @@
     }
 </script>
 
+<!--Animation-->
+<div class="animation-wrapper">
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+</div>
 </body>
 
 <footer class="footer">© Copyright 2021 All Rights Reserved.</footer>
