@@ -53,7 +53,7 @@ public class ExploreCatalogue extends HttpServlet {
 
                     //s'il s'agit d'une lecture de playlist
                     if (idPlay != -1) {
-                        //on met toutes les musiques de la playlist à lu
+                        //on met toutes les musiques de la playlist à "lues"
                         Musique temp;
                         Playlist playlistLu = playlistDatabase.getPlaylistById(idPlay, mail);
                         for (int i = 0; i < playlistLu.getMusique().toArray().length; i++) {
@@ -91,8 +91,8 @@ public class ExploreCatalogue extends HttpServlet {
                             }
                         }
 
-                        //On met à jour le nombre de lecture, l'enregistre et le
-                        // converti en Json
+                        //On met à jour le nombre de lectures, l'enregistre et le
+                        // convertit en Json
                         if (m != null) {
                             m.setNbLectureTotal(m.getNbLectureTotal() + 1);
                             m.setNbLectureMois(m.getNbLectureMois() + 1);

@@ -39,8 +39,7 @@ window.addEventListener("load", function(){
 
     /**
      * Permet d'attendre autont de containers d'id unique différent avant l'application d'une fonction qui en dépend
-     * @param elementId1
-     * @param elementId2
+     * @param listId
      * @param callBack
      */
     waitForManyElements = function (listId, callBack){

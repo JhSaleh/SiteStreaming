@@ -201,7 +201,7 @@
         }
     }
 
-    /* Vidéos sur la pages  */
+    /* Vidéos sur la page  */
     br =document.createElement("br");
     search = <%=!search.equals("")%>;
     console.log(search);
@@ -555,7 +555,7 @@
 
     function setTime() {
         if ((media.currentTime +raz) >= dureeMus) {
-            // arrete la musique si on a dépassé le temps de la musqieu
+            // arrete la musique si on a dépassé le temps de la musique
             stopMedia();
         }
 

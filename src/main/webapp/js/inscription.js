@@ -19,7 +19,7 @@ window.addEventListener("load", function (){
     var ageLimit = 13; //Site interdit au moins de 13 ans
 
     /**
-     * Bloque le bouton d'envoie du formulaire
+     * Bloque le bouton d'envoi du formulaire
      */
     blockSubmitButton = function (){
         buttonSumbitInscription.disabled = true;
@@ -27,14 +27,14 @@ window.addEventListener("load", function (){
     }
 
     /**
-     * Debloque le bouton d'envoie du formulaire
+     * Debloque le bouton d'envoi du formulaire
      */
     unblockSubmitButton = function(){
         buttonSumbitInscription.disabled = false;
         buttonSumbitInscription.id = "validateInscription";
     }
 
-    //Les formats doivent également être vérifié côté serveur
+    //Les formats doivent également être vérifiés côté serveur
     validateMdpFormat = function (mdp){
         var regExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,30}$/; //Expression régulière de format de mdp
         /**
@@ -214,7 +214,7 @@ window.addEventListener("load", function (){
         });
     }
 
-    //Les formats doivent également être vérifié côté serveur
+    //Les formats doivent également être vérifiés côté serveur
     /**
      * Pour un email donné, vérifie qu'il respecte le bon format
      * @param email

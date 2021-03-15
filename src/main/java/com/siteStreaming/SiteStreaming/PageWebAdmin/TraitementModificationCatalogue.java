@@ -43,7 +43,7 @@ public class TraitementModificationCatalogue extends HttpServlet {
         LoggerSite.logger.debug("-------Dans le servlet\n Action : "+action+"\nchoixContenu : "+choixContenu+"\nidMusique : "+idMusique);
 
         //Deuxième passage dans le servlet
-        //Envoit du form de la page
+        //Envoi du form de la page
         String idSent = request.getParameter("idSent"); //Valable pour un podcast, une radio et une musique
         //Récupération des boutons
         String AjouterMusiqueButton = request.getParameter("AjouterMusiqueButton");

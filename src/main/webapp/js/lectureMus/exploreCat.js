@@ -3,7 +3,7 @@ window.addEventListener("load", function () {
     /* Bar de Playlist sur le côté */
     console.log(playlistArray);
     var j;
-//On parcours toutes les playlists de l'utilisateur
+//On parcourt toutes les playlists de l'utilisateur
     for (j = 0; j < playlistArray.length; j++) {
         let div = document.createElement("div");
         div.id = "d" + playlistArray[j].idPlaylist;
@@ -19,7 +19,7 @@ window.addEventListener("load", function () {
 
         div.appendChild(but);
 
-        //On parcous les musiques associées
+        //On parcourt les musiques associées
         musiqueArray = playlistArray[j].musique;
         var i;
         for (i = 0; i < musiqueArray.length; i++) {
@@ -226,7 +226,7 @@ window.addEventListener("load", function () {
     }
 
 
-// on affiche les nifo de la musique
+// on affiche les infos de la musique
     function setInfoMus(j) {
         //title.className ="in-button";
         var tt;
@@ -331,7 +331,7 @@ window.addEventListener("load", function () {
             media.currentTime = 0;
             media.play();
         } else if (idPlaylist != -1) {
-            // si on est dans un playlist et pas dans les cas précédents on pass à la musique suivante
+            // si on est dans un playlist et pas dans les cas précédents on passe à la musique suivante
             musAvant();
         } else {
             //sinon on termine la musique
@@ -368,7 +368,7 @@ window.addEventListener("load", function () {
 // on adapte le temps et la barre de progres à notre musique
     function setTime() {
         if ((media.duration > dureeMus && media.currentTime >= dureeMus) || raz > dureeMus) {
-            // arrete la musique si on a dépassé le temps de la musqieu
+            // arrete la musique si on a dépassé le temps de la musique
             stopMedia();
         }
 

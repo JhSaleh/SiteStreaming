@@ -136,7 +136,7 @@ window.addEventListener("load", function () {
 
     function setTime() {
         if ((media.currentTime +raz) >= dureeMus) {
-            // arrete la musique si on a dépassé le temps de la musqieu
+            // arrete la musique si on a dépassé le temps de la musique
             stopMedia();
         }
 

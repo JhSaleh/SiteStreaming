@@ -101,7 +101,7 @@
 
 }
 
-/*Bouton fermture*/
+/*Bouton fermeture*/
 .close{
     color: #aaa;
     font-size: 28px;
@@ -127,7 +127,7 @@
     margin-bottom: 15px;
 }
 
-/*Msg de status*/
+/*Message de status*/
 .statusMsgLayout{
     background-color: lightgray;
     border: 2px solid slategray;
