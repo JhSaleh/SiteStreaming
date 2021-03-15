@@ -42,6 +42,7 @@
     <link rel="stylesheet" type="text/css" href="css/catalogue.css">
     <link rel="stylesheet" type="text/css" href="css/imageFormat.css">
     <link rel="stylesheet" type="text/css" href="css/lecteur.css">
+    <link rel="stylesheet" type="text/css" href="css/stars.css">
     <script src="js/client.js"></script>
     <script src="js/storeObject.js"></script>
     <script src="js/titleBarCreation.js"></script>
@@ -66,8 +67,6 @@
         window.addEventListener("load", function () {
             //Attente de la construction de la barre
 
-            //Construction de la barre de menu en js, car l'information de connection est au niveau du client
-            //const client = getObject('client');
             var nomClient = <%=S.cd(client.getNom())%>;
             var prenomClient = <%=S.cd(client.getPrenom())%>;
             logedIn(nomClient, prenomClient); //Construit la barre de navigation dans le cas où l'utilisateur est connecté
@@ -255,6 +254,16 @@
         const m = <%=m%>;
         var lect = <%=lect%>;
     </script>
+
+
+<!--Animation-->
+<div class="animation-wrapper">
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+</div>
+
 </body>
 
 <footer class="footer">© Copyright 2021 All Rights Reserved.</footer>

@@ -3,15 +3,6 @@
  * Il s'agit d'un script qui construit dynamiquement la barre de navigation dépendant de la présence d'un utilisateur connecté ou pas
  */
 
-/* Ancien bloc
-<div id = "gridyHeaderBeforeSignIn">
-    <div id ="title"><a href="${pageContext.request.contextPath}/Accueil">UsTube</a></div>
-    <div id="nomPrenomUser"></div> <!--A laisse vide, sinon null pointer exception-->
-    <div id="SignIn" class="buttonLayout changeButtonColor">Se connecter</div>
-    <a href="${pageContext.request.contextPath}/Accueil/Inscription"><div id="SignUp" class="buttonLayout changeButtonColor">S'inscrire</div></a>
-</div>
-* */
-
 window.addEventListener("load", function (){
     logedOut = function (){
         var mainDiv = document.getElementById("gridyHeader");
