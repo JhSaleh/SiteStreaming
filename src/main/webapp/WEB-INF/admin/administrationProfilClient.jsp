@@ -10,6 +10,8 @@
 <%@ page import="com.siteStreaming.SiteStreaming.Accueil.MetaCompteClient" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Access.ConnectedUserFilter" %>
 <%@ page import="com.siteStreaming.SiteStreaming.DataBase.ClientDatabase" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.CompteAdmin" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Access.AdminFilter" %>
 <%
     //CompteClient compteInscription = (CompteClient) request.getAttribute("compteInscription"); //Récupération du compte qu'on a essayé d'inscrire
     String mailClient = (String) request.getParameter("emailSelected"); //Récupération du mail sélectionné par l'administrateur
@@ -17,6 +19,9 @@
     CompteClient client = clientDatabase.getCompteClient(mailClient);
     MetaCompteClient compte = new MetaCompteClient(client);
     Boolean successModification = (Boolean) request.getAttribute("successModification");
+
+    CompteAdmin compteAdmin = (CompteAdmin) session.getAttribute(AdminFilter.sessionAdmin);
+    //compteAdmin.displayInformation();
 %>
 
 
@@ -25,7 +30,9 @@
     <link rel="shortcut icon" href="#"> <!--favicon error-->
     <link rel="stylesheet" type="text/css" href="../css/acceuil.css"> <!--Attention on est dans le répertoire Accueil, il faut donc remonter un cran-->
     <link rel="stylesheet" type="text/css" href="../css/inscription.css">
+    <link rel="stylesheet" type="text/css" href="../css/administration.css">
     <link rel="stylesheet" type="text/css" href="../css/stars.css">
+
     <script src="../js/inscription.js"></script>
     <script src="../js/waitForHTMLElementToLoad.js"></script>
     <title>Administration Profil Client</title>
@@ -48,9 +55,10 @@
 </head>
 
 <body>
-<div class = "gridyProfilTitle">
+<div class = "gridyAdminTitle">
     <div id ="title"><a href="/SiteStreaming_war_exploded/Accueil">UsTube</a></div>
     <a href="${pageContext.request.contextPath}/Administration/AdminProfilClient"><div id = "inscriptionTitle">Modification Profil Client</div></a>
+    <div id="profilAdmin" class="buttonLayoutAdmin changeButtonColorAdmin"><%=compteAdmin.getNom()+" "+compteAdmin.getPrenom()%></div>
     <a href="/SiteStreaming_war_exploded/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
 </div>
 

@@ -6,7 +6,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Musique" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio" %>
-<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast" %><%--
+<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.CompteAdmin" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Access.AdminFilter" %><%--
   Created by IntelliJ IDEA.
   User: rkbcht
   Date: 3/7/2021
@@ -32,6 +34,8 @@
     ArrayList<Musique> resultatListeMusique = (ArrayList<Musique>) request.getAttribute("resultatListeMusique");
     ArrayList<Radio> resultatListeRadio = (ArrayList<Radio>) request.getAttribute("resultatListeRadio");
     ArrayList<Podcast> resultatListePodcast = (ArrayList<Podcast>) request.getAttribute("resultatListePodcast");
+
+    CompteAdmin compteAdmin = (CompteAdmin) session.getAttribute(AdminFilter.sessionAdmin);
 %>
 
 <html>
@@ -39,13 +43,15 @@
     <title>Modification Catalogue</title>
     <link rel="stylesheet" type="text/css" href="../css/administration.css">
     <link rel="stylesheet" type="text/css" href="../css/acceuil.css">
+    <link rel="stylesheet" type="text/css" href="../css/administration.css">
     <link rel="stylesheet" type="text/css" href="../css/stars.css">
 </head>
 
 <body>
-    <div class = "gridyHeaderInscription">
+    <div class = "gridyAdminTitle">
         <div id ="title"><a href="${pageContext.request.contextPath}/Accueil">UsTube</a></div>
-        <div id = "modifTitle">Gestionnaire Catalogue</div>
+        <div id = "adminTitle">Gestionnaire Catalogue</div>
+        <div id="profilAdmin" class="buttonLayoutAdmin changeButtonColorAdmin"><%=compteAdmin.getNom()+" "+compteAdmin.getPrenom()%></div>
         <a href="${pageContext.request.contextPath}/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
     </div>
 

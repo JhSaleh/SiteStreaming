@@ -9,8 +9,11 @@
 <%@page import="com.siteStreaming.SiteStreaming.Accueil.CompteClient"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.siteStreaming.SiteStreaming.PageWebAdmin.adminPageProfil" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.CompteAdmin" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Access.AdminFilter" %>
 <%
     ArrayList<CompteClient> resultatResearch = (ArrayList<CompteClient>) request.getAttribute(adminPageProfil.groupeUtilisateurEnvoye);
+    CompteAdmin compteAdmin = (CompteAdmin) session.getAttribute(AdminFilter.sessionAdmin);
 %>
 
 
@@ -20,6 +23,7 @@
     <link rel="stylesheet" type="text/css" href="../css/acceuil.css"> <!--Attention on est dans le répertoire Accueil, il faut donc remonter un cran-->
     <link rel="stylesheet" type="text/css" href="../css/inscription.css">
     <link rel="stylesheet" type="text/css" href="../css/researchClient.css">
+    <link rel="stylesheet" type="text/css" href="../css/administration.css">
     <link rel="stylesheet" type="text/css" href="../css/stars.css">
     <script src="../js/inscription.js"></script>
     <script src="../js/waitForHTMLElementToLoad.js"></script>
@@ -30,9 +34,10 @@
 </head>
 
 <body>
-<div class = "gridyProfilTitle">
+<div class = "gridyAdminTitle">
     <div id ="title"><a href="/SiteStreaming_war_exploded/Accueil">UsTube</a></div>
-    <a href="${pageContext.request.contextPath}/Administration/AdminProfilClient"><div id = "inscriptionTitle">Modification Profil Client</div></a>
+    <a href="${pageContext.request.contextPath}/Administration/AdminProfilClient"><div id = "adminTitle">Modification Profil Client</div></a>
+    <div id="profilAdmin" class="buttonLayoutAdmin changeButtonColorAdmin"><%=compteAdmin.getNom()+" "+compteAdmin.getPrenom()%></div>
     <a href="/SiteStreaming_war_exploded/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
 </div>
 

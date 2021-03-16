@@ -423,3 +423,39 @@
     grid-area: successSignUp;
     line-height: 50px;
 }
+
+.gridyAdminTitle{
+    display: grid;
+    grid-template-columns: 2fr 3fr 1fr 1fr;
+    grid-template-areas: "title adminTitle profilAdmin LogOut";
+}
+
+#adminTitle{
+    grid-area: adminTitle;
+    text-align: center;
+    font-size: 50px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#profilAdmin{
+    grid-area: profilAdmin;
+}
+
+.buttonLayoutAdmin{
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px;
+
+    font-weight: bold;
+    border-radius: 70px;
+    border: 5px solid crimson;
+    background-color: coral;
+    color: aliceblue;
+    width: max-content;
+    height: min-content;
+}
+
+.changeButtonColorAdmin:hover{
+    cursor: pointer;
+    background-color: crimson; /*s'active quand le curseur passe dessus*/
+}

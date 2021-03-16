@@ -5,7 +5,9 @@
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Podcast" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie" %>
 <%@ page import="com.siteStreaming.SiteStreaming.PageWebAdmin.TraitementModificationCatalogue" %>
-<%@ page import="com.siteStreaming.SiteStreaming.LoggerSite" %><%--
+<%@ page import="com.siteStreaming.SiteStreaming.LoggerSite" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Accueil.CompteAdmin" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Access.AdminFilter" %><%--
 <%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Radio" %>
 <%@ page import="com.siteStreaming.SiteStreaming.LoggerSite" %><%--
   Created by IntelliJ IDEA.
@@ -29,6 +31,7 @@
     Boolean modifySuccess = (Boolean) request.getAttribute(TraitementModificationCatalogue.modifySuccess);
     Boolean deleteSuccess = (Boolean) request.getAttribute(TraitementModificationCatalogue.deleteSuccess);
 
+    CompteAdmin compteAdmin = (CompteAdmin) session.getAttribute(AdminFilter.sessionAdmin);
     LoggerSite.logger.debug("-----Sur le jsp\nAction : "+action+"\nchoixContenu : "+choixContenu+"\nidMusique : "+idMusique);
 %>
 
@@ -42,11 +45,12 @@
 </head>
 
 <body>
-    <div class = "gridyHeaderInscription">
+    <div class = "gridyAdminTitle">
         <div id ="title"><a href="${pageContext.request.contextPath}/Accueil">UsTube</a></div>
         <a href="${pageContext.request.contextPath}/Administration/AdminGestionnaireMusical" id="buttonCatalogueLink">
-            <div id = "inscriptionTitle">Gestionnaire Catalogue</div>
+            <div id = "adminTitle">Gestionnaire Catalogue</div>
         </a>
+        <div id="profilAdmin" class="buttonLayoutAdmin changeButtonColorAdmin"><%=compteAdmin.getNom()+" "+compteAdmin.getPrenom()%></div>
         <a href="${pageContext.request.contextPath}/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
     </div>
 
