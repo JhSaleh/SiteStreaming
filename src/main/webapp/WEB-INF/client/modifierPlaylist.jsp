@@ -11,7 +11,7 @@
 
     <head>
         <title>UsTube</title>
-        <link rel="shortcut icon" href="#"> <!--favicon error-->
+        <link rel="shortcut icon" href="pictures/logo.ico">
         <link rel="stylesheet" type="text/css" href="css/acceuil.css">
         <link rel="stylesheet" type="text/css" href="css/connexion.css">
         <link rel="stylesheet" type="text/css" href="css/profil.css">

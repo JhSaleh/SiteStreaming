@@ -20,7 +20,7 @@
 
 <html>
 <head>
-    <link rel="shortcut icon" href="#"> <!--favicon error-->
+    <link rel="shortcut icon" href="../pictures/logo.ico">
     <link rel="stylesheet" type="text/css" href="../css/acceuil.css"> <!--Attention on est dans le répertoire Accueil, il faut donc remonter un cran-->
     <link rel="stylesheet" type="text/css" href="../css/inscription.css">
     <link rel="stylesheet" type="text/css" href="../css/stars.css">

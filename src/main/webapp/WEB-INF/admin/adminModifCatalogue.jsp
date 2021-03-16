@@ -40,6 +40,7 @@
 
 <html>
 <head>
+    <link rel="shortcut icon" href="../pictures/logo.ico">
     <title>Modification Catalogue</title>
     <link rel="stylesheet" type="text/css" href="../css/administration.css">
     <link rel="stylesheet" type="text/css" href="../css/acceuil.css">
