@@ -50,9 +50,9 @@
 <div class="sectionPl">
     <div class="aside asidePl" id="listplaylist"></div>
     <div class="aside-right">
-        <button onclick="dispNouv()" id="mynouvplay">Nouvelle playlist</button>
+        <button onclick="dispNouv()" id="mynouvplay" class="buttonLayout changeButtonColor">Nouvelle playlist</button>
     <form action="${pageContext.request.contextPath}/ModifierPlaylist" method=POST"  onsubmit="return validateForm()" id="PlaylistNouv">
-        <input type="text" name="NomPlaylist" id="NomPlaylist">
+        <input type="text" name="NomPlaylist" id="NomPlaylist" class="labelStyle">
         <input id="validate" type="submit" value="Valider">
     </form>
     </br>
@@ -60,7 +60,7 @@
 <h3 id="h2playlist"></h3>
     <form action="${pageContext.request.contextPath}/ModifierPlaylist" method="Post" onsubmit="return validateForm1()"id="PlaylistRenom">
         <input type="hidden" name="numPlaylistRenom" id="numPlaylistRenom">
-        <input type="text" name="nouvNom" id="nouvNom">
+        <input type="text" name="nouvNom" id="nouvNom" class="labelStyle">
         <button class="valider" type="submit">Renommer la playlist</button>
     </form>
     </br>
