@@ -157,7 +157,7 @@ public class CompteClient {
         System.out.println("MotDePasse :"+password);
         System.out.println("DateNaissance :"+birthDate);
         System.out.println("AdresseFacturation :"+address);
-        System.out.println("AdresseFacturation :"+styleMusique);
+        System.out.println("StyleMusiquePrefere :"+styleMusique);
     }
 
     /**

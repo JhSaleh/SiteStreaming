@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@page import="com.siteStreaming.SiteStreaming.Accueil.CompteClient"%>
 <%@ page import="com.siteStreaming.SiteStreaming.Accueil.MetaCompteClient" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical" %>
 <%
     CompteClient compteInscription = (CompteClient) request.getAttribute("compteInscription"); //Récupération du compte qu'on a essayé d'inscrire
     MetaCompteClient compte = new MetaCompteClient(compteInscription);
@@ -90,11 +91,9 @@
 
                 <label id ="styleMusiqueL" for="styleMusique">Style de musique préféré</label>
                 <select id ="styleMusique" class="labelStyle" size="1" value=<%=compte.getStyleMusique()%> name="styleMusique">
-                    <option>House</option>
-                    <option>Pop</option>
-                    <option>Metal</option>
-                    <option>Classique</option>
-                    <option>Jazz</option>
+                    <%for(genreMusical genre: genreMusical.values()){%>
+                        <option><%=genre%></option>
+                    <%}%>
                 </select>
 
                 <input id="validateInscription" type="submit" value="Validez">

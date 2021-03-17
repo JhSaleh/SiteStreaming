@@ -12,6 +12,8 @@
 <%@ page import="com.siteStreaming.SiteStreaming.DataBase.ClientDatabase" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Accueil.CompteAdmin" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Access.AdminFilter" %>
+<%@ page import="com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.genreMusical" %>
+<%@ page import="com.siteStreaming.SiteStreaming.DataBase.S" %>
 <%
     //CompteClient compteInscription = (CompteClient) request.getAttribute("compteInscription"); //Récupération du compte qu'on a essayé d'inscrire
     String mailClient = (String) request.getParameter("emailSelected"); //Récupération du mail sélectionné par l'administrateur
@@ -80,8 +82,13 @@
 
             <!--La liste déroulante garantit l'input-->
             <select id = "civilite" class="labelStyle" size="1" value=<%=compte.getCivilite()%> name="civiliteUser">
-                <option>Monsieur</option>
-                <option>Madame</option>
+                <%if(compte.getCivilite() == "Monsieur"){%>
+                    <options selected="selected">Monsieur</options>
+                    <option>Madame</option>
+                <%}else{%>
+                    <options>Monsieur</options>
+                    <option selected="selected">Madame</option>
+                <%}%>
             </select>
 
             <label id="mailL" for="mail">Adresse mail :</label>
@@ -102,11 +109,14 @@
 
             <label id ="styleMusiqueL" for="styleMusique">Style de musique préféré</label>
             <select id ="styleMusique" class="labelStyle" size="1" value=<%=compte.getStyleMusique()%> name="styleMusiqueUser">
-                <option>House</option>
-                <option>Pop</option>
-                <option>Metal</option>
-                <option>Classique</option>
-                <option>Jazz</option>
+                <%for(genreMusical genre : genreMusical.values()){%>
+                    <%System.out.println(compte.getStyleMusique()+"\n"+genre);
+                        if(compte.getStyleMusique().equals(S.cd(genre.toString()))){%>
+                        <option selected="selected"><%=genre%></option>
+                    <%}else{%>
+                        <option><%=genre%></option>
+                    <%}%>
+                <%}%>
             </select>
 
             <input id="validateInscription" type="submit" value="Enregistrez mes modifications.">
