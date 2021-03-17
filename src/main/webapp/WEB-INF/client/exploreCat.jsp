@@ -82,7 +82,7 @@
                 <form name="ajoutPlaylist" id="ajoutPlaylist" action="./ExploreCat" method="POST">
                     <input type="hidden" name="hiddenChampBis" id="hiddenChampBis">
                     <label style="padding-left: 3%" for="playList">Ajouter à une playlist :</label>
-                    <select name="playList" id="playList" required="true">
+                    <select name="playList" id="playList" class="labelStyle" required="true">
                     </select>
                     <input id="validate" type="submit" class="buttonLayoutC" value="Valider">
                 </form>

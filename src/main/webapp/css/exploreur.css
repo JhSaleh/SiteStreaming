@@ -81,7 +81,7 @@
 
 }
 .valider{
-    border: darkslateblue;
+    border: 2px solid slateblue;
     border-radius: 15px;
     background-color: darkslateblue;
     color: aliceblue;
@@ -109,6 +109,7 @@
 }
 .centred{
     text-align: center;
+    margin-left: 27%;
 }
 
 #NomPlaylist{
