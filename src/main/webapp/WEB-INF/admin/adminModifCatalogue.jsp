@@ -10,7 +10,7 @@
 <%@ page import="com.siteStreaming.SiteStreaming.Accueil.CompteAdmin" %>
 <%@ page import="com.siteStreaming.SiteStreaming.Access.AdminFilter" %><%--
   Created by IntelliJ IDEA.
-  User: rkbcht
+  User: jeanhanna
   Date: 3/7/2021
   Time: 4:40 PM
   To change this template use File | Settings | File Templates.

@@ -66,7 +66,7 @@ public class adminPageProfil extends HttpServlet {
         String mail = request.getParameter("email");
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
-        String emailSelected = request.getParameter("emailSelected");
+        String emailSelected = request.getParameter("emailSelected"); //Récupération de l'e-mail passsé en paramètre
 
         if(emailSelected == null) {
             if (mail != null || nom != null || prenom != null) {

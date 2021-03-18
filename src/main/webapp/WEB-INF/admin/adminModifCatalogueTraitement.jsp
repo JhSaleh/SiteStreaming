@@ -65,7 +65,7 @@
                 LoggerSite.logger.debug("action :" + action);
 
                 if(idMusique == null){
-                    musique = new Musique("",false,"","","", genreMusical.salsa,0);
+                    musique = new Musique("",false,"","","", genreMusical.house,0);
                 } else if(action.equals("Modifier") || action.equals("Supprimer")) {
                     AdminDatabase adminDatabase = new AdminDatabase();
                     musique = adminDatabase.getMusic(Integer.parseInt(idMusique), null).get(0);
@@ -133,7 +133,7 @@
                 LoggerSite.logger.debug("idRadio :"+idRadio);
 
                 if(idRadio == null){
-                    radio = new Radio("",false,"",genreMusical.salsa);
+                    radio = new Radio("",false,"",genreMusical.house);
                 } else if(action.equals("Modifier") || action.equals("Supprimer")) {
                     AdminDatabase adminDatabase = new AdminDatabase();
                    LoggerSite.logger.debug(idRadio);
