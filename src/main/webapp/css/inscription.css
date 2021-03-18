@@ -204,7 +204,7 @@
     text-align: center;
     vertical-align: center;
     height: 0.65cm;
-    width: 7cm;
+    width: max-content;
     margin-bottom: 15px;
     line-height: 25px;
     color: crimson;
@@ -242,7 +242,7 @@
     display: grid;
     margin-top: 35px;
     margin-bottom: 15px;
-    margin-left: 150px;
+    margin-left: 90px;
     grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
     grid-template-areas:
             "."
@@ -255,13 +255,14 @@
             "mdpStrengthStatus"
             "mdpStrengthStatus"
             ".";
-    width: 7.5cm;
+    width: 9.8cm;
 }
 
 #mdpStrengthStatus{
     grid-area: mdpStrengthStatus;
     height: 3.3cm;
     white-space: pre-line;
+    margin-left: 15%;
 }
 
 #mailAlreadyTaken{

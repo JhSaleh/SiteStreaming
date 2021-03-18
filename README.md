@@ -17,16 +17,3 @@ sudo /opt/tomcat/latest/bin/startup.sh
 ``
 sudo /opt/tomcat/latest/bin/shutdown.sh
 ``
-
-## Compass installation
-
-http://compass-style.org/install/
-
-
-``
-sudo apt-get install ruby-dev
-``
-
-``
-gem install compass
-``

@@ -71,7 +71,7 @@ public class TraitementModificationCatalogue extends HttpServlet {
         if(genreMusic != null) {
             musique = new Musique("Du contenu audio.", Boolean.parseBoolean(recommendationMomentMusic), titreMusic, interMusic, yearMusic, genreMusical.valueOf(genreMusic), Integer.parseInt(lengthMusic));
             if(AjouterMusiqueButton == null) {
-                musique.setId(Integer.parseInt(idSent));
+                musique.setId(Integer.parseInt(idSent)); //Id mis ici car il est impossible de récupérer l'information de champs disabled
             }
         }
         if(AjouterMusiqueButton != null){
