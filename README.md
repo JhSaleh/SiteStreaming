@@ -19,6 +19,29 @@ Le fichier logger sans modification du fichier log4j.properties du dossier resou
 
 Certaines classes comme CatalogueDatabase, PlaylistDatabase, etc ont une procédure main qui sert uniquement aux tests, et peut contenir des lignes de codes obsolètes.
 
+## Fonctionnalités à tester
+### Partie Utilisateur
+- Inscription et création d'un compte utilisateur
+- Connection à un commpte utilisateur
+- Accéder à sa page de profil
+- Modifier ses informations personnelles
+- Ajouter, modifier, supprimer une playlist
+- Rechercher dans le catalogue
+- Écouter un contenu sonore depuis le catalogue ou l'accueil
+- Impossibilité d'accéder aux fonctionnalités administrateur
+- Déconnection de son compte utilisateur
+
+
+### Partie Administrateur
+- Connection à un compte administrateur
+- Rechercher un profil utilisateur
+- Modifier les informations personnelles d'un utilisateur
+- Rechercher un contenu sonore
+- Ajouter, modifier ou supprimer un élément dans le catalogue
+- Déconnection de son compte administrateur
+
+
+
 
 ## Compilation du projet
 
