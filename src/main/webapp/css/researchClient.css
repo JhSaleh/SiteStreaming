@@ -6,6 +6,7 @@
     grid-template-areas:
             "EmailSearchBlock LastNameSearchBlock FirstNameSearchBlock"
             ". ResearchButton .";
+    margin-top: 5%;
 }
 
 #EmailSearchBlock{
