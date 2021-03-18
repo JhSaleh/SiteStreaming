@@ -500,6 +500,26 @@ public class CatalogueDatabase {
         }
     }
 
+    /**
+     * Met les cinq musiques les plus écoutées en morceau populaire (avec le nombre de lecture total)
+     */
+    public void updateMorceauxPop(){
+        //on remets toutes les musiques à morceauxPopulaire=false
+        List<ContenuSonore> resContenu  = this.readResultset("musique", this.getAllBy("musique",
+                " and morceauxPopulaire=1", null));
+        for(int i =0;i<resContenu.size();i++) {
+            resContenu.get(i).setMorceauPopulaire(false);
+            this.updateContenuSonore(resContenu.get(i));
+        }
+        //on remet les cinq plus écoutées à true
+        resContenu  = this.readResultset("musique", this.getAllBy("musique",
+                " order by nbLectureTotal desc limit 5", null));
+        for(int i =0;i<resContenu.size();i++) {
+            resContenu.get(i).setMorceauPopulaire(true);
+            this.updateContenuSonore(resContenu.get(i));
+        }
+
+        }
     public static void main(String[] args) {
         //Tests
         CatalogueDatabase catDatabase = new CatalogueDatabase();
@@ -556,6 +576,7 @@ public class CatalogueDatabase {
             System.out.print(liste.get(i).getContenu() + "--");
         }*/
         //List<Musique> listMus = catDatabase.getRecommendationMoment();
+        catDatabase.updateMorceauxPop();
         List<Musique> listMus =catDatabase.getMorceauxPopulaires();
         System.out.println(listMus.size());
         for(int i =0;i<listMus.size();i++){

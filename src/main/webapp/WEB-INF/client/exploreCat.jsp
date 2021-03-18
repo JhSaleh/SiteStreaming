@@ -337,7 +337,6 @@
         modal.style.display = "block";
     }
 
-    console.log("herehere");
     //----------------LECTURE MUSIQUE-------------------------------------------------------
    var idPlaylist = -1;
     var lect = <%=lect%>;
@@ -350,6 +349,7 @@
          console.log("paraMus : "+paraMus);
          paraPlaylist = <%=paraPlaylist%>;
         console.log("paraPlay : "+paraPlaylist);
+        idPlaylist = paraPlaylist;
     }else{
          paraMus ="0";
          paraPlaylist=-1;
@@ -379,7 +379,7 @@
     if (paraMus !== "0") {
         if (paraPlaylist !== -1) {
             idPlaylist = document.getElementById("d"+paraPlaylist).getAttribute("num");
-            console.log(idPlaylist);
+            console.log("idPlaylist = "+idPlaylist);
             playPlaylist();
         } else {
             playMusique();
@@ -441,8 +441,9 @@
             console.log("inplayfunc");
             dureeMus = playlistArray[idPlaylist].musique[numMusique].duree;
             setInfoPlaylist(numMusique);
-            play.id = "play";
             media.currentTime = 0;
+            play.id = "play";
+            play.style.backgroundImage = "url( pictures/pauseButton.svg )";
             media.play();
         }
         controls.style.visibility = 'visible';
@@ -498,7 +499,8 @@
             media.currentTime = 0;
             media.play();
             console.log("boucle");
-        } else if (idPlaylist !=-1) {
+        } else if (paraPlaylist !==-1) {
+            console.log("mus suivante");
             // si on est dans un playlist et pas dans les cas précédents on pass à la musique suivante
             musAvant();
         } else {
@@ -558,7 +560,15 @@
     function setTime() {
         if ((media.currentTime +raz) >= dureeMus) {
             // arrete la musique si on a dépassé le temps de la musique
-            stopMedia();
+            console.log(idPlaylist+" et num "+numMusique);
+            if (idPlaylist!=-1 && playlistArray[idPlaylist].musique.length > (numMusique + 1)){
+                // si on est dans un playlist et pas dans les cas précédents on pass à la musique suivante
+                console.log("musAv2settime");
+                playMusiqueFunction(numMusique + 1);
+            }else{
+                console.log("fin mus");
+                stopMedia();
+            }
         }
 
         var minutes = Math.floor((media.currentTime + raz) / 60);

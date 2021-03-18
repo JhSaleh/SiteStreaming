@@ -104,7 +104,7 @@ public class Musique extends ContenuSonore {
 
     public static void main(String[] args){
         Musique m = new Musique("linktothemusic", false, "Melodie du soir", "joueur de piano"
-                , "2 mars 4000", genreMusical.romantique,100);
+                , "2 mars 4000", genreMusical.pop,100);
         System.out.println(m.musToJson());
     }
 }

@@ -118,6 +118,9 @@ public class Accueil extends HttpServlet {
 
         //Va chercher les musiques
         CatalogueDatabase cataloqueDatabase = new CatalogueDatabase();
+        //on met à jour les morceaux populaires
+        cataloqueDatabase.updateMorceauxPop();
+        //on construit la list à donner à la page
         List<Musique> listMus = cataloqueDatabase.getRecommendationMoment();
         listMus.addAll(cataloqueDatabase.getMorceauxPopulaires());
         request.setAttribute("listMus",listMus);
