@@ -21,7 +21,7 @@ Certaines classes comme CatalogueDatabase, PlaylistDatabase, etc ont une procéd
 
 ## Fonctionnalités à tester
 ### Partie Utilisateur
-- Regarder les morceaux les plus populaires sur la page d'accueil
+- Afficher les morceaux les plus populaires sur la page d'accueil
 - Inscription et création d'un compte utilisateur
 - Accéder à l'ensemble du catalogue musical une fois connecté
 - Connection à un commpte utilisateur
