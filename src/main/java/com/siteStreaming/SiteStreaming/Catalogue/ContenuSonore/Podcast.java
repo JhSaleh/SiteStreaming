@@ -2,6 +2,9 @@ package com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore;
 
 import com.siteStreaming.SiteStreaming.Catalogue.ContenuSonore.Enumérations.categorie;
 
+/**
+ * Classe pour la gestion des podcasts
+ */
 public class Podcast extends ContenuSonore {
     /**
      * Titre du podcast

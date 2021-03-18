@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Servlet d'intermédiare pour les gestions des éléments du catalogue
+ */
 public class TraitementModificationCatalogue extends HttpServlet {
     public static String addSuccess = "addSuccess";
     public static String modifySuccess = "modifySuccess";

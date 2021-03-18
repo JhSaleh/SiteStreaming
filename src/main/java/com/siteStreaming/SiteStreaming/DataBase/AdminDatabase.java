@@ -14,6 +14,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe pour les échanges avec la base de donnée pour les opérations de l'administrateur catalogue
+ */
 public class AdminDatabase {
 
     public Connection connection;

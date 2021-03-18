@@ -15,6 +15,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Servlet pour la modification des playlist pour le client
+ */
 public class ModifierPalylist  extends HttpServlet {
 
 

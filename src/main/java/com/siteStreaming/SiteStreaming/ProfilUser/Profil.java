@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Servlet pour la gestion du profil client
+ */
 public class Profil extends HttpServlet {
 
     public Boolean hasChangedInformation(CompteClient compteClient, String[] infosClient){

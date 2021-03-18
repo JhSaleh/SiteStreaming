@@ -22,6 +22,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Servlet pour l'exploration du catalogue pour le client
+ */
 public class ExploreCatalogue extends HttpServlet {
 
 

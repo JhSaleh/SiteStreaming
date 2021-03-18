@@ -3,7 +3,7 @@ package com.siteStreaming.SiteStreaming.Accueil;
 import com.siteStreaming.SiteStreaming.DataBase.S;
 
 /**
- *
+ *Classe pour la gestion des erreurs
  */
 public class MetaErrorHandler {
     private String defaultStringAnswer = "\"\""; //Correspond à la valeur par default des champs input

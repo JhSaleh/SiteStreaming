@@ -19,6 +19,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Servlet pour la modification du catalogue pour l'administrateur
+ */
 public class ModificationCatalogue extends HttpServlet {
     public static String choixModif = "choixModif";
     public static String actionModif = "actionModif";

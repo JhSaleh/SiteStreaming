@@ -16,6 +16,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Servlet pour la modificationdes profil clients pour l'administrateur
+ */
 public class adminPageProfil extends HttpServlet {
     public static String mailUtilisateurSelectionne = "mailUtilisateurSelectionne";
     public static String groupeUtilisateurEnvoye = "groupeUtilisateurEnvoye";

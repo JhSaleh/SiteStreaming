@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Classe pour les échanges avec la base de donnée pour l'administrateur des clients
+ */
 public class AdministratorDatabase {
     public Connection connection;
     public Statement statement;
