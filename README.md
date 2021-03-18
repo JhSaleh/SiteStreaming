@@ -25,7 +25,7 @@ Certaines classes comme CatalogueDatabase, PlaylistDatabase, etc ont une procéd
 - Connection à un commpte utilisateur
 - Accéder à sa page de profil
 - Modifier ses informations personnelles
-- Ajouter, modifier, supprimer une playlist
+- Ajouter, modifier ou supprimer une playlist
 - Rechercher dans le catalogue
 - Écouter un contenu sonore depuis le catalogue ou l'accueil
 - Impossibilité d'accéder aux fonctionnalités administrateur
