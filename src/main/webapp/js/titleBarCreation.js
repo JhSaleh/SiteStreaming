@@ -4,7 +4,7 @@
  */
 
 window.addEventListener("load", function (){
-    logedOut = function (){
+    loggedOut = function (){
         var mainDiv = document.getElementById("gridyHeader");
 
         var div = document.createElement('div');
@@ -44,7 +44,7 @@ window.addEventListener("load", function (){
 
     }
 
-    logedIn = function (userFirstName, userLastName){
+    loggedIn = function (userFirstName, userLastName){
         var mainDiv = document.getElementById("gridyHeader");
 
         var div = document.createElement('div');

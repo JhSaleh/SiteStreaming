@@ -59,7 +59,7 @@
     <script>
         window.addEventListener("load", function (){
             waitForElement("connexion", createModal); //Va attendre la creation du bouton SignIn avant d'executer le script du modal
-            logedOut(); //Cas utilisateur non connecté
+            loggedOut(); //Cas utilisateur non connecté
         })
     </script>
     <%} else {%>
@@ -69,7 +69,7 @@
 
             var nomClient = <%=S.cd(client.getNom())%>;
             var prenomClient = <%=S.cd(client.getPrenom())%>;
-            logedIn(nomClient, prenomClient); //Construit la barre de navigation dans le cas où l'utilisateur est connecté
+            loggedIn(nomClient, prenomClient); //Construit la barre de navigation dans le cas où l'utilisateur est connecté
         })
     </script>
     <%}%>
