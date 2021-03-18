@@ -172,6 +172,42 @@
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
+    <!--Filtre bloquant administrateur-->
+    <filter>
+        <filter-name>AdminNotAllowed</filter-name>
+        <filter-class>com.siteStreaming.SiteStreaming.Access.NonAdminFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AdminNotAllowed</filter-name>
+        <servlet-name>Accueil</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AdminNotAllowed</filter-name>
+        <servlet-name>Profil</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AdminNotAllowed</filter-name>
+        <servlet-name>ModifierPlaylist</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AdminNotAllowed</filter-name>
+        <servlet-name>ExploreCat</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>AdminNotAllowed</filter-name>
+        <servlet-name>Inscription</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+
     <error-page>
         <error-code>404</error-code>
         <location>/Accueil</location>
