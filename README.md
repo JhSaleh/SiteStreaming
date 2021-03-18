@@ -1,4 +1,4 @@
-# Projet JEE site de streaming musical
+# Projet JEE site de streaming musical : UsTube
 
 ## Equipe 7
 
