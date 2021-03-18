@@ -119,7 +119,7 @@
             <%if(mailAddressUsed == null){%>
             <div id="statusMsg" class="statusMsgLayoutHidden"></div>
             <%}else{%>
-            <div id="statusMsg" class="statusMsgLayout">Email ou mot de passe incorrect.</div>
+            <div id="statusMsg" class="statusMsgLayout decalageMsgStatus">Email ou mot de passe incorrect.</div>
             <%}%>
         </div>
     </div>

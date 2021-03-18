@@ -13,7 +13,11 @@
 #statusMsg{
     grid-area: statusMsg;
     font-size: 10px;
-    margin-left: 25px;
+    /*margin-left: 25px;*/
+}
+
+.decalageMsgStatus{
+    margin-left: 60px;
 }
 
 .gridyFields{
@@ -86,7 +90,7 @@
     border-radius: 15px;
 
     border: 5px solid mediumslateblue;
-    width: 18cm;
+    width: 19.8cm;
     top: 0%;
     left: 30%;
     position: absolute;
