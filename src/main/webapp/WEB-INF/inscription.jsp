@@ -48,7 +48,7 @@
 
 <body>
     <div class = "gridyHeaderInscription">
-        <div id ="title"><a href="/SiteStreaming_war_exploded/Accueil">UsTube</a></div>
+        <div id ="title"><a href="${pageContext.request.contextPath}/Accueil">UsTube</a></div>
         <div id = "inscriptionTitle">Inscription</div>
     </div>
 

@@ -35,10 +35,10 @@
 
 <body>
 <div class = "gridyAdminTitle">
-    <div id ="title"><a href="/SiteStreaming_war_exploded/Accueil">UsTube</a></div>
+    <div id ="title"><a href="${pageContext.request.contextPath}/Accueil">UsTube</a></div>
     <a href="${pageContext.request.contextPath}/Administration/AdminProfilClient"><div id = "adminTitle">Modification Profil Client</div></a>
     <div id="profilAdmin" class="buttonLayoutAdmin changeButtonColorAdmin"><%=compteAdmin.getNom()+" "+compteAdmin.getPrenom()%></div>
-    <a href="/SiteStreaming_war_exploded/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
+    <a href="${pageContext.request.contextPath}/LogOut"><div id = "LogOut" class="buttonLayout changeButtonColor">Se déconnecter</div></a>
 </div>
 
 <form id="searchClient" action="${pageContext.request.contextPath}/Administration/AdminProfilClient" method="POST">
