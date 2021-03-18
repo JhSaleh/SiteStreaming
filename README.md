@@ -1,4 +1,4 @@
-# README Projet JEE site de streaming musical
+# Projet JEE site de streaming musical
 
 ## Equipe 7
 
