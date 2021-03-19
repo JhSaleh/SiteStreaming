@@ -215,7 +215,7 @@ INSERT INTO `Compte` VALUES ('aarobase@mail','M','Moulinex','lopmiur','vgtbhynju
 --
 -- Data for table `CompteAdmin`
 --
-INSERT INTO `CompteAdmin` VALUES (1,'joshS@gmail.com','true'),(2,'joshS2@gmail.com','false');
+INSERT INTO `CompteAdmin` VALUES (1,'joshManageClient@gmail.com','true'),(2,'joshManageLibrary@gmail.com','false');
 
 --
 -- Data for table `CompteClient`
