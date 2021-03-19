@@ -19,6 +19,27 @@ Le fichier logger sans modification du fichier log4j.properties du dossier resou
 
 Certaines classes comme CatalogueDatabase, PlaylistDatabase, etc ont une procédure main qui sert uniquement aux tests, et peut contenir des lignes de codes obsolètes.
 
+## Compte et mots de passe
+### Compte administrateur de gestion profil client
+```
+Compte : joshManageClient@gmail.com
+
+Mot de passe : fjYn7p6yBcwWaPp
+```
+### Compte administrateur de gestion de contenus sonores
+```
+Compte : joshManageLibrary@gmail.com
+
+Mot de passe : fjYn7p6yBcwWaPp
+```
+### Compte utilisateur quelconque
+```
+Compte : marley@yahoo.com
+
+Mot de passe : B22PP5qfs3f3i33
+```
+
+
 ## Fonctionnalités à tester
 ### Partie Utilisateur
 - Afficher les morceaux les plus populaires sur la page d'accueil
